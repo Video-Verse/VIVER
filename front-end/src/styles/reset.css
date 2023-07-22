@@ -1,0 +1,86 @@
+
+/* reset */
+html, body {position:relative;-webkit-font-smoothing:antialiased;height:100%;touch-action:auto;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, button, address, em, img, small, strong, sub, sup, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td, hr {margin:0;padding:0;box-sizing:border-box;-webkit-box-sizing:border-box;}
+body {padding:0;background:#121212;font-family:'pretendard', sans-serif;font-size:16px;font-weight:500;line-height:1.2;color:#fff;box-sizing:border-box;-webkit-box-sizing:border-box;min-width:360px;overflow-x:hidden;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;}
+ol, ul, li {list-style:none;}
+table {width:100%;border-collapse:separate;border-spacing:0;}
+form, fieldset, iframe {display:block;border:0;}
+img, button {border:0 none;vertical-align:middle;}
+hr {height:0;display:none;}
+i, em, address {font-style:normal;}
+em {display:inline-block;font-family:'pretendard';vertical-align:middle;}
+label, button {cursor:pointer;}
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {display:block;box-sizing:border-box;-webkit-box-sizing:border-box;}
+input, textarea, select {margin:0;padding:0;font-family:'pretendard';font-size:18px;color:#fff;font-weight:400;vertical-align:middle;border-radius:0;box-shadow:none;box-sizing:border-box;-webkit-box-sizing:border-box;}
+select {appearance:none;-webkit-appearance:none;-moz-appearance:none;}
+select::-ms-expand {display:none;}
+textarea {border:1px solid #fff;resize:none;overflow-y:auto;}
+button {overflow:visible;margin:0;padding:0;border:0 none;background:none;font-family:'pretendard';vertical-align:top;cursor:pointer;}
+a {color:#191919;text-decoration:none;word-break:break-all;transform:skew(-.05deg);}
+a:link, a:visited, a:hover, a:active, a:focus {text-decoration:none;}
+input:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset;}
+*:before, *:after {box-sizing:border-box;-webkit-box-sizing:border-box;}
+.ellipsis {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.blind {position:absolute;width:1px;height:1px;border:0;clip:rect(1px, 1px, 1px, 1px);overflow:hidden;z-index:-1;}
+
+/* font */
+@font-face {
+  font-family: 'pretendard';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/Pretendard-Bold.otf') format('opentype'),
+    url('../assets/fonts/Pretendard-Bold.ttf') format('truetype'),
+    url('../assets/fonts/Pretendard-Bold.woff') format('woff'),
+}
+
+@font-face {
+  font-family: 'pretendard';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/Pretendard-SemiBold.otf') format('opentype'),
+    url('../assets/fonts/Pretendard-SemiBold.ttf') format('truetype'),
+    url('../assets/fonts/Pretendard-SemiBold.woff') format('woff'),
+}
+
+@font-face {
+  font-family: 'pretendard';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/Pretendard-Medium.otf') format('opentype'),
+    url('../assets/fonts/Pretendard-Medium.ttf') format('truetype'),
+    url('../assets/fonts/Pretendard-Medium.woff') format('woff'),
+}
+
+@font-face {
+  font-family: 'pretendard';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Pretendard-Regular.otf') format('opentype'),
+    url('../assets/fonts/Pretendard-Regular.ttf') format('truetype'),
+    url('../assets/fonts/Pretendard-Regular.woff') format('woff'),
+}
+
+/* layout */
+.wrap {position:relative;max-width:1208px;padding:0 15px;}
+.container {position:relative;width:100%;margin:0 auto;}
+.container:after {display:block;content:'';clear:both;}
+.no-img {height:100%;cursor:default;}
+
+.logo {display:block;}
+.logo-kr {display:block;}
+
+/*font*/
+.fw-bold {font-weight:700;}
+.fw-semib {font-weight:600;}
+.fw-ragul {font-weight:500;}
+.fw-thin {font-weight:400;}
+
+
+
+
+
+
+
+
