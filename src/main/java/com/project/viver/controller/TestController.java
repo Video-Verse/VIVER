@@ -3,18 +3,27 @@ package com.project.viver.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.viver.api.TestClient;
 import com.project.viver.dto.test.BindExceptionTestDto;
+import com.project.viver.dto.test.ServerCheckResponseDto;
 import com.project.viver.dto.test.TestEnum;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.BusinessException;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 public class TestController {
+	
+	private final TestClient helloClient;
+	private final Environment environment;
 	
 	@GetMapping("helloViver") 
 	public List<String> hello() {
@@ -47,6 +56,23 @@ public class TestController {
             throw new IllegalArgumentException("예외 테스트");
         }
         return "ok";
+    }
+//Feign Test ---------------------------------------------------------------------------
+
+    @GetMapping("/health-check")
+    public ResponseEntity<ServerCheckResponseDto> healthCheck() {
+    	ServerCheckResponseDto healthCheckResponseDto = ServerCheckResponseDto.builder()
+                .health("ok")
+                .activeProfiles(Arrays.asList(environment.getActiveProfiles()))
+                .build();
+        return ResponseEntity.ok(healthCheckResponseDto);
+    }
+
+    
+    @GetMapping("/health/feign-test")
+    public ResponseEntity<ServerCheckResponseDto> healthCheckTest() {
+    	ServerCheckResponseDto serverCheckResponseDto = helloClient.healthCheck();
+        return ResponseEntity.ok(serverCheckResponseDto);
     }
 
 }
