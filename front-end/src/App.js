@@ -5,6 +5,8 @@ import './styles/reset.css';
 import {useEffect, useState} from "react";
 
 import Login from './pages/Login/Login';
+import Header from './components/Header/Header';
+import Join from './pages/Login/Join';
 
 function App() {
 
@@ -22,7 +24,11 @@ function App() {
 }, []);
 
   return (
-    <Login />
+    <div>
+        {/* <Header /> */}
+        {/* <Login /> */}
+        <Join />
+    </div>
     // <div className="wrap">
     //     <div className='content'>
     //             <img src={logo} className="logo" alt="logo" />

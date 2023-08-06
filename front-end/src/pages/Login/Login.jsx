@@ -4,8 +4,7 @@ import './login.css';
 
 // import CommonBtn from './components/button/button';
 
-
-function Login(){
+const Login = () => {
   return(
     <div className="wrap">
         <div className="content">
@@ -19,8 +18,8 @@ function Login(){
             </div>
         </div>
     </div>
-  )
-}
+  );
+};
 
 export default Login;
 

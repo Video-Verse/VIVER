@@ -63,7 +63,7 @@ input:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset;}
 }
 
 /* layout */
-.wrap {position:relative;max-width:1208px;padding:0 15px;}
+.wrap {position:relative;max-width:1208px;margin:0 auto;padding:0 15px;}
 .container {position:relative;width:100%;margin:0 auto;}
 .container:after {display:block;content:'';clear:both;}
 .no-img {height:100%;cursor:default;}
