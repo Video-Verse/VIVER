@@ -4,7 +4,7 @@ import './input.css'
 const CommonInp = (props) => {
   return (
     <div className="input-box">
-      <input type="text" className="input" placeholder="닉네임" />
+      <input type="text" className="input" placeholder="" />
       <p className="err-msg">[Error Message]</p>
     </div>
   )
