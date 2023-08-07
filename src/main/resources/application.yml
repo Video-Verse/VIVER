@@ -7,3 +7,14 @@ spring:
 #    driver-class-name: org.h2.Driver
 #    username: sa
 #    password: 
+
+
+kakao:
+  client:
+    id: 
+    secret: 
+
+token:
+  secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 
+  access-token-expiration-time: 900000  #
+  refresh-token-expiration-time: 1209600000 # 
