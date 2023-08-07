@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import Login from './pages/Login/Login';
 import Header from './components/Header/Header';
 import Join from './pages/Login/Join';
+import Home from './pages/Main/Home';
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
     <div>
         {/* <Header /> */}
         {/* <Login /> */}
-        <Join />
+        <Home />
     </div>
     // <div className="wrap">
     //     <div className='content'>
