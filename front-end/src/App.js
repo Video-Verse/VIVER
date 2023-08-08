@@ -28,7 +28,7 @@ function App() {
     <div>
         {/* <Header /> */}
         {/* <Login /> */}
-        <Home />
+        <Join />
     </div>
     // <div className="wrap">
     //     <div className='content'>
