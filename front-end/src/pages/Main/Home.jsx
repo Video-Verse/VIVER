@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import BottomSheet from '../../components/bottomsheet/bottomsheet';
+import FilterContents from '../../components/filter/filter';
 
 const Home = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,16 +16,7 @@ const Home = () => {
                 <button type="button" className="btn" onClick={() => setIsModalOpen(true)}><span>Open BottomSheet!</span></button>
             </div>
             {isModalOpen ?
-             <BottomSheet title={bottomSheetTitle} closeModal={() => setIsModalOpen(false)}>
-                {<div>
-                 <h3>BottomSheet Test Success!!</h3>
-                 <div>축하해요 ~</div>   
-                 <div>축하해요 ~</div>  
-                 <div>축하해요 ~</div>  
-                 <div>축하해요 ~</div>  
-                 <div>축하해요 ~</div>  
-                 </div>}
-             </BottomSheet> : null
+             <BottomSheet title={bottomSheetTitle} closeModal={() => setIsModalOpen(false)} contents={<FilterContents/>}/> : null
             }
         </div>
     </div>
