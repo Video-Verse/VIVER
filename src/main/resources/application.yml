@@ -1,18 +1,18 @@
 
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-#  datasource:
-#    url: jdbc:h2:tcp://192.168.0.119:9092//data/dongwook/h2/viver
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password: 
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/viver
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
 
 
 kakao:
   client:
-    id: 
-    secret: 
+    id: 7e6f9285b35e1c5af2ae9e3da753d37e
+    secret: 0YrMY3nahxP6yvFxmRNaKoKtL9qSt7Ug
 
 token:
   secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 

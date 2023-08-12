@@ -6,24 +6,32 @@ import java.util.List;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.viver.api.TestClient;
+import com.project.viver.common.constraint.Role;
 import com.project.viver.dto.test.BindExceptionTestDto;
 import com.project.viver.dto.test.ServerCheckResponseDto;
 import com.project.viver.dto.test.TestEnum;
+import com.project.viver.dto.token.JwtTokenDto;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.BusinessException;
+import com.project.viver.service.common.token.TokenManagerService;
 
+import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class TestController {
 	
 	private final TestClient helloClient;
 	private final Environment environment;
+	 private final TokenManagerService tokenManagerService;
 	
 	@GetMapping("helloViver") 
 	public List<String> hello() {
@@ -75,4 +83,22 @@ public class TestController {
         return ResponseEntity.ok(serverCheckResponseDto);
     }
 
+    
+  /// 
+    
+    @GetMapping("/api/token-test/create")
+    public JwtTokenDto createJwtTokenDto() {
+        return tokenManagerService.createJwtTokenDto("test", Role.ADMIN);
+    }
+
+    @GetMapping("/api/token-test/valid")
+    public String validateJwtToken(@RequestParam String token) {
+    	tokenManagerService.validateToken(token);
+        Claims tokenClaims = tokenManagerService.getTokenClaims(token);
+        String userId = (String) tokenClaims.get("userId");
+        String role = (String) tokenClaims.get("role");
+        log.info("userId : {}", userId);
+        log.info("role : {}", role);
+        return "success";
+    }
 }

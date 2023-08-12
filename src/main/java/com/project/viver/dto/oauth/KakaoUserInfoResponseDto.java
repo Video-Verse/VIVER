@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Setter @Getter
 public class KakaoUserInfoResponseDto {
 
     private String id;

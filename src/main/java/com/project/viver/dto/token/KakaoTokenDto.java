@@ -1,12 +1,16 @@
 package com.project.viver.dto.token;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 public class KakaoTokenDto {
 
     @Builder @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Request {
         private String grant_type;
         private String client_id;
@@ -17,6 +21,8 @@ public class KakaoTokenDto {
 
     @ToString
     @Builder @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private String token_type;
         private String access_token;
