@@ -8,10 +8,10 @@ import com.project.viver.repository.common.CommonRepository;
 @Service
 public class CommonService {
 
-	@Autowired
-	CommonRepository commonRepository; 
-	
-	public String getId(String word) {
-		return commonRepository.getId(word);
-	}
+//	@Autowired(required = true)
+//	CommonRepository commonRepository; 
+//	
+//	public String getId(String word) {
+//		return commonRepository.getId(word);
+//	}
 }
