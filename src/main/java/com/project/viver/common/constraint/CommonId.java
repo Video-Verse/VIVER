@@ -8,7 +8,7 @@ public enum CommonId {
 	, REG_CONTENTS("R")    //등록작품
 	, MOVIE("M")           //영화
 	, DRAMA("D")           //드라마
-	, MUSICAL("M")         //뮤지컬
+	, MUSICAL("C")         //뮤지컬
 	, TYPE("Y")            //작품타입
 	, IMG("I")             //이미지
 	, BANNER("B")          //배너
