@@ -2,11 +2,16 @@
 spring:
 #  autoconfigure:
 #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/viver
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/viver
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: 
+   datasource:
+     url: jdbc:postgresql://viver.ci0w0otlg937.us-east-2.rds.amazonaws.com:5432/postgres
+     username: inis
+     password: inis1234
+     driver-class-name: org.postgresql.Driver
 
 
 kakao:
@@ -16,5 +21,5 @@ kakao:
 
 token:
   secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 
-  access-token-expiration-time: 900000  #
-  refresh-token-expiration-time: 1209600000 # 
+  access-token-expiration-time: 1  #
+  refresh-token-expiration-time: 1 # 
