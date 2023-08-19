@@ -23,3 +23,7 @@ token:
   secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 
   access-token-expiration-time: 1  #
   refresh-token-expiration-time: 1 # 
+  
+#api key
+api : 
+  kopis : bbf08c05fac24dfbb7d8d741014869fe
