@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'war'
+		id 'war'
 	id 'org.springframework.boot' version '3.1.1'
 	id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -32,7 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
-	
+
 	// JAXB 의존성
 //	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 //	implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
@@ -43,12 +43,13 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
+
 	//http client
 	implementation 'org.apache.httpcomponents:httpclient:4.5'
 	implementation 'com.google.code.gson:gson:2.8.5'
-	
-	
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+
 }
 
 dependencyManagement {
