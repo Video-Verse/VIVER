@@ -30,6 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class HttpClientComponent {
@@ -52,6 +54,8 @@ public class HttpClientComponent {
 	 */
 	public Map<String, Object> get(String domain, String url, Map<String, Object> header, Map<String, Object> params) {
 		Map<String, Object> result = new HashMap<String, Object>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> map = null;
 
 			List<NameValuePair> paramList = convertParam(params);
 
@@ -68,10 +72,13 @@ public class HttpClientComponent {
 				httpGet.setHeader(key, header.get(key).toString());
 			}
 
-			HttpResponse response;
-			response = httpClient.execute(httpGet);
-			result.put("code", response.getStatusLine().getStatusCode());
-			result.put("xml", EntityUtils.toString(response.getEntity(), "UTF-8"));
+			log.debug(httpGet.toString());
+
+			HttpResponse response = httpClient.execute(httpGet);
+
+			String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+			map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+
 		} catch (ParseException e) {
 			log.debug("ParseException Occured");
 		} catch (URISyntaxException e) {
@@ -79,7 +86,7 @@ public class HttpClientComponent {
 		} catch (IOException e) {
 			log.debug("IOException Occured");
 		}
-		return result;
+		return map;
 	}
 
 	/**
