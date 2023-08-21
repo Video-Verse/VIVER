@@ -2,17 +2,17 @@ package com.project.viver.common.constraint;
 
 public enum CommonId {
 
-	  USER("U")            //회원
-	, LEVEL("L")           //레벨
-	, BOOKMARK("K")        //보관
-	, REG_CONTENTS("R")    //등록작품
-	, MOVIE("M")           //영화
-	, DRAMA("D")           //드라마
-	, MUSICAL("C")         //뮤지컬
-	, TYPE("Y")            //작품타입
-	, IMG("I")             //이미지
-	, BANNER("B")          //배너
-	, BATCH("H")           //배치
+	  USER("US")            //회원
+	, LEVEL("LV")           //레벨
+	, BOOKMARK("BM")        //보관
+	, REG_CONTENTS("RC")    //등록작품
+	, MOVIE("MV")           //영화
+	, DRAMA("DR")           //드라마
+	, MUSICAL("MS")         //뮤지컬
+	, TYPE("TY")            //작품타입
+	, IMG("IM")             //이미지
+	, BANNER("BN")          //배너
+	, BATCH("BT")           //배치
 	;
 
 	private String value;
