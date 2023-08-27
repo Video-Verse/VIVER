@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -26,6 +27,8 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -75,10 +78,22 @@ public class HttpClientComponent {
 			log.debug(httpGet.toString());
 
 			HttpResponse response = httpClient.execute(httpGet);
+			HttpEntity responseEntity = response.getEntity();
+			 if (responseEntity != null) {
+		            String contentType = responseEntity.getContentType().getValue();
+		            String responseString = EntityUtils.toString(responseEntity, "UTF-8");
 
-			String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-			map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+		            if (contentType.contains("application/xml")) {
+		    	        JSONObject jsonObject = XML.toJSONObject(responseString);
+		    	        String jsonString = jsonObject.toString();
+		    	        map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>() {});
+		            } else if (contentType.contains("application/json")) {
+		                map = objectMapper.readValue(responseString, new TypeReference<Map<String, Object>>() {});
+		            }
 
+		            EntityUtils.consume(responseEntity); // Release resources
+		        }
+			
 		} catch (ParseException e) {
 			log.debug("ParseException Occured");
 		} catch (URISyntaxException e) {
