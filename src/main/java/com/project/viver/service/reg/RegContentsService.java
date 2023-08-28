@@ -2,7 +2,10 @@ package com.project.viver.service.reg;
 
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,11 @@ public class RegContentsService {
 	private final CommonService commonService;
 
     private final RegContentsRepository regContentsRepository;
+    
+    public Page<RegContents> search(Map<String, String> params, PageRequest pageable) {
+    	
+        return regContentsRepository.search(params, pageable);
+    }
 
     public RegContents insert(RegContents regContents) {
     	
