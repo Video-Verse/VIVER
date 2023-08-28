@@ -21,8 +21,8 @@ kakao:
 
 token:
   secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 
-  access-token-expiration-time: 1  #
-  refresh-token-expiration-time: 111111111111 # 
+  access-token-expiration-time: 3600   #1시간
+  refresh-token-expiration-time: 2592000  # 30일
   
 #api key
 api : 
