@@ -9,8 +9,8 @@ import com.project.viver.error.exception.BusinessException;
 @Service
 public class OauthValidator {
 
-    public void validateMemberType(String memberType) {
-        if(!UserType.isUserType(memberType)) {
+    public void validateUserType(String userType) {
+        if(!UserType.isUserType(userType)) {
             throw new BusinessException(ErrorCode.INVALID_MEMBER_TYPE);
         }
     }

@@ -15,10 +15,10 @@ public class SocialLoginApiServiceFactory {
         this.socialLoginApiServices = socialLoginApiServices;
     }
 
-    public static SocialLoginApiService getSocialLoginApiService(UserType memberType) {
+    public static SocialLoginApiService getSocialLoginApiService(UserType userType) {
         String socialLoginApiServiceBeanName = "";
 
-        if(UserType.KAKAO.equals(memberType)) {
+        if(UserType.KAKAO.equals(userType)) {
             socialLoginApiServiceBeanName = "kakaoLoginApiServiceImpl";
         }
         return socialLoginApiServices.get(socialLoginApiServiceBeanName);
