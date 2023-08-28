@@ -6,25 +6,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Builder
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "tb_reg_contents" )
+@Table(name = "tb_img" )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RegContents extends BaseEntity{
+public class Img extends BaseEntity{
 
 	@Id
-	private String regId;
-	private String userId;
-	private String typeId;
-	private String contentId;
-	private Long rating;
-	private String reviewComment;
-	private String viewingDate;
-	private String firstImgId;
-	private String secondImgId;
+	private String imgId;
+	private String imgLoc;
+	private String imgNm;
+	private String imgExt;
+	private Long imgSize;
+	private String tempLoc;
+	private String tempNm;
+	private Long orderNo;
 }
