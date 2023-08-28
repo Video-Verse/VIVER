@@ -2,10 +2,12 @@ package com.project.viver.common.response.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.project.viver.common.response.model.CommonResult;
 import com.project.viver.common.response.model.ListResult;
+import com.project.viver.common.response.model.PageResult;
 import com.project.viver.common.response.model.SingleResult;
 
 @Service
@@ -42,6 +44,13 @@ public class ResponseService {
     public <T> ListResult<T> getListResult(List<T> list) {
         ListResult<T> result = new ListResult<>();
         result.setList(list);
+        setSuccessResult(result);
+        return result;
+    }
+    // 페이징 결과를 처리하는 메소드
+    public <T> PageResult<T> getPageResult(Page<T> pagingList) {
+    	PageResult<T> result = new PageResult<>();
+        result.setPagingList(pagingList);
         setSuccessResult(result);
         return result;
     }
