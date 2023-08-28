@@ -1,4 +1,4 @@
-package com.project.viver.entity.reg;
+package com.project.viver.entity;
 
 import com.project.viver.entity.common.BaseEntity;
 
@@ -24,4 +24,6 @@ public class RegContents extends BaseEntity{
 	private Long rating;
 	private String reviewComment;
 	private String viewingDate;
+	private String firstImgId;
+	private String secondImgId;
 }

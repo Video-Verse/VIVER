@@ -1,4 +1,4 @@
-package com.project.viver.repository.reg;
+package com.project.viver.repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 
-import com.project.viver.entity.reg.RegContents;
-import com.project.viver.repository.DefaultRepository;
+import com.project.viver.entity.RegContents;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

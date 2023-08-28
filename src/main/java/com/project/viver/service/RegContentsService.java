@@ -1,4 +1,4 @@
-package com.project.viver.service.reg;
+package com.project.viver.service;
 
 
 import java.time.LocalDateTime;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.viver.common.constraint.CommonId;
-import com.project.viver.entity.reg.RegContents;
+import com.project.viver.entity.RegContents;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.EntityNotFoundException;
-import com.project.viver.repository.reg.RegContentsRepository;
+import com.project.viver.repository.RegContentsRepository;
 import com.project.viver.service.common.CommonService;
 
 import lombok.RequiredArgsConstructor;
