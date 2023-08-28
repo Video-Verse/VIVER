@@ -30,11 +30,11 @@ public class OauthLoginController {
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
         AuthorizationHeaderUtils.validateAuthorization(authorizationHeader);
-        oauthValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
+        oauthValidator.validateUserType(oauthLoginRequestDto.getUserType());
 
         String accessToken = authorizationHeader.split(" ")[1];
         OauthLoginDto.Response jwtTokenResponseDto = oauthLoginService
-                .oauthLogin(accessToken, UserType.from(oauthLoginRequestDto.getMemberType()));
+                .oauthLogin(accessToken, UserType.from(oauthLoginRequestDto.getUserType()));
         return ResponseEntity.ok(jwtTokenResponseDto);
     }
 

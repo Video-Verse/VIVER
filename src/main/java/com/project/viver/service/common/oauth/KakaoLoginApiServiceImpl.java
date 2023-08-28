@@ -33,7 +33,7 @@ public class KakaoLoginApiServiceImpl implements SocialLoginApiService {
                 .userId(!StringUtils.hasText(userId) ? kakaoUserInfoResponseDto.getId() : userId)
                 .name(kakaoAccount.getProfile().getNickname())
                 .profile(kakaoAccount.getProfile().getThumbnailImageUrl())
-                .memberType(UserType.KAKAO)
+                .userType(UserType.KAKAO)
                 .build();
     }
 

@@ -26,12 +26,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User registerMember(User user) {
-        validateDuplicateMember(user);
+    public User registerUser(User user) {
+        validateDuplicateUser(user);
         return userRepository.save(user);
     }
 
-    private void validateDuplicateMember(User user) {
+    private void validateDuplicateUser(User user) {
         Optional<User> optionalUser = userRepository.findByUserId(user.getUserId());
         if(optionalUser.isPresent()) {
             throw new BusinessException(ErrorCode.ALREADY_REGISTERED_MEMBER);
@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findMemberByRefreshToken(String refreshToken) {
+    public User findUserByRefreshToken(String refreshToken) {
     	User user = userRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new AuthenticationException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
         LocalDateTime tokenExpirationTime = user.getTokenExpirationTime();
@@ -54,7 +54,7 @@ public class UserService {
         return user;
     }
 
-    public User findMemberByMemberId(String userId) {
+    public User findUserByUser(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
     }
