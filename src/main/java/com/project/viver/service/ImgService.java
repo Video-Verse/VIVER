@@ -79,7 +79,7 @@ public class ImgService {
 
 	@Transactional
     public void delete(String regId) {
-    	List<Img> imgs = imgRepository.findAllByRegIdAndDelYn(regId, "N");
+    	List<Img> imgs = imgRepository.findAllByImgIdAndDelYn(regId, "N");
 
     	for(Img img : imgs) {
     		img.setDelYn("Y");

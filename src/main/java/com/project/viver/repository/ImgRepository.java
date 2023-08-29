@@ -17,5 +17,5 @@ public interface ImgRepository extends JpaRepository<Img, String>, ImgRepository
 	@Query(value = "select nextval('seq_img_temp_nm') seq ", nativeQuery=true)
 	Long findBySeq();
 
-	List<Img> findAllByRegIdAndDelYn(String regId, String delYn);
+	List<Img> findAllByImgIdAndDelYn(String regId, String delYn);
 }
