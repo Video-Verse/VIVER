@@ -36,6 +36,11 @@ public class RegContentsController {
 		return responseService.getPageResult(regContentsService.search(params, CommonUtil.PageRequest(params)));
 	}
 
+	@GetMapping("/get")
+	public SingleResult<RegContents> get(@RequestParam Map<String, String> params) {
+		return responseService.getSingleResult(regContentsService.get(params.get("regId").toString()));
+	}
+
 	@ResponseBody
 	@PostMapping("/insert")
 	public SingleResult<RegContents> insert(@RequestParam(value = "data") String entity, @RequestParam(value = "file", required =false) List<MultipartFile> files) throws JsonProcessingException {

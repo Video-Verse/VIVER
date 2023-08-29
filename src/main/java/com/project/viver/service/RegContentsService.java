@@ -39,6 +39,12 @@ public class RegContentsService {
         return regContentsRepository.search(params, pageable);
     }
 
+    public RegContents get(String regId) {
+
+        return regContentsRepository.findById(regId)
+        							.orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_EXISTS_REGCONTENTS));
+    }
+
     @Transactional
     public RegContents insert(String entity, List<MultipartFile> files) throws JsonProcessingException {
 

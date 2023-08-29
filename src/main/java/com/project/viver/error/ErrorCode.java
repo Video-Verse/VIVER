@@ -34,7 +34,13 @@ public enum ErrorCode {
 	 * API 관련
 	 **/
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "A-001", "데이터를 가져오는데 실패했습니다."),
-	;
+
+
+	/**
+	 * 등록 작품 관련
+	 **/
+	NOT_EXISTS_REGCONTENTS(HttpStatus.BAD_REQUEST, "R-001", "해당 등록작품이 존재하지 않습니다.");
+
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
         this.httpStatus = httpStatus;
