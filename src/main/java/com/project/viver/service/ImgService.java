@@ -33,6 +33,7 @@ public class ImgService {
 	private final ImgRepository imgRepository;
 
 
+	@Transactional
     public List<Img> upload(List<MultipartFile> files, String userId, String regId) {
     	List<Img> results = new ArrayList<>();
 
@@ -74,6 +75,17 @@ public class ImgService {
     	}
 
     	return results;
+    }
+
+	@Transactional
+    public void delete(String regId) {
+    	List<Img> imgs = imgRepository.findAllByRegIdAndDelYn(regId, "N");
+
+    	for(Img img : imgs) {
+    		img.setDelYn("Y");
+    		img.setDelDt(LocalDateTime.now());
+    		imgRepository.save(img);
+    	}
     }
 
     private String getFileNameSeq() {

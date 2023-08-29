@@ -61,12 +61,27 @@ public class RegContentsService {
         return regContentsRepository.save(regContents);
     }
 
-    public RegContents update(RegContents regContents) {
+    @Transactional
+    public RegContents update(String entity, List<MultipartFile> files) throws JsonProcessingException {
+
+    	ObjectMapper obj = new ObjectMapper();
+		RegContents regContents = obj.convertValue(obj.readValue(entity, Map.class), RegContents.class);
 
     	regContentsRepository.findByRegIdAndDelYn(regContents.getRegId(), "N")
     						 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
 
     	regContents.setMdfnDt(LocalDateTime.now());
+
+    	if(!files.isEmpty()) {
+    		imgService.delete(regContents.getRegId());
+    		List<Img> imgs = imgService.upload(files, regContents.getUserId(), regContents.getRegId());
+        	if(imgs.size() == 2) {
+        		regContents.setFirstImgId(imgs.get(0).getImgId());
+        		regContents.setSecondImgId(imgs.get(1).getImgId());
+        	} else if(imgs.size() == 1) {
+        		regContents.setFirstImgId(imgs.get(0).getImgId());
+        	}
+    	}
 
         return regContentsRepository.save(regContents);
     }
@@ -78,6 +93,8 @@ public class RegContentsService {
     	regContents.setDelYn("Y");
     	regContents.setMdfnDt(LocalDateTime.now());
     	regContents.setDelDt(LocalDateTime.now());
+
+    	imgService.delete(regId);
 
     	return regContentsRepository.save(regContents);
     }

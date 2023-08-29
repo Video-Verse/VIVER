@@ -44,8 +44,8 @@ public class RegContentsController {
 
 	@ResponseBody
 	@PostMapping("/update")
-	public SingleResult<RegContents> update(@RequestBody RegContents regContents) {
-		return responseService.getSingleResult(regContentsService.update(regContents));
+	public SingleResult<RegContents> update(@RequestParam(value = "data") String entity, @RequestParam(value = "file", required =false) List<MultipartFile> files) throws JsonProcessingException {
+		return responseService.getSingleResult(regContentsService.update(entity, files));
 	}
 
 	@ResponseBody
