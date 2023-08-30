@@ -2,32 +2,23 @@
 // import logoKr from './assets/images/logo_kr.png'
 
 import './styles/reset.css';
-import {useEffect, useState} from "react";
+//import {useEffect, useState} from "react";
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 import Login from './pages/Login/Login';
 import Header from './components/Header/Header';
 import Join from './pages/Login/Join';
 import Home from './pages/Main/Home';
 
+
+
 function App() {
 
-  const [message, setMessage] = useState([]);
-
-  useEffect(() => {
-    fetch("/helloViver")
-        .then((response) => {
-            console.log(response);
-            return response.json();
-        })
-        .then(function (data) {
-            setMessage(data);
-        });
-}, []);
-
-  return (
+ return(
     <div>
-        {/* <Header /> */}
-        {/* <Login /> */}
+
+        { <Header /> }
+        { <Login /> }
         <Join />
     </div>
     // <div className="wrap">
