@@ -1,13 +1,15 @@
 package com.project.viver.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.viver.api.KakaoTokenClient;
 import com.project.viver.dto.token.KakaoTokenDto;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -22,13 +24,9 @@ public class KakaoTokenController {
     @Value("${kakao.client.secret}")
     private String clientSecret;
 
-    @GetMapping("/login")
-    public String login() {
-        return "loginForm";
-    }
 
     @GetMapping("/oauth/kakao/callback")
-    public @ResponseBody String loginCallback(String code) {
+    public void loginCallback(String code, HttpServletResponse response) throws IOException {
         String contentType = "application/x-www-form-urlencoded;charset=utf-8";
         KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
                 .client_id(clientId)
@@ -38,7 +36,7 @@ public class KakaoTokenController {
                 .redirect_uri("http://localhost:8080/oauth/kakao/callback")
                 .build();
         KakaoTokenDto.Response kakaoToken = kakaoTokenClient.requestKakaoToken(contentType, kakaoTokenRequestDto);
-        return "kakao 토큰" + kakaoToken;
+        response.sendRedirect("http://localhost:3000/sociallogin?token="+kakaoToken.getAccess_token());
     }
 
 }
