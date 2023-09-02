@@ -73,18 +73,21 @@ public class TokenManagerService {
         return refreshToken;
     }
 
-    public void validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(tokenSecret.getBytes(StandardCharsets.UTF_8))
-                    .parseClaimsJws(token);
-        } catch (ExpiredJwtException e) {
-            log.info("token 만료", e);
-            throw new AuthenticationException(ErrorCode.TOKEN_EXPIRED);
-        } catch (Exception e) {
-            log.info("유효하지 않은 token", e);
-            throw new AuthenticationException(ErrorCode.NOT_VALID_TOKEN);
-        }
-    }
+	public void validateToken(String token) {
+		try {
+			Jwts.parser().setSigningKey(tokenSecret.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token);
+		} catch (ExpiredJwtException e) {
+			Claims expiredClaims = e.getClaims();
+			Date expirationTime = expiredClaims.getExpiration();
+
+			log.info("Token 만료: " + expirationTime, e);
+			throw new AuthenticationException(ErrorCode.TOKEN_EXPIRED);
+
+		} catch (Exception e) {
+			log.info("유효하지 않은 token", e);
+			throw new AuthenticationException(ErrorCode.NOT_VALID_TOKEN);
+		}
+	}
 
     public Claims getTokenClaims(String token) {
         Claims claims;

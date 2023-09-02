@@ -15,11 +15,11 @@ public class OAuthAttributes {
 	private String userId;
     private String name;
     private String profile;
-    private UserType memberType;
+    private UserType userType;
     
     public User toUserEntity(UserType userType, Role role) {
         return User.builder()
-                .memberType(memberType)
+                .userType(userType)
                 .userId(userId)
                 .profile(profile)
                 .role(role)

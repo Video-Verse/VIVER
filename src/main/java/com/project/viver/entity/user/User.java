@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "TB_USER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
@@ -32,12 +34,12 @@ public class User extends BaseEntity {
     private String levelId;
     private String kakao;
     private String naver;
-    private String withdrawalStatus;
+    //private String withdrawalStatus;
    
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private UserType memberType;
+    private UserType userType;
     //private String password;
     private String profile;
 
@@ -48,13 +50,13 @@ public class User extends BaseEntity {
     private LocalDateTime tokenExpirationTime;
     
     @Builder
-    public User(String userId, String phoneNumber, String nickName, String withdrawalStatus, UserType memberType,
+    public User(String userId, String phoneNumber, String nickName, String withdrawalStatus, UserType userType,
     		String password, String profile, Role role) {
     	this.userId = userId;
     	this.phoneNumber = phoneNumber;
     	this.nickName = nickName;
-    	this.withdrawalStatus = withdrawalStatus;
-    	this.memberType = memberType;
+    	//this.withdrawalStatus = withdrawalStatus;
+    	this.userType = userType;
     	this.profile = profile;
     	this.role = role;
     }

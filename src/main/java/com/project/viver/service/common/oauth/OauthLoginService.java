@@ -32,15 +32,17 @@ public class OauthLoginService {
         log.info("userInfo : {}",  userInfo);
 
         JwtTokenDto jwtTokenDto;
+        boolean isNewUser = false;
         Optional<User> optionalUser = userService.findUserByUserId(userInfo.getUserId());
         if(optionalUser.isEmpty()) { // 신규 회원 가입
             User oauthUser = userInfo.toUserEntity(userType, Role.ADMIN);
-            oauthUser = userService.registerMember(oauthUser);
+            oauthUser = userService.registerUser(oauthUser);
+            isNewUser = true;
 
             // 토큰 생성
             jwtTokenDto = tokenManager.createJwtTokenDto(oauthUser.getUserId(), oauthUser.getRole());
             oauthUser.updateRefreshToken(jwtTokenDto);
-        } else { // 기oauthUser 회원
+        } else { // oauthUser 회원
             User oauthUser = optionalUser.get();
 
             // 토큰 생성
@@ -48,7 +50,7 @@ public class OauthLoginService {
             oauthUser.updateRefreshToken(jwtTokenDto);
         }
 
-        return OauthLoginDto.Response.of(jwtTokenDto);
+        return OauthLoginDto.Response.of(jwtTokenDto, isNewUser);
     }
 
 }

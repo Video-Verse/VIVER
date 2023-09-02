@@ -15,7 +15,7 @@ public class OauthLoginDto {
 
     @Getter @Setter
     public static class Request {
-        private String memberType;
+        private String userType;
     }
 
     @Getter @Setter
@@ -29,14 +29,16 @@ public class OauthLoginDto {
         private String refreshToken;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private Date refreshTokenExpireTime;
+        private boolean isNewUser;
 
-        public static Response of(JwtTokenDto jwtTokenDto) {
+        public static Response of(JwtTokenDto jwtTokenDto, boolean isNewUser) {
             return Response.builder()
                     .grantType(jwtTokenDto.getGrantType())
                     .accessToken(jwtTokenDto.getAccessToken())
                     .accessTokenExpireTime(jwtTokenDto.getAccessTokenExpireTime())
                     .refreshToken(jwtTokenDto.getRefreshToken())
                     .refreshTokenExpireTime(jwtTokenDto.getRefreshTokenExpireTime())
+                    .isNewUser(isNewUser)
                     .build();
         }
 
