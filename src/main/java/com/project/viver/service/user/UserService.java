@@ -4,18 +4,19 @@ package com.project.viver.service.user;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.viver.common.constraint.oauth.OAuthAttributes;
+import com.project.viver.dto.user.NicknameRequest;
 import com.project.viver.entity.user.User;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.AuthenticationException;
 import com.project.viver.error.exception.BusinessException;
 import com.project.viver.error.exception.EntityNotFoundException;
 import com.project.viver.repository.user.UserRepository;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,4 +59,14 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
     }
+
+	public ResponseEntity<String> registerNickname(NicknameRequest request) {
+        OAuthAttributes oauthAttributes = request.getOauthAttributes();
+		Optional<User> user =  userRepository.findByUserId(oauthAttributes.getUserId());
+		System.out.println(request.getNickname());
+		//닉네임 중복체크 추가하기
+			//return new ResponseEntity<>("duplicate", HttpStatus.BAD_REQUEST);
+		user.get().changeNickName(request.getNickname());
+		return new ResponseEntity<>("uccess", HttpStatus.OK);		
+	}
 }

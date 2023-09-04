@@ -6,10 +6,12 @@ import com.project.viver.entity.user.User;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@NoArgsConstructor
 @ToString
-@Getter @Builder
+@Getter 
 public class OAuthAttributes {
 
 	private String userId;
@@ -17,6 +19,16 @@ public class OAuthAttributes {
     private String profile;
     private UserType userType;
     
+    
+    @Builder
+    public OAuthAttributes(String userId, String name, String profile, UserType userType) {
+        this.userId = userId;
+        this.name = name;
+        this.profile = profile;
+        this.userType = userType;
+    }
+    
+
     public User toUserEntity(UserType userType, Role role) {
         return User.builder()
                 .userType(userType)
@@ -25,4 +37,7 @@ public class OAuthAttributes {
                 .role(role)
                 .build();
     }
+
+
+
 }
