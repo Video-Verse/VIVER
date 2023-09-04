@@ -19,11 +19,10 @@ const Login = () => {
 					<img src={logo} className="logo" alt="logo" />
 				</div>
 				<div className="btn-group">
-				  
-						<button type="button" className="btn btn-kakao" onClick={() => handleSocialLogin("kakao")}>
-							<span>카카오로 로그인</span>
-						</button>
-					
+					<button type="button" className="btn btn-kakao" onClick={() => handleSocialLogin("kakao")}>
+						<span>카카오로 로그인</span>
+					</button>
+
 					<button type="button" className="btn btn-naver"><span>네이버로 로그인</span></button>
 				</div>
 			</div>

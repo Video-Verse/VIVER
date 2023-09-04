@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from 'axios';
+import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const SocialLogin = (props) => {
 	const [redirectPath, setRedirectPath] = useState(null);
+	const { loginInfo, setLoginInfo } = useLoginInfo();
 
 	const getUrlParameter = (name) => {
 		let search = window.location.search;
@@ -25,11 +27,12 @@ const SocialLogin = (props) => {
 				}
 			})
 				.then(response => {
-					if (response.data.isNewUser) {
+					console.log('resdata',response.data);
+					setLoginInfo(response.data);
 
-						setRedirectPath("/")
+					if (response.data.newUser) {
+						setRedirectPath("/join")
 					} else {
-
 						setRedirectPath("/");
 					}
 				})
@@ -43,7 +46,6 @@ const SocialLogin = (props) => {
 	}, [token]);
 
 	if (redirectPath) {
-		console.log('redirectPath', redirectPath);
 		return <Navigate to={redirectPath} state={{ from: props.location }} />;
 	}
 
