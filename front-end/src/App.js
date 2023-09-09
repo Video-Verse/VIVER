@@ -19,7 +19,7 @@ function App() {
 
         { <Header /> }
         { <Login /> }
-        <Join />
+
     </div>
     // <div className="wrap">
     //     <div className='content'>

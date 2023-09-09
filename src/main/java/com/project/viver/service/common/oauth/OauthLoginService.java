@@ -50,7 +50,7 @@ public class OauthLoginService {
             oauthUser.updateRefreshToken(jwtTokenDto);
         }
 
-        return OauthLoginDto.Response.of(jwtTokenDto, isNewUser);
+        return OauthLoginDto.Response.of(jwtTokenDto, userInfo,isNewUser);
     }
 
 }

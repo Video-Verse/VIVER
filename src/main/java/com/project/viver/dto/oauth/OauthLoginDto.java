@@ -3,6 +3,7 @@ package com.project.viver.dto.oauth;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.viver.common.constraint.oauth.OAuthAttributes;
 import com.project.viver.dto.token.JwtTokenDto;
 
 import lombok.AllArgsConstructor;
@@ -30,8 +31,9 @@ public class OauthLoginDto {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private Date refreshTokenExpireTime;
         private boolean isNewUser;
+        private OAuthAttributes oAuthAttributes;
 
-        public static Response of(JwtTokenDto jwtTokenDto, boolean isNewUser) {
+        public static Response of(JwtTokenDto jwtTokenDto, OAuthAttributes oAuthAttributes, boolean isNewUser) {
             return Response.builder()
                     .grantType(jwtTokenDto.getGrantType())
                     .accessToken(jwtTokenDto.getAccessToken())
@@ -39,6 +41,7 @@ public class OauthLoginDto {
                     .refreshToken(jwtTokenDto.getRefreshToken())
                     .refreshTokenExpireTime(jwtTokenDto.getRefreshTokenExpireTime())
                     .isNewUser(isNewUser)
+                    .oAuthAttributes(oAuthAttributes)
                     .build();
         }
 

@@ -70,5 +70,11 @@ public class User extends BaseEntity {
     public void expireRefreshToken(LocalDateTime now) {
         this.tokenExpirationTime = now;
     }
+    
+    
+    public void changeNickName(String newNickName) {
+        this.nickName = newNickName;
+    }
+
 
 }
