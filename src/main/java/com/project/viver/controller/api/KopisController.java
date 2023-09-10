@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +23,14 @@ public class KopisController {
 	@Autowired
 	private KopisService kopisService;
 
-	// insert
 	/**
+	 * 뮤지컬 api 
+	 * 
 	 * @return
 	 * @throws ParseException 
 	 */
 	@PostMapping(value = "/search")
-	public ListResult<Map<String, Object>> searchKopis() throws ParseException {
-		return responseService.getListResult(kopisService.searchKopis());
+	public ListResult<Map<String, Object>> searchKopis(@RequestBody Map<String,Object> params) throws ParseException {
+		return responseService.getListResult(kopisService.sendApi(params));
 	}
 }
