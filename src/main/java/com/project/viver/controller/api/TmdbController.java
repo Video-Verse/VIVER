@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.viver.common.response.model.SingleResult;
 import com.project.viver.common.response.service.ResponseService;
-import com.project.viver.service.api.TmdbService;
+import com.project.viver.service.api.MovieService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class TmdbController {
 
 	@Autowired
-	private TmdbService tmdbService;
+	private MovieService tmdbService;
 
 	@Autowired
 	private ResponseService responseService;
