@@ -1,6 +1,8 @@
 import React from "react";
 import logo from '../../assets/images/logo.png';
 import './login.css';
+import "./axios.js";
+import axios from "axios";
 
 // import CommonBtn from './components/button/button';
 
