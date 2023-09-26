@@ -19,6 +19,11 @@ kakao:
     id: 7e6f9285b35e1c5af2ae9e3da753d37e
     secret: 0YrMY3nahxP6yvFxmRNaKoKtL9qSt7Ug
 
+naver:
+    client:
+      id: eJiabflZOXYJJZzShMY2
+      secret: t9Ovew24LN
+      
 token:
   secret: ENC(9c9uJh1XDJMe72tcz8o94Z1pqQxRrUdKaxFAlScPFuIGZtp57tFR3Q==) # 
   access-token-expiration-time: 3600   #1시간
