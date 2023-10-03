@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.viver.common.response.model.ListResult;
 import com.project.viver.common.response.service.ResponseService;
-import com.project.viver.service.api.KopisService;
+import com.project.viver.service.api.MusicalService;
 
 @RestController
 @RequestMapping("/api/kopis")
-public class KopisController {
+public class MusicalController {
 
 	@Autowired
 	private ResponseService responseService;
 
 	@Autowired
-	private KopisService kopisService;
+	private MusicalService kopisService;
 
 	/**
 	 * 뮤지컬 api 
