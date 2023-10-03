@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.viver.common.response.model.ListResult;
 import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.ApiService;
-import com.project.viver.service.api.KopisService;
 
 @RestController
 @RequestMapping("/api")
