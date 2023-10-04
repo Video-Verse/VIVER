@@ -12,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import com.project.viver.entity.kopis.Musical;
 import com.project.viver.repository.DefaultRepository;
 
-public class KopisRepositoryImpl extends DefaultRepository implements KopisRepositoryCustom{
+public class MusicalRepositoryImpl extends DefaultRepository implements MusicalRepositoryCustom{
 
 	/**
 	 * 검색

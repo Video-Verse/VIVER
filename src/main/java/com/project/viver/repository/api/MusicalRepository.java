@@ -12,7 +12,7 @@ import com.project.viver.entity.kopis.Musical;
 
 
 @Repository
-public interface KopisRepository extends JpaRepository<Musical, String>{
+public interface MusicalRepository extends JpaRepository<Musical, String>{
 
 	@Query(value = "SELECT * from tb_musical t"
 			+ " where t.del_yn = 'N' and"
