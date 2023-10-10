@@ -1,6 +1,6 @@
 .content {min-height:calc(100% - 100px);}
-.content-title {margin-top:48px;font-size:24px;font-weight:700;line-height:32px;}
-.sub-txt {margin:15px 0;color:#616161;font-weight:500;font-size:12px;}
+.content .content-title {margin-top:48px;font-size:24px;font-weight:700;color:#fff;line-height:32px;}
+.sub-txt {margin:16px 0;color:#616161;font-weight:500;font-size:12px;}
 
 
 
