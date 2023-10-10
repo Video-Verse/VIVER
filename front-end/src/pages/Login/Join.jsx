@@ -36,7 +36,7 @@ const Join = () => {
 		}
 	}
 	return (
-		<div className="">
+		<div>
 			<Header />
 
 			<div className="wrap">
