@@ -1,6 +1,7 @@
 package com.project.viver.entity.common;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.MappedSuperclass;

@@ -24,13 +24,24 @@ public class MusicalController {
 	private MusicalService kopisService;
 
 	/**
-	 * 뮤지컬 api 
+	 * 뮤지컬 목록 api 
 	 * 
 	 * @return
 	 * @throws ParseException 
 	 */
 	@PostMapping(value = "/search")
-	public ListResult<Map<String, Object>> searchKopis(@RequestBody Map<String,Object> params) throws ParseException {
-		return responseService.getListResult(kopisService.sendApi(params));
+	public ListResult<Map<String, Object>> sendListApi(@RequestBody Map<String,Object> params) throws ParseException {
+		return responseService.getListResult(kopisService.sendListApi(params));
 	}
+	
+//	/**
+//	 * 뮤지컬 목록 api 
+//	 * 
+//	 * @return
+//	 * @throws ParseException 
+//	 */
+//	@PostMapping(value = "/search")
+//	public ListResult<Map<String, Object>> sendDetailApi(@RequestBody Map<String,Object> params) throws ParseException {
+//		return responseService.getListResult(kopisService.sendDetailApi(params));
+//	}
 }

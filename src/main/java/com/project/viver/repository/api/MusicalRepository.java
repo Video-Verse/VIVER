@@ -14,10 +14,29 @@ import com.project.viver.entity.kopis.Musical;
 @Repository
 public interface MusicalRepository extends JpaRepository<Musical, String>{
 
-	@Query(value = "SELECT * from tb_musical t"
+	@Query(value = 
+			  "SELECT "
+			+ "    t.mv_id"                         /*db id*/
+			+ "  , t.mt20id"                        /*공연 id*/
+			+ "  , t.prfnm"                         /*공연명*/
+			+ "  , t.genrenm"                       /*장르명*/
+			+ "  , t.poster"                        /*포스터url*/
+			+ "  , t.prfpdfrom"                     /*공연시작일*/
+			+ "  , t.prfpdto"                       /*공연종료일*/
+			+ "  , t.prfruntime"                    /*공연런타임*/
+			+ "  , t.prfcast"                       /*출연진*/
+			+ "  , t.dtguidance"                    /*공연시간*/
+			+ "  , t.sty"                           /*줄거리*/
+			+ "  , t.fcitynm"                       /*공연시설명*/
+			+ "  , t.pcseguidance"                  /*티켓 가격*/
+			+ "  , t.prfstate "                     /*공연 상태*/
+			+ " from tb_musical t"
 			+ " where t.del_yn = 'N' and"
 			+ " ( t.prfnm LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.prfcast LIKE CONCAT('%', :keyword, '%')"
-			+ " OR t.prfcrew LIKE CONCAT('%', :keyword, '%'))", nativeQuery = true)
+			+ " OR t.prfcrew LIKE CONCAT('%', :keyword, '%'))"
+			+ " Order by prfnm asc"
+			+ " limit 100", nativeQuery = true)
 	List<Map<String,Object>> getList(@Param("keyword") String keyword);
+	
 }

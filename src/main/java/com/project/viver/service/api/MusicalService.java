@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,19 +56,20 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 	CommonRepository commonRepository;
 
 	/**
-	 * 뮤지컬 api 연결
+	 * 뮤지컬 목록 api 연결
 	 * 
 	 * @param params
 	 * @return
 	 * @throws ParseException
 	 */
-	public List<Map<String, Object>> sendApi(Map<String, Object> params) throws ParseException {
+	public List<Map<String, Object>> sendListApi(Map<String, Object> params) throws ParseException {
 		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String,Object> dbs = new HashMap<String, Object>();
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		Map<String, Object> header = new HashMap<String, Object>();
 
-		logger.debug("musical send api start");
+		logger.debug("musical send List api start");
 
 		int cpage = 1;
 		int rows = 10;
@@ -85,24 +87,24 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 			try {
 				logger.debug("musical http connect");
 				result = httpClientComponent.get(baseUrl, "/pblprfr", header, param);
-				Map<String, Object> dbs = (Map<String, Object>) result.get("dbs");
-				List<Map<String, Object>> db = (List<Map<String, Object>>) dbs.get("db");
+				Object dbsValue = result.get("dbs");
+				if(dbsValue instanceof Map) {
+					dbs = (Map<String,Object>) dbsValue;
+				} else {
+					return null;
+				}
+				
+				Object db = dbs.get("db");
+				if (db instanceof Map) {
+				    Map<String, Object> dbMap = (Map<String, Object>) db;
+				    insert(dbMap);
+				} else if (db instanceof List) {
+					List<Map<String, Object>> dbList = (List<Map<String, Object>>) db;
 
-				logger.debug("musical http connect end");
-				for (Map<String, Object> map : db) {
-					Musical musical = new Musical();
-					musical.setMv_id(commonRepository.getId(CommonId.MUSICAL.value()));
-					musical.setMt20id((String) map.get("mt20id"));
-					musical.setPrfnm((String) map.get("prfnm"));
-					musical.setGenrenm((String) map.get("genrenm"));
-					musical.setPrfstate((String) map.get("prfstate"));
-					musical.setPrfpdfrom(StringUtils.remove((String) map.get("prfpdfrom"), "."));
-					musical.setPrfpdto(StringUtils.remove((String) map.get("prfpdto"), "."));
-					musical.setPoster((String) map.get("poster"));
-					musical.setFcitynm((String) map.get("fcltynm"));
-					musical.setOpenrun((String) map.get("openrun"));
-					musical.setDelYn("N");
-					kopisRepository.save(musical);
+					logger.debug("musical http connect end");
+					for (Map<String, Object> map : dbList) {
+						insert(map);
+					}
 				}
 				logger.debug("musical db insert");
 			} catch (BusinessException e) {
@@ -112,7 +114,48 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 			cpage++;
 		}
 
-		logger.debug("musical send api end");
+		logger.debug("musical send List api end");
+		return list;
+	}
+	
+	/**
+	 * 뮤지컬 상세 api 연결
+	 * 
+	 * @param params
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<Map<String, Object>> sendDetailApi(String mt20id) throws ParseException {
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String,Object> dbs = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		Map<String, Object> header = new HashMap<String, Object>();
+
+		logger.debug("musical send Detail api start");
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("service", apiKey); // 인증키
+
+		try {
+			logger.debug("musical http connect");
+			result = httpClientComponent.get(baseUrl, "/pblprfr/" + mt20id, header, param);
+			Object dbsValue = result.get("dbs");
+			if(dbsValue instanceof Map) {
+				dbs = (Map<String,Object>) dbsValue;
+			} else {
+				return null;
+			}
+			
+		    Map<String, Object> dbMap = (Map<String, Object>) dbs.get("db");
+		    update(dbMap);
+			logger.debug("musical db update");
+		} catch (BusinessException e) {
+			logger.debug("musical send api error");
+			throw new BusinessException(ErrorCode.INTERNAL_SERVER_ERROR);
+		}
+
+		logger.debug("musical send Detail api end");
 		return list;
 	}
 
@@ -130,9 +173,57 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		return list;
 	}
 
-	// 단건
-
-	// insert
+	public Musical get(String mv_id) {
+		logger.debug("musical db get select");
+		return super.get(mv_id);
+	}
+	
+	public void insert(Map<String, Object> map) {
+		logger.debug("musical db get select");
+		Musical musical = new Musical();
+		musical.setMv_id(commonRepository.getId(CommonId.MUSICAL.value()));
+		musical.setMt20id((String) map.get("mt20id"));
+		musical.setPrfnm((String) map.get("prfnm"));
+		musical.setGenrenm((String) map.get("genrenm"));
+		musical.setPrfstate((String) map.get("prfstate"));
+		musical.setPrfpdfrom(StringUtils.remove((String) map.get("prfpdfrom"), "."));
+		musical.setPrfpdto(StringUtils.remove((String) map.get("prfpdto"), "."));
+		musical.setPoster((String) map.get("poster"));
+		musical.setFcitynm((String) map.get("fcltynm"));
+		musical.setOpenrun((String) map.get("openrun"));
+		super.insert(musical);
+	}
+	
+	
+	/**
+	 * 공연 상세 조회해서 넣는 것
+	 * 
+	 * @param param
+	 */
+	public void update(Map<String,Object> param) {
+		Musical musical = new Musical();
+		musical.setMv_id((String)param.get("mv_id"));
+		musical.setMt20id((String) param.get("mt20id"));
+		musical.setPrfnm((String) param.get("prfnm"));
+		musical.setPrfpdfrom(StringUtils.remove((String) param.get("prfpdfrom"), "."));
+		musical.setPrfpdto(StringUtils.remove((String) param.get("prfpdto"), "."));
+		musical.setFcitynm((String) param.get("fcltynm"));
+		musical.setPrfcast((String) param.get("prfcast"));
+		musical.setPrfcrew((String) param.get("prfcrew"));
+		musical.setPrfruntime((String) param.get("prfruntime"));
+		musical.setPrfage((String) param.get("prfage"));
+		musical.setEntrpsnm((String) param.get("entrpsnm"));
+		musical.setPoster((String) param.get("poster"));
+		musical.setSty((String) param.get("sty"));
+		musical.setGenrenm((String) param.get("genrenm"));
+		musical.setPrfstate((String) param.get("prfstate"));
+		musical.setOpenrun((String) param.get("openrun"));
+		musical.setDtguidance((String) param.get("dtguidance"));
+		musical.setPcseguidance((String) param.get("pcseguidance"));
+		musical.setDelYn("N");
+		
+		super.update((String)param.get("mv_id"), musical);
+	}
 
 	// delete
 

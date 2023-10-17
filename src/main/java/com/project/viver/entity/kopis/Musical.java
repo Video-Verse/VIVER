@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Table(name="tb_musical")
 public class Musical extends BaseEntity{
-
+	private static final long serialVersionUID = 5253502225379611548L;
 	@Id
 	 private String mv_id;
 	 private String mt20id;
@@ -28,6 +28,7 @@ public class Musical extends BaseEntity{
 	 private String prfruntime;
 	 private String prfage;
 	 private String entrpsnm;
+	 private String pcseguidance;
 	 private String sty;
 	 private String dtguidance;
 

@@ -1,6 +1,7 @@
 package com.project.viver.service.common;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -29,15 +30,15 @@ abstract public class BaseService<T extends BaseEntity, ID extends Serializable,
 
 	@Transactional
 	public T insert(T t ) {
-		t.setCrtDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-		t.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		t.setCrtDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"),DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+		t.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"),DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
 		t.setDelYn(Optional.No.value());
 		return super.insert(t);
 	}
 
 	@Transactional
 	public T update(ID id, T e) {
-		e.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		e.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
 		return super.update(id, e);
 	}
 
