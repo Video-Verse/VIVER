@@ -14,6 +14,7 @@ import Join from './pages/Login/Join';
 import Home from './pages/Main/Home';
 import Modal from './pages/Common/modal';
 import MainSlider from './pages/Common/Home';
+import DockBar from './components/DockBar/DockBar';
 
 
 
@@ -22,8 +23,10 @@ function App() {
  return(
     <div>
         {/* <Header /> */}
-        <Login />
+        {/* <Login /> */}
         {/* <Join /> */}
+        <MainSlider/>
+        <DockBar/>
     </div>
  
   );
