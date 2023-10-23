@@ -72,7 +72,6 @@ const MainSlider = () => {
                 </Slider>
             </div>
         </div>
-      
     );
 };
 
