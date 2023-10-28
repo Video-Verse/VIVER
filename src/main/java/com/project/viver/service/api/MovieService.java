@@ -43,6 +43,9 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 
 	@Autowired
 	CommonRepository commonRepository;
+	
+	@Autowired
+	MovieRepository movieRepository;
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -88,5 +91,18 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 		}
 		return result;
     }
+    
+    /**
+	 * db에서 가져오기
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> getList(Map<String, Object> params) {
+		logger.debug("movie db get List start");
+		List<Map<String, Object>> list = movieRepository.getList((String) params.get("keyword"));
+		logger.debug("movie db get List end");
+		return list;
+	}
 
 }

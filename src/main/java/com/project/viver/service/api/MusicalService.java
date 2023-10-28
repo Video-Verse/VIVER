@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 	ResponseService responseService;
 
 	@Autowired
-	MusicalRepository kopisRepository;
+	MusicalRepository musicalRepository;
 
 	@Autowired
 	CommonRepository commonRepository;
@@ -167,7 +166,7 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 	 */
 	public List<Map<String, Object>> getList(Map<String, Object> params) {
 		logger.debug("musical db get List start");
-		List<Map<String, Object>> list = kopisRepository.getList((String) params.get("keyword"));
+		List<Map<String, Object>> list = musicalRepository.getList((String) params.get("keyword"));
 		// List<Musical> list = kopisRepository.getList((String)params.get("keyword"));
 		logger.debug("musical db get List end");
 		return list;
