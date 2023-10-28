@@ -16,6 +16,7 @@ import Modal from './pages/Common/modal';
 import MainSlider from './pages/Common/Home';
 import DockBar from './components/DockBar/DockBar';
 
+import Search from './pages/Search/search';
 
 
 function App() {
