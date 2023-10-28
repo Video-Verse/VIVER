@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.viver.service.api.DramaService;
+import com.project.viver.service.api.MovieService;
 import com.project.viver.service.api.MusicalService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,12 @@ public class ApiService {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	MusicalService kopisService;
+	
+	@Autowired
+	MovieService movieService;
+	
+	@Autowired
+	DramaService dramaService;
 
 	/**
 	 * 검색
@@ -31,7 +39,10 @@ public class ApiService {
 	 */
 	public List<Map<String, Object>> search(Map<String, Object> params) throws ParseException {
 		List<Map<String, Object>> result = new ArrayList<>();
+		
 		Map<String,Object> musical = new HashMap<>();
+		Map<String,Object> movie = new HashMap<>();
+		Map<String,Object> drama = new HashMap<>();
 		// 일배치를 돌린다면 db에서만 가져와도 되지 않을까 하는 맴
 		// 초기 데이터를 많이 넣어놔야 할듯
 
@@ -45,7 +56,15 @@ public class ApiService {
 		// 영화
 		// tmdb 이미지 base url https://image.tmdb.org/t/p/original
 		//
-
+		List<Map<String, Object>> movieList = movieService.getList(params);
+		movie.put("movie", movieList);
+		result.add(movie);
+		
+		//드라마
+//		List<Map<String, Object>> dramaList = dramaService.getList(params);
+//		drama.put("drama", dramaList);
+//		result.add(drama);
+		
 		// 2. 결과가 적으면 api 날려보기
 		//kopisService.sendApi(params);
 		// 3. 그 결과 디비에 업데이트 치기
