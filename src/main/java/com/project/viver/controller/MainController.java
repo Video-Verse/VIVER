@@ -14,8 +14,7 @@ import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.ApiService;
 
 @RestController
-@RequestMapping("/api")
-public class ApiController {
+public class MainController {
 
 	@Autowired
 	private ResponseService responseService;

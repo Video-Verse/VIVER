@@ -159,7 +159,7 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 	}
 
 	/**
-	 * db에서 가져오기
+	 * getList
 	 * 
 	 * @param params
 	 * @return
@@ -169,6 +169,19 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		List<Map<String, Object>> list = musicalRepository.getList((String) params.get("keyword"));
 		// List<Musical> list = kopisRepository.getList((String)params.get("keyword"));
 		logger.debug("musical db get List end");
+		return list;
+	}
+	
+	/**
+	 * 검색 리스트 (id, 포스터, 이름)
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> getSearchList(Map<String, Object> params) {
+		logger.debug("musical db get search List start");
+		List<Map<String, Object>> list = musicalRepository.getSearchList((String) params.get("keyword"));
+		logger.debug("musical db get search List end");
 		return list;
 	}
 

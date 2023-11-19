@@ -14,24 +14,39 @@ import com.project.viver.entity.tmdb.Drama;
 @Repository
 public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepositoryCustom{
 
-	//드라마 디비 생성 후 수정하기
 	@Query(value =
 		    "select "
-		    + "    t.drama_id"                       /*movie_id*/
-		    + "  , t.id "                            /*tmbd_id*/
-		    + "  , t.title "                         /*제목*/
-		    + "  , t.original_title"                 /*원제목*/
-		    + "  , t.adult"                          /*성인유무*/
+		    + "    t.drama_id"                       /*drama_id*/
+		    + "  , t.id "                            /*id*/
+		    + "  , t.name "                          /*제목*/
+		    + "  , t.backdrop_path"                  /*배경이미지*/
+		    + "  , t.original_language"              /*원어*/
+		    + "  , t.original_name"                  /*원제목*/
 		    + "  , t.overview"                       /*줄거리*/
 		    + "  , t.popularity"                     /*인기도*/
 		    + "  , t.poster_path"                    /*포스터*/
-		    + "  , t.release_date"                   /*개봉일*/
+		    + "  , t.first_air_date"                 /*?*/
 		    + "  , t.vote_average"                   /*평점*/
 		    + "from viver.tb_drama t"
 			+ " where t.del_yn = 'N' and"
-			+ " ( t.title LIKE CONCAT('%', :keyword, '%')"
-			+ " OR t.original_title LIKE CONCAT('%', :keyword, '%'))"
+			+ " ( t.name LIKE CONCAT('%', :keyword, '%')"
+			+ " OR t.original_name LIKE CONCAT('%', :keyword, '%'))"
 			+ " Order by title asc"
 			+ " limit 100", nativeQuery = true)
 	List<Map<String,Object>> getList(@Param("keyword") String keyword);
+	
+	@Query(value =
+		    "select "
+		    + "    t.drama_id"                       /*drama_id*/
+		    + "  , t.id "                            /*id*/
+		    + "  , t.name "                          /*제목*/
+		    + "  , t.poster_path"                    /*포스터*/
+		    + "  , t.vote_average"                   /*평점*/
+		    + " from viver.tb_drama t"
+			+ " where t.del_yn = 'N' and"
+			+ " ( t.name LIKE CONCAT('%', :keyword, '%')"
+			+ " OR t.original_name LIKE CONCAT('%', :keyword, '%'))"
+			+ " Order by name asc"
+			+ " limit 10", nativeQuery = true)
+	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 }

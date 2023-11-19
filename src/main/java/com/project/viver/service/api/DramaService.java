@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.project.viver.common.component.HttpClientComponent;
 import com.project.viver.common.constraint.CommonId;
@@ -103,6 +102,19 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 	public List<Map<String, Object>> getList(Map<String, Object> params) {
 		logger.debug("drama db get List start");
 		List<Map<String, Object>> list = dramaRepository.getList((String) params.get("keyword"));
+		logger.debug("drama db get List end");
+		return list;
+	}
+	
+	/**
+	 * 검색 리스트
+	 *
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> getSearchList(Map<String, Object> params) {
+		logger.debug("drama db get List start");
+		List<Map<String, Object>> list = dramaRepository.getSearchList((String) params.get("keyword"));
 		logger.debug("drama db get List end");
 		return list;
 	}

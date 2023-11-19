@@ -33,4 +33,20 @@ public interface MovieRepository extends JpaRepository<Movie, String>, MovieRepo
 			+ " Order by t.title asc"
 			+ " limit 100", nativeQuery = true)
 	List<Map<String,Object>> getList(@Param("keyword") String keyword);
+	
+	@Query(value = 
+		    "select "
+		    + "    t.movie_id"                       /*movie_id*/
+		    + "  , t.id "                            /*tmbd_id*/
+		    + "  , t.title "                         /*제목*/
+		    + "  , t.original_title"                 /*원제목*/
+		    + "  , t.adult"                          /*성인유무*/
+		    + "  , t.poster_path"                    /*포스터*/
+		    + " from viver.tb_movie t"
+			+ " where t.del_yn = 'N' and"
+			+ " ( t.title LIKE CONCAT('%', :keyword, '%')"
+			+ " OR t.original_title LIKE CONCAT('%', :keyword, '%'))"
+			+ " Order by t.title asc"
+			+ " limit 10", nativeQuery = true)
+	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 }
