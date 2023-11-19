@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.viver.common.response.model.ListResult;
 import com.project.viver.common.response.model.SingleResult;
 import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.api.MovieService;
+import com.project.viver.service.api.TvService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,11 +24,19 @@ public class TmdbController {
 	private MovieService tmdbService;
 
 	@Autowired
+	private TvService tvService;
+
+	@Autowired
 	private ResponseService responseService;
 
-    @GetMapping(value = "/discover")
-    public SingleResult<Map<String, Object>> dashboard() {
-        return responseService.getSingleResult(tmdbService.getDiscover());
+    @GetMapping(value = "/movie")
+    public SingleResult<Map<String, Object>> getMovieDiscover() {
+        return responseService.getSingleResult(tmdbService.getMovieDiscover());
+    }
+
+       @GetMapping(value = "/tv")
+    public ListResult<Map<String, Object>> getTvDiscover() {
+        return responseService.getListResult(tvService.getTvDiscover());
     }
 
 }

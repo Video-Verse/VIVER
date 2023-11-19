@@ -30,15 +30,15 @@ abstract public class BaseService<T extends BaseEntity, ID extends Serializable,
 
 	@Transactional
 	public T insert(T t ) {
-		t.setCrtDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"),DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
-		t.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"),DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+		t.setCrtDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		t.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		t.setDelYn(Optional.No.value());
 		return super.insert(t);
 	}
 
 	@Transactional
 	public T update(ID id, T e) {
-		e.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyyMMddHHmmss"), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+		e.setMdfnDt(LocalDateTime.parse(DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		return super.update(id, e);
 	}
 
