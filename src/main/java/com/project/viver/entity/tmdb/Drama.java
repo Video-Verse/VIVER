@@ -25,7 +25,7 @@ public class Drama extends BaseEntity {
 	private static final long serialVersionUID = -3927574973426688826L;
 
 	@Id
-    private String tvId;
+    private String dramaId;
 
     private Long   id;
     private String name;
