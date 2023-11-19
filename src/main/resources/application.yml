@@ -33,7 +33,9 @@ token:
 api : 
   kopis : bbf08c05fac24dfbb7d8d741014869fe
   tmdb : 85b0b0fb6cf5bd7e1276742dc568a958
+  language: ko-KR
   
 #api base url
 baseUrl:
   kopis : http://kopis.or.kr/openApi/restful
+  tmdb: https://api.themoviedb.org/3

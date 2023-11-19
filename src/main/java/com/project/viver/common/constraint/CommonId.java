@@ -7,7 +7,7 @@ public enum CommonId {
 	, BOOKMARK("BM")        //보관
 	, REG_CONTENTS("RC")    //등록작품
 	, MOVIE("MV")           //영화
-	, TV("TV")           //드라마
+	, DRAMA("DR")           //드라마
 	, MUSICAL("MS")         //뮤지컬
 	, TYPE("TY")            //작품타입
 	, IMG("IM")             //이미지

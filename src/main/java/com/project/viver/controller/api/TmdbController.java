@@ -11,7 +11,7 @@ import com.project.viver.common.response.model.ListResult;
 import com.project.viver.common.response.model.SingleResult;
 import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.api.MovieService;
-import com.project.viver.service.api.TvService;
+import com.project.viver.service.api.DramaService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class TmdbController {
 	private MovieService tmdbService;
 
 	@Autowired
-	private TvService tvService;
+	private DramaService dramaService;
 
 	@Autowired
 	private ResponseService responseService;
@@ -34,9 +34,9 @@ public class TmdbController {
         return responseService.getSingleResult(tmdbService.getMovieDiscover());
     }
 
-       @GetMapping(value = "/tv")
-    public ListResult<Map<String, Object>> getTvDiscover() {
-        return responseService.getListResult(tvService.getTvDiscover());
+    @GetMapping(value = "/drama")
+    public ListResult<Map<String, Object>> getDramaDiscover() {
+        return responseService.getListResult(dramaService.getDramaDiscover());
     }
 
 }
