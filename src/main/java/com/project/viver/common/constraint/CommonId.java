@@ -9,7 +9,6 @@ public enum CommonId {
 	, MOVIE("MV")           //영화
 	, DRAMA("DR")           //드라마
 	, MUSICAL("MS")         //뮤지컬
-	, TYPE("TY")            //작품타입
 	, IMG("IM")             //이미지
 	, BANNER("BN")          //배너
 	, BATCH("BT")           //배치

@@ -39,4 +39,19 @@ public interface MusicalRepository extends JpaRepository<Musical, String>{
 			+ " limit 100", nativeQuery = true)
 	List<Map<String,Object>> getList(@Param("keyword") String keyword);
 	
+	@Query(value = 
+			  "SELECT "
+			+ "    t.mv_id"                         /*db id*/
+			+ "  , t.mt20id"                        /*공연 id*/
+			+ "  , t.prfnm"                         /*공연명*/
+			+ "  , t.poster"                        /*포스터url*/
+			+ " from tb_musical t"
+			+ " where t.del_yn = 'N' and"
+			+ " ( t.prfnm LIKE CONCAT('%', :keyword, '%')"
+			+ " OR t.prfcast LIKE CONCAT('%', :keyword, '%')"
+			+ " OR t.prfcrew LIKE CONCAT('%', :keyword, '%'))"
+			+ " Order by prfnm asc"
+			+ " limit 10", nativeQuery = true)
+	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
+	
 }

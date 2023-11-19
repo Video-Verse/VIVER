@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.viver.common.constraint.CommonId;
 import com.project.viver.service.api.DramaService;
 import com.project.viver.service.api.MovieService;
 import com.project.viver.service.api.MusicalService;
@@ -21,12 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ApiService {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
+
+	final String tmdbImgBaseurl = "https://image.tmdb.org/t/p/original";
 	@Autowired
 	MusicalService kopisService;
-	
+
 	@Autowired
 	MovieService movieService;
-	
+
 	@Autowired
 	DramaService dramaService;
 
@@ -38,45 +42,52 @@ public class ApiService {
 	 * @throws ParseException
 	 */
 	public List<Map<String, Object>> search(Map<String, Object> params) throws ParseException {
+		logger.debug("검색 시작");
 		List<Map<String, Object>> result = new ArrayList<>();
-		
-		Map<String,Object> musical = new HashMap<>();
-		Map<String,Object> movie = new HashMap<>();
-		Map<String,Object> drama = new HashMap<>();
-		// 일배치를 돌린다면 db에서만 가져와도 되지 않을까 하는 맴
-		// 초기 데이터를 많이 넣어놔야 할듯
 
-		logger.debug("search start");
-		// 1. db에 먼저 찾아보기
-		// 뮤지컬
-		List<Map<String, Object>> musicalList = kopisService.getList(params);
-		musical.put("musical", musicalList);
-		result.add(musical);
+		List<Map<String, Object>> movieList = new ArrayList<>();
+		List<Map<String, Object>> dramaList = new ArrayList<>();
+		List<Map<String, Object>> musicalList = new ArrayList<>();
 
-		// 영화
-		// tmdb 이미지 base url https://image.tmdb.org/t/p/original
-		//
-		List<Map<String, Object>> movieList = movieService.getList(params);
-		movie.put("movie", movieList);
-		result.add(movie);
-		
-		//드라마
-//		List<Map<String, Object>> dramaList = dramaService.getList(params);
-//		drama.put("drama", dramaList);
-//		result.add(drama);
-		
-		// 2. 결과가 적으면 api 날려보기
-		//kopisService.sendApi(params);
-		// 3. 그 결과 디비에 업데이트 치기
+		Map<String, Object> musical = new HashMap<>();
+		Map<String, Object> movie = new HashMap<>();
+		Map<String, Object> drama = new HashMap<>();
 
-		// keyword
-		// movie
+		// 카테고리 (전체 / 영화 / 드라마 / 뮤지컬에 따라 달라지기)
+		String type = (String) params.get("type");
 
-		// drama
+		logger.debug("검색 타입 확인 : " + type);
+		if (StringUtils.equals(type, CommonId.MOVIE.value())) { // 영화
+			logger.debug("영화 검색 시작");
+			movieList = movieService.getSearchList(params);
+			movie.put("movie", movieList);
+			result.add(movie);
+		} else if (StringUtils.equals(type, CommonId.DRAMA.value())) { // 드라마
+			logger.debug("드라마 검색 시작");
+			dramaList = dramaService.getSearchList(params);
+			drama.put("drama", dramaList);
+			result.add(drama);
+		} else if (StringUtils.equals(type, CommonId.MUSICAL.value())) { // 뮤지컬
+			logger.debug("뮤지컬 검색 시작");
+			musicalList = kopisService.getSearchList(params);
+			musical.put("musical", musicalList);
+			result.add(musical);
+		} else { // 전체
+			logger.debug("전체 검색 시작 ");
+			movieList = movieService.getSearchList(params);
+			movie.put("movie", movieList);
+			result.add(movie);
 
-		// musical
-		//
-		// 일배치 통해 db에 들어간다 -> db 확인해서 뿌려주기
+			dramaList = dramaService.getSearchList(params);
+			drama.put("drama", dramaList);
+			result.add(drama);
+
+			musicalList = kopisService.getSearchList(params);
+			musical.put("musical", musicalList);
+			result.add(musical);
+		}
+		logger.debug("검색 종료 return");
+
 		return result;
 	}
 

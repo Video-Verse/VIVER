@@ -92,7 +92,7 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
     }
 
     /**
-	 * db에서 가져오기
+	 * get List
 	 *
 	 * @param params
 	 * @return
@@ -100,6 +100,19 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 	public List<Map<String, Object>> getList(Map<String, Object> params) {
 		logger.debug("movie db get List start");
 		List<Map<String, Object>> list = movieRepository.getList((String) params.get("keyword"));
+		logger.debug("movie db get List end");
+		return list;
+	}
+	
+	/**
+	 * 검색 리스트 
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> getSearchList(Map<String, Object> params) {
+		logger.debug("movie db get List start");
+		List<Map<String, Object>> list = movieRepository.getSearchList((String) params.get("keyword"));
 		logger.debug("movie db get List end");
 		return list;
 	}
