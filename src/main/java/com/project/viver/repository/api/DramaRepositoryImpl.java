@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import com.project.viver.entity.tmdb.Movie;
+import com.project.viver.entity.tmdb.Drama;
 import com.project.viver.repository.DefaultRepository;
 
 public class DramaRepositoryImpl extends DefaultRepository implements DramaRepositoryCustom{
@@ -18,7 +18,7 @@ public class DramaRepositoryImpl extends DefaultRepository implements DramaRepos
 	 * 검색
 	 *
 	 */
-	public Page<Movie> search(Map<String, Object> params, PageRequest pageable) {
+	public Page<Drama> search(Map<String, Object> params, PageRequest pageable) {
 
 		Map<String, Object> queryParams = new HashMap<>() ;
 	    List<String> where = new ArrayList<>() ;
@@ -35,7 +35,7 @@ public class DramaRepositoryImpl extends DefaultRepository implements DramaRepos
 	    orders.add(" t.prfpdto desc");
 
 
-		return searchPage(Movie.class, where, queryParams, orders, pageable);
+		return searchPage(Drama.class, where, queryParams, orders, pageable);
 	}
 
 }

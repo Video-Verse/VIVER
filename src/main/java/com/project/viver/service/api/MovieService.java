@@ -1,20 +1,19 @@
 package com.project.viver.service.api;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.project.viver.common.component.HttpClientComponent;
 import com.project.viver.common.constraint.CommonId;
 import com.project.viver.entity.tmdb.Movie;
-import com.project.viver.entity.tmdb.Tv;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.BusinessException;
 import com.project.viver.repository.api.MovieRepository;
@@ -43,11 +42,11 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 
 	@Autowired
 	CommonRepository commonRepository;
-	
+
 	@Autowired
 	MovieRepository movieRepository;
 
-	// protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	 //리스트 조회 및 등록
     public Map<String, Object> getMovieDiscover() {
@@ -65,9 +64,9 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 
 			if (results.size() > 1) {
 				for (Map<String, Object> map : results) {
-					// logger.info(map.get("id").toString());
-					// logger.info(map.get("title").toString());
-					// logger.info(map.get("adult").toString());
+					logger.info(map.get("id").toString());
+					logger.info(map.get("title").toString());
+					logger.info(map.get("adult").toString());
 					String movieId = commonRepository.getId(CommonId.MOVIE.value());
 					Movie movie = new Movie(movieId
 							, Long.parseLong(map.get("id").toString())
@@ -91,17 +90,17 @@ public class MovieService extends BaseService<Movie, String, MovieRepository> {
 		}
 		return result;
     }
-    
+
     /**
 	 * db에서 가져오기
-	 * 
+	 *
 	 * @param params
 	 * @return
 	 */
 	public List<Map<String, Object>> getList(Map<String, Object> params) {
-		// logger.debug("movie db get List start");
+		logger.debug("movie db get List start");
 		List<Map<String, Object>> list = movieRepository.getList((String) params.get("keyword"));
-		// logger.debug("movie db get List end");
+		logger.debug("movie db get List end");
 		return list;
 	}
 

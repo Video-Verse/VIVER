@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.project.viver.entity.tmdb.DramaSample;
+import com.project.viver.entity.tmdb.Drama;
 
 
 @Repository
-public interface DramaRepository extends JpaRepository<DramaSample, String>, DramaRepositoryCustom{
+public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepositoryCustom{
 
 	//드라마 디비 생성 후 수정하기
-	@Query(value = 
+	@Query(value =
 		    "select "
 		    + "    t.drama_id"                       /*movie_id*/
 		    + "  , t.id "                            /*tmbd_id*/
