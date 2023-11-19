@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import { useHistory } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import './Search.css';
 
 const SearchInp = ({ onSearch }) => {
     
     const [searchItems, setSearchItems] = useState('');
-    // const history = useHistory();
+    const navigate = useNavigate ();
 
     const handleChange = (event) => {
         setSearchItems(event.target.value);
@@ -19,12 +19,11 @@ const SearchInp = ({ onSearch }) => {
     const handleSearch = (searchItems) => {
         //검색기능 수행
         if (onSearch) {
-            onSearch(searchItems);
-            // if (searchItems === 'nodata') {
-            //     history.push('/nodata');
-            // } else {
-            //     onSearch(searchItems);
-            // }
+            if (searchItems === 'nodata') {
+                navigate.push('/nodata');
+            } else {
+                onSearch(searchItems);
+            }
 
         }
     };
