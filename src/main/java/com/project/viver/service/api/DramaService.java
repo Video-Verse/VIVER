@@ -51,7 +51,7 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 	CommonRepository commonRepository;
 
 	 //리스트 조회 및 등록
-    public List<Map<String, Object>> getDramaDiscover() {
+    public Map<String, Object> getDramaDiscover() {
     	Map<String, Object> result = new HashMap<String, Object>();
     	List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
 
@@ -60,36 +60,46 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("api_key", apiKey);
 		param.put("language", language);
+		param.put("with_genres", "18");
 
 		try {
-			result = httpClientComponent.get(baseUrl, "/discover/tv", header, param);
-			results = (List<Map<String, Object>>) result.get("results");
-
-			 if (results.size() > 1) {
-			 	for (Map<String, Object> map : results) {
-			 		 logger.info(map.get("id").toString());
-			 		 logger.info(map.get("name").toString());
-			 		String DramaId = commonRepository.getId(CommonId.DRAMA.value());
-			 		Drama drama = new Drama(DramaId
-			 				, Long.parseLong(map.get("id").toString())
-			 				, map.get("name").toString()
-			 				, map.get("original_language").toString(), map.get("original_name").toString()
-			 				, map.get("overview").toString()
-			 				, map.get("poster_path").toString()
-			 				, map.get("backdrop_path").toString()
-			 				, Float.parseFloat(map.get("vote_average").toString())
-			 				, Long.parseLong(map.get("vote_count").toString())
-			 				, map.get("first_air_date").toString().replaceAll("-", "")
-			 				, Float.parseFloat(map.get("popularity").toString()));
-			 		super.insert(drama);
-			 	}
-			 }
-
-
+			int page = 1;
+			int totalPage = 0;
+			int totalCnt = 0;
+			do {
+				param.put("page", page);
+				result = httpClientComponent.get(baseUrl, "/discover/tv", header, param);
+				totalPage = (int) result.get("total_pages");
+				results = (List<Map<String, Object>>) result.get("results");
+				 if (results.size() > 1) {
+				 	for (Map<String, Object> map : results) {
+//				 		 logger.info(map.get("id").toString());
+//				 		 logger.info(map.get("name").toString());
+				 		String DramaId = commonRepository.getId(CommonId.DRAMA.value());
+				 		Drama drama = new Drama(DramaId
+				 				, Long.parseLong(map.get("id").toString())
+				 				, map.get("name").toString()
+				 				, map.get("original_language").toString()
+								, map.get("original_name").toString()
+								, map.get("overview") != null ? map.get("overview").toString() : null
+								, map.get("poster_path") != null ? map.get("poster_path").toString() : null
+				 				, map.get("backdrop_path") != null ? map.get("backdrop_path").toString() : null
+								, map.get("vote_average") != null ? Float.parseFloat(map.get("vote_average").toString()) : null
+								, map.get("vote_count") != null ? Long.parseLong(map.get("vote_count").toString()) : null
+				 				, map.get("first_air_date").toString().replaceAll("-", "")
+				 				, map.get("popularity") != null ? Float.parseFloat(map.get("popularity").toString()) : null
+								);
+				 		super.insert(drama);
+				 		totalCnt++;
+				 	}
+				 }
+				 logger.info("page 갯수 " +page);
+			} while (totalPage >= ++page  && page < 10);
+			logger.info(totalCnt + "개 저장 끝!!!!!!!!");
 		} catch (BusinessException e) {
 			throw new BusinessException(ErrorCode.INTERNAL_SERVER_ERROR);
 		}
-		return results;
+		return result;
     }
 
 

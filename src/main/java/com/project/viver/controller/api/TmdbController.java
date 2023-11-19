@@ -35,8 +35,8 @@ public class TmdbController {
     }
 
     @GetMapping(value = "/drama")
-    public ListResult<Map<String, Object>> getDramaDiscover() {
-        return responseService.getListResult(dramaService.getDramaDiscover());
+    public SingleResult<Map<String, Object>> getDramaDiscover() {
+        return responseService.getSingleResult(dramaService.getDramaDiscover());
     }
 
 }
