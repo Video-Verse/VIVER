@@ -29,12 +29,12 @@ const SearchInp = ({ onSearch }) => {
     };
 
     return (
-        <div className="input-box">
+        <div className="input-box search-inp">
             <button type="button" className="btn-search" onClick={handleSearch}><span className="blind">검색</span></button>
-        <   input type="text" className="input" placeholder="검색어를 입력하세요" value={searchItems} onChange={handleChange}/>
+            <input type="text" className="input" placeholder="검색어를 입력하세요" value={searchItems} onChange={handleChange}/>
             {searchItems && (
                 <button type="button" className="btn-del" onClick={handleClear}><span className="blind">삭제</span></button>
-        )}
+            )}
             
         </div>
     )
