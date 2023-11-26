@@ -8,9 +8,10 @@ import './styles/reset.css';
 
 // import Header from './components/Header/Header';
 import DockBar from './components/DockBar/DockBar';
-import Search from './pages/Search/Search';
+// import Search from './pages/Search/Search';
 // import Login from './pages/Login/Login';
 // import Join from './pages/Login/Join';
+import Result from './pages/Search/Result';
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
         {/* <Login /> */}
         {/* <Join /> */}
         {/* <MainSlider/> */}
-        <Search />
+            {/* <Search /> */}
+        <Result/>
         <DockBar />
     </div>
  

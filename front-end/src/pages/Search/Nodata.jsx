@@ -4,7 +4,6 @@ import './Nodata.css';
 import SearchInp from "./SearchInp";
 
 const Nodata = () => {
-    const [searchItems, setSearchItems] = useState('');
     const [searchCount, setSearchCount] = useState(0); //검색결과 카운트
     
     const handleSearch = (searchItems) => {
