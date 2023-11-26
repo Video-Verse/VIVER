@@ -3,7 +3,8 @@ import Slider from "react-slick";
 
 import "../Common/Home.css";
 import Header from "../../components/Header/Header";
-
+import Card from "../Main/Card";
+import { useParams } from 'react-router-dom';
 
 const MainSlider = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -38,12 +39,32 @@ const MainSlider = () => {
     const slideSettings = { //슬라이드 옵션
         dots: false,
         arrows: false,
-        Infinite: true,
+        infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: activeTab
     };
+    
+    //가상데이터
+    const LockerData = {
+        movies: [
+            { id: 1, title: '영화 1', category: 'movies' },
+            { id: 2, title: '영화 2', category: 'movies' },
+            { id: 2, title: '영화 4', category: 'movies' },
+            { id: 2, title: '영화 7', category: 'movies' },
+            { id: 2, title: '영화 4', category: 'movies' },
+        ],
+        tv: [
+            { id: 3, title: 'tv 1', category: 'tv' },
+            { id: 4, title: 'tv 2', category: 'tv' },
+        ],
+        musical: [
+            { id: 5, title: 'musical 1', category: 'musical' },
+            { id: 6, title: 'musical 2', category: 'musical' },
+        ],
+    };
+    console.log(LockerData);
 
     return (
         <div>
@@ -66,7 +87,7 @@ const MainSlider = () => {
                                 <p className="total">총 <span className="count">[N]</span>건</p>
                                 <a href="#none" className="filter"><span className="blind">필터</span></a>
                             </div>
-                            {'$(tab} content'}
+                            {<Card title="영화" data={LockerData.movies} />}
                         </div>
                     ))}
                 </Slider>
