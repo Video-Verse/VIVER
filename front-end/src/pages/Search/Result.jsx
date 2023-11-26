@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import './Search.css';
+import './search.css';
 import Header from './../../components/Header/Header';
 import SearchInp from './SearchInp';
 

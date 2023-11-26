@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "../../components/Header/Header";
-import './Search.css';
+import './search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {
