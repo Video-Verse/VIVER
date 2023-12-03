@@ -1,6 +1,6 @@
 .header {display:flex;align-items:center;height:48px;padding:12px;justify-content:space-between;}
 .title {font-size:18px;font-weight:700;}
 .header-logo {display:inline-block;width:48px;height:22px;background:url('../../assets/images/logo_kr.png') no-repeat;background-size:48px auto;}
-.btn-back {display:inline-block;width:48px;height:48px;background:url('../../assets/images/ic_back.png') no-repeat;background-size:48px auto;}
+.btn-back {display:inline-block;width:24px;height:24px;background:url('../../assets/images/ic_back.png') no-repeat;background-size:24px auto;}
 .btn-search {display:inline-block;width:24px;height:24px;background:url('../../assets/images/ic_search.png') no-repeat;background-size:24px auto;}
 
