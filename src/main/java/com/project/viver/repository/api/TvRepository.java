@@ -12,11 +12,11 @@ import com.project.viver.entity.tmdb.Drama;
 
 
 @Repository
-public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepositoryCustom{
+public interface TvRepository extends JpaRepository<Drama, String>, TvRepositoryCustom{
 
 	@Query(value =
 		    "select "
-		    + "    t.drama_id"                       /*drama_id*/
+		    + "    t.tv_id"                       /*drama_id*/
 		    + "  , t.id "                            /*id*/
 		    + "  , t.name "                          /*제목*/
 		    + "  , t.backdrop_path"                  /*배경이미지*/
@@ -27,7 +27,7 @@ public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepo
 		    + "  , t.poster_path"                    /*포스터*/
 		    + "  , t.first_air_date"                 /*?*/
 		    + "  , t.vote_average"                   /*평점*/
-		    + "from viver.tb_drama t"
+		    + "from viver.tb_tv t"
 			+ " where t.del_yn = 'N' and"
 			+ " ( t.name LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.original_name LIKE CONCAT('%', :keyword, '%'))"
@@ -37,12 +37,12 @@ public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepo
 	
 	@Query(value =
 		    "select "
-		    + "    t.drama_id"                       /*drama_id*/
+		    + "    t.tv_id"                       /*drama_id*/
 		    + "  , t.id "                            /*id*/
 		    + "  , t.name "                          /*제목*/
 		    + "  , t.poster_path"                    /*포스터*/
 		    + "  , t.vote_average"                   /*평점*/
-		    + " from viver.tb_drama t"
+		    + " from viver.tb_tv t"
 			+ " where t.del_yn = 'N' and"
 			+ " ( t.name LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.original_name LIKE CONCAT('%', :keyword, '%'))"

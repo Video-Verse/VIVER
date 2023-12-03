@@ -11,7 +11,7 @@ import com.project.viver.common.response.model.ListResult;
 import com.project.viver.common.response.model.SingleResult;
 import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.api.MovieService;
-import com.project.viver.service.api.DramaService;
+import com.project.viver.service.api.TvService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class TmdbController {
 	private MovieService tmdbService;
 
 	@Autowired
-	private DramaService dramaService;
+	private TvService dramaService;
 
 	@Autowired
 	private ResponseService responseService;

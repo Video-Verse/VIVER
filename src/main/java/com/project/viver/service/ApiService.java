@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.viver.common.constraint.CommonId;
-import com.project.viver.service.api.DramaService;
 import com.project.viver.service.api.MovieService;
 import com.project.viver.service.api.MusicalService;
+import com.project.viver.service.api.TvService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +32,7 @@ public class ApiService {
 	MovieService movieService;
 
 	@Autowired
-	DramaService dramaService;
+	TvService tvService;
 
 	/**
 	 * 검색
@@ -41,17 +41,17 @@ public class ApiService {
 	 * @return
 	 * @throws ParseException
 	 */
-	public List<Map<String, Object>> search(Map<String, Object> params) throws ParseException {
+	public Map<String, Object> search(Map<String, Object> params) throws ParseException {
 		logger.debug("검색 시작");
-		List<Map<String, Object>> result = new ArrayList<>();
+		Map<String, Object> result = new HashMap<>();
 
 		List<Map<String, Object>> movieList = new ArrayList<>();
-		List<Map<String, Object>> dramaList = new ArrayList<>();
+		List<Map<String, Object>> tvList = new ArrayList<>();
 		List<Map<String, Object>> musicalList = new ArrayList<>();
 
 		Map<String, Object> musical = new HashMap<>();
 		Map<String, Object> movie = new HashMap<>();
-		Map<String, Object> drama = new HashMap<>();
+		Map<String, Object> tv = new HashMap<>();
 
 		// 카테고리 (전체 / 영화 / 드라마 / 뮤지컬에 따라 달라지기)
 		String type = (String) params.get("type");
@@ -60,31 +60,25 @@ public class ApiService {
 		if (StringUtils.equals(type, CommonId.MOVIE.value())) { // 영화
 			logger.debug("영화 검색 시작");
 			movieList = movieService.getSearchList(params);
-			movie.put("movie", movieList);
-			result.add(movie);
+			result.put("movie", movieList);
 		} else if (StringUtils.equals(type, CommonId.TV.value())) { // 드라마
 			logger.debug("드라마 검색 시작");
-			dramaList = dramaService.getSearchList(params);
-			drama.put("drama", dramaList);
-			result.add(drama);
+			tvList = tvService.getSearchList(params);
+			result.put("tv", tvList);
 		} else if (StringUtils.equals(type, CommonId.MUSICAL.value())) { // 뮤지컬
 			logger.debug("뮤지컬 검색 시작");
 			musicalList = kopisService.getSearchList(params);
-			musical.put("musical", musicalList);
-			result.add(musical);
+			result.put("musical", musicalList);
 		} else { // 전체
 			logger.debug("전체 검색 시작 ");
 			movieList = movieService.getSearchList(params);
-			movie.put("movie", movieList);
-			result.add(movie);
+			result.put("movie", movieList);
 
-			dramaList = dramaService.getSearchList(params);
-			drama.put("drama", dramaList);
-			result.add(drama);
+			tvList = tvService.getSearchList(params);
+			result.put("tv", tvList);;
 
 			musicalList = kopisService.getSearchList(params);
-			musical.put("musical", musicalList);
-			result.add(musical);
+			result.put("musical", musicalList);
 		}
 		logger.debug("검색 종료 return");
 
