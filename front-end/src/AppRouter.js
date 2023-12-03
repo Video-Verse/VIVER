@@ -19,7 +19,7 @@ function AppRouter() {
             <Route path="sociallogin" element={<SocialLogin />} />
             <Route path="join" element={<Join />} />
 
-            <Route path="/" exact element= {<Search />} /> 
+            <Route path="/search" exact element= {<Search />} /> 
             <Route path="/nodata" exact element= {<Nodata />} />
                
         </Routes>
