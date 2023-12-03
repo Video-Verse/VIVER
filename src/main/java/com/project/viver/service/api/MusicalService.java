@@ -5,21 +5,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.project.viver.common.component.HttpClientComponent;
 import com.project.viver.common.constraint.CommonId;
+import com.project.viver.common.constraint.DefaultValue;
 import com.project.viver.common.response.service.ResponseService;
-import com.project.viver.common.util.DateUtil;
 import com.project.viver.entity.kopis.Musical;
-import com.project.viver.error.ErrorCode;
-import com.project.viver.error.exception.BusinessException;
 import com.project.viver.repository.api.MusicalRepository;
 import com.project.viver.repository.common.CommonRepository;
 import com.project.viver.service.common.BaseService;
@@ -36,14 +33,8 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		super(repository);
 	}
 
-	@Value("${api.kopis}")
-	private String apiKey;
-
-	@Value("${baseUrl.kopis}")
-	private String baseUrl;
-
 	@Autowired
-	HttpClientComponent httpClientComponent;
+	MusicalApiService musicalApiService;
 
 	@Autowired
 	ResponseService responseService;
@@ -53,110 +44,6 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 
 	@Autowired
 	CommonRepository commonRepository;
-
-	/**
-	 * 뮤지컬 목록 api 연결
-	 * 
-	 * @param params
-	 * @return
-	 * @throws ParseException
-	 */
-	public List<Map<String, Object>> sendListApi(Map<String, Object> params) throws ParseException {
-		List<Map<String, Object>> list = new ArrayList<>();
-		Map<String,Object> dbs = new HashMap<String, Object>();
-		Map<String, Object> result = new HashMap<String, Object>();
-
-		Map<String, Object> header = new HashMap<String, Object>();
-
-		logger.debug("musical send List api start");
-
-		int cpage = 1;
-		int rows = 10;
-		int loop = 5;
-
-		for (int i = 0; i < loop; i++) {
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("service", apiKey); // 인증키
-			param.put("stdate", "20100101"); // 공연시작일
-			param.put("eddate", DateUtil.AddDate(DateUtil.getSimpleDate(), 365)); // 공연종료일 (1년뒤)
-			param.put("cpage", String.valueOf(cpage)); // 현재페이지
-			param.put("rows", String.valueOf(rows)); // 페이지당 목록수
-			param.put("shprfnm", params.get("keyword")); // 공연명 키워드
-
-			try {
-				logger.debug("musical http connect");
-				result = httpClientComponent.get(baseUrl, "/pblprfr", header, param);
-				Object dbsValue = result.get("dbs");
-				if(dbsValue instanceof Map) {
-					dbs = (Map<String,Object>) dbsValue;
-				} else {
-					return null;
-				}
-				
-				Object db = dbs.get("db");
-				if (db instanceof Map) {
-				    Map<String, Object> dbMap = (Map<String, Object>) db;
-				    insert(dbMap);
-				} else if (db instanceof List) {
-					List<Map<String, Object>> dbList = (List<Map<String, Object>>) db;
-
-					logger.debug("musical http connect end");
-					for (Map<String, Object> map : dbList) {
-						insert(map);
-					}
-				}
-				logger.debug("musical db insert");
-			} catch (BusinessException e) {
-				logger.debug("musical send api error");
-				throw new BusinessException(ErrorCode.INTERNAL_SERVER_ERROR);
-			}
-			cpage++;
-		}
-
-		logger.debug("musical send List api end");
-		return list;
-	}
-	
-	/**
-	 * 뮤지컬 상세 api 연결
-	 * 
-	 * @param params
-	 * @return
-	 * @throws ParseException
-	 */
-	public List<Map<String, Object>> sendDetailApi(String mt20id) throws ParseException {
-		List<Map<String, Object>> list = new ArrayList<>();
-		Map<String,Object> dbs = new HashMap<String, Object>();
-		Map<String, Object> result = new HashMap<String, Object>();
-
-		Map<String, Object> header = new HashMap<String, Object>();
-
-		logger.debug("musical send Detail api start");
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("service", apiKey); // 인증키
-
-		try {
-			logger.debug("musical http connect");
-			result = httpClientComponent.get(baseUrl, "/pblprfr/" + mt20id, header, param);
-			Object dbsValue = result.get("dbs");
-			if(dbsValue instanceof Map) {
-				dbs = (Map<String,Object>) dbsValue;
-			} else {
-				return null;
-			}
-			
-		    Map<String, Object> dbMap = (Map<String, Object>) dbs.get("db");
-		    update(dbMap);
-			logger.debug("musical db update");
-		} catch (BusinessException e) {
-			logger.debug("musical send api error");
-			throw new BusinessException(ErrorCode.INTERNAL_SERVER_ERROR);
-		}
-
-		logger.debug("musical send Detail api end");
-		return list;
-	}
 
 	/**
 	 * getList
@@ -171,7 +58,7 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		logger.debug("musical db get List end");
 		return list;
 	}
-	
+
 	/**
 	 * 검색 리스트 (id, 포스터, 이름)
 	 * 
@@ -189,9 +76,97 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		logger.debug("musical db get select");
 		return super.get(mv_id);
 	}
-	
-	public void insert(Map<String, Object> map) {
-		logger.debug("musical db get select");
+
+	/**
+	 * 배치용 후처리
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> batch(Map<String, Object> params) {
+		// 맨첨 배치 돌린다 -> 일단 insert 함 -> 상세 없는 애들 id만 뽑음 -> api 반복 돌림
+
+		// 이후 배치 -> 기존에 id들을 다 가져옴 -> api 리스트에서 비교 -> id 일치 하지 않는 애들만 고름
+		// -> 걔네들 insert -> 그 id 기준으로 상세 api 돌리기 -> update
+		// 또는 그 로직안에서 상세 api 돌려서 set 하고 -> insert
+
+		// 만약 배치 제대로 돌렸는데도 상세가 없다 -> 매일 밤에 그것들만 따로 모아서 상세api 돌아야할듯
+
+		// 1. db에서 musical id만 가져오기
+		List<Musical> musicalList = musicalRepository.findAll();
+		List<String> musicalIdList = musicalList.stream().map(Musical::getMt20id).collect(Collectors.toList());
+		// 2. 배치돌려서 가져온 리스트에서 id만 추출
+
+		// 3. 2개의 id 리스트를 비교하여
+
+		logger.debug("musical db get search List start");
+		List<Map<String, Object>> list = musicalRepository.getSearchList((String) params.get("keyword"));
+		logger.debug("musical db get search List end");
+		return list;
+	}
+
+	/**
+	 * 뮤지컬 목록 api 연결 (배치용)
+	 * 
+	 * @param params
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<Map<String, Object>> sendListApi(Map<String, Object> params) throws ParseException {
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> dbs = new HashMap<String, Object>();
+		Map<String, Object> defaultResult = new HashMap<String, Object>();
+
+		logger.debug("musical send List api start");
+
+		for (int i = 1; i <= DefaultValue.DEFAULT_LOOP_SIZE; i++) {
+			Musical musical = new Musical();
+
+			defaultResult = musicalApiService.getAllListApi(params, i);
+
+			if (defaultResult != null) {
+				Object db = dbs.get("db");
+				if (db instanceof Map) { // 응답데이터가 1개임
+					Map<String, Object> dbMap = (Map<String, Object>) db;
+					postProcess(dbMap, musical);
+
+				} else if (db instanceof List) { // 응답데이터 list
+					List<Map<String, Object>> dbList = (List<Map<String, Object>>) db;
+
+					logger.debug("musical http connect end");
+					for (Map<String, Object> map : dbList) {
+						postProcess(map, musical);
+						//Thread.sleep(300);
+					}
+				}
+			} else {
+				// db 끝 =>
+				return null;
+			}
+		}
+
+		return list;
+	}
+
+	public void postProcess(Map<String, Object> db, Musical musical) throws ParseException {
+		Map<String, Object> detailResult = new HashMap<String, Object>();
+		logger.debug("뮤지컬 공연 목록 api 응답 데이터 기본 세팅");
+		musical = defaultSet(db);
+		logger.debug("해당 Musical mt20id로 상세 조회 및 세팅");
+		detailResult = musicalApiService.sendDetailApi(musical.getMt20id());
+
+		musical = detailSet(detailResult, musical);
+		logger.debug("Musical insert");
+		super.insert(musical);
+	}
+
+	/**
+	 * 공연 목록 api 응답 기본 세팅값
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public Musical defaultSet(Map<String, Object> map) {
 		Musical musical = new Musical();
 		musical.setMv_id(commonRepository.getId(CommonId.MUSICAL.value()));
 		musical.setMt20id((String) map.get("mt20id"));
@@ -203,39 +178,66 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 		musical.setPoster((String) map.get("poster"));
 		musical.setFcitynm((String) map.get("fcltynm"));
 		musical.setOpenrun((String) map.get("openrun"));
-		super.insert(musical);
+
+		return musical;
 	}
-	
-	
+
 	/**
-	 * 공연 상세 조회해서 넣는 것
+	 * 공연 상세 api 응답 세팅값
 	 * 
-	 * @param param
+	 * @param map
+	 * @param musical
+	 * @return
 	 */
-	public void update(Map<String,Object> param) {
-		Musical musical = new Musical();
-		musical.setMv_id((String)param.get("mv_id"));
-		musical.setMt20id((String) param.get("mt20id"));
-		musical.setPrfnm((String) param.get("prfnm"));
-		musical.setPrfpdfrom(StringUtils.remove((String) param.get("prfpdfrom"), "."));
-		musical.setPrfpdto(StringUtils.remove((String) param.get("prfpdto"), "."));
-		musical.setFcitynm((String) param.get("fcltynm"));
-		musical.setPrfcast((String) param.get("prfcast"));
-		musical.setPrfcrew((String) param.get("prfcrew"));
-		musical.setPrfruntime((String) param.get("prfruntime"));
-		musical.setPrfage((String) param.get("prfage"));
-		musical.setEntrpsnm((String) param.get("entrpsnm"));
-		musical.setPoster((String) param.get("poster"));
-		musical.setSty((String) param.get("sty"));
-		musical.setGenrenm((String) param.get("genrenm"));
-		musical.setPrfstate((String) param.get("prfstate"));
-		musical.setOpenrun((String) param.get("openrun"));
-		musical.setDtguidance((String) param.get("dtguidance"));
-		musical.setPcseguidance((String) param.get("pcseguidance"));
+	public Musical detailSet(Map<String, Object> map, Musical musical) {
+		musical.setPrfcast((String) map.get("prfcast"));
+		musical.setPrfcrew((String) map.get("prfcrew"));
+		musical.setPrfruntime((String) map.get("prfruntime"));
+		musical.setPrfage((String) map.get("prfage"));
+		musical.setEntrpsnm((String) map.get("entrpsnm"));
+		musical.setSty((String) map.get("sty"));
+		musical.setPcseguidance((String) map.get("pcseguidance"));
+		musical.setDtguidance((String) map.get("dtguidance"));
 		musical.setDelYn("N");
-		
-		super.update((String)param.get("mv_id"), musical);
+
+		return musical;
 	}
+
+//	public void insert(Map<String, Object> map) {
+//		logger.debug("musical db get select");
+//		Musical musical = new Musical();
+//		musical.setMv_id(commonRepository.getId(CommonId.MUSICAL.value()));
+//		musical.setMt20id((String) map.get("mt20id"));
+//		musical.setPrfnm((String) map.get("prfnm"));
+//		musical.setGenrenm((String) map.get("genrenm"));
+//		musical.setPrfstate((String) map.get("prfstate"));
+//		musical.setPrfpdfrom(StringUtils.remove((String) map.get("prfpdfrom"), "."));
+//		musical.setPrfpdto(StringUtils.remove((String) map.get("prfpdto"), "."));
+//		musical.setPoster((String) map.get("poster"));
+//		musical.setFcitynm((String) map.get("fcltynm"));
+//		musical.setOpenrun((String) map.get("openrun"));
+//		super.insert(musical);
+//	}
+
+//	/**
+//	 * 공연 상세 조회해서 넣는 것
+//	 * 
+//	 * @param param
+//	 */
+//	public void update(Map<String, Object> param) {
+//		Musical musical = new Musical();
+//		musical.setPrfcast((String) param.get("prfcast"));
+//		musical.setPrfcrew((String) param.get("prfcrew"));
+//		musical.setPrfruntime((String) param.get("prfruntime"));
+//		musical.setPrfage((String) param.get("prfage"));
+//		musical.setEntrpsnm((String) param.get("entrpsnm"));
+//		musical.setSty((String) param.get("sty"));
+//		musical.setPcseguidance((String) param.get("pcseguidance"));
+//		musical.setDtguidance((String) param.get("dtguidance"));
+//		musical.setDelYn("N");
+//
+//		super.update((String) param.get("mv_id"), musical);
+//	}
 
 	// delete
 

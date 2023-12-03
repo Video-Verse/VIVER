@@ -54,6 +54,9 @@ dependencies {
 	// json
 	implementation group: 'org.json', name: 'json', version: '20230618'
 	
+	//batch
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	
 }
 
 dependencyManagement {
