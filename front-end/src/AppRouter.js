@@ -9,6 +9,7 @@ import { LoginInfoProvider } from "./context/LoginInfoContext";
 
 import Search from "./pages/Search/Search";
 import Nodata from "./pages/Search/Nodata";
+import Result from "./pages/Search/Result";
 
 function AppRouter() {
   return (
@@ -20,6 +21,7 @@ function AppRouter() {
             <Route path="join" element={<Join />} />
 
             <Route path="/search" exact element= {<Search />} /> 
+            <Route path="/result" exact element= {<Result />} /> 
             <Route path="/nodata" exact element= {<Nodata />} />
                
         </Routes>

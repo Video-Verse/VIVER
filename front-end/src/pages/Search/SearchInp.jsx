@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { useNavigate  } from 'react-router-dom';
 import './Search.css';
 import $ from 'jquery';
@@ -6,13 +6,13 @@ import axios from 'axios';
 
 const SearchInp = ({ onSearch }) => {
 	const inputRef = useRef();
+    const navigate = useNavigate ();
 	
 	useEffect(() => {
 		inputRef.current.focus();
 		
 	})
     const [searchItems, setSearchItems] = useState('');
-    const navigate = useNavigate ();
 
     const handleChange = (event) => {
         setSearchItems(event.target.value);
@@ -34,21 +34,9 @@ const SearchInp = ({ onSearch }) => {
 		axios.post("/search", param)
 		.then(response => {
 			console.log(response)
+			navigate("/result");
 		})
-		/*fetch("/search", param)
-		.then(response => {
-			console.log(response)
-		}).then(message => {
-			console.log(message)
-		})*/
-        //검색기능 수행
-        /*if (onSearch) {
-            if (searchItems === 'nodata') {
-                navigate.push('/nodata');
-            } else {
-                onSearch(searchItems);
-            }
-        }*/
+
     };
 
     return (

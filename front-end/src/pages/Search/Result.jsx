@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate  } from 'react-router-dom';
+import $ from 'jquery';
+import axios from 'axios';
 
 import './Search.css';
 import Header from './../../components/Header/Header';
@@ -9,6 +12,14 @@ import poster2 from '../../assets/images/img_sample2.png';
 
 
 const Result = () => {
+	
+	useEffect(() => {
+		$("#title").text("검색결과");
+		$("#btn-search").css('visibility', 'hidden');
+	})
+	
+	
+	
     const [searchCount, setSearchCount] = useState(0); //검색결과 카운트
     
     const handleSearch = (searchItems) => {
