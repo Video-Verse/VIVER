@@ -62,7 +62,7 @@ public class ApiService {
 			movieList = movieService.getSearchList(params);
 			movie.put("movie", movieList);
 			result.add(movie);
-		} else if (StringUtils.equals(type, CommonId.DRAMA.value())) { // 드라마
+		} else if (StringUtils.equals(type, CommonId.TV.value())) { // 드라마
 			logger.debug("드라마 검색 시작");
 			dramaList = dramaService.getSearchList(params);
 			drama.put("drama", dramaList);
