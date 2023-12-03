@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import $ from 'jquery';
 
 import Header from "../../components/Header/Header";
@@ -6,10 +6,15 @@ import './Search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {
+	
 
 	useEffect(() => {
 		$("#categoryAll").prop("checked", true);
+		//$("#searchInput").focus();
+		
 	})
+	
+	
 	
     return (
             
