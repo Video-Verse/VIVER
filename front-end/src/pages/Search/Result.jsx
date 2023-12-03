@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -12,21 +12,46 @@ import poster2 from '../../assets/images/img_sample2.png';
 
 
 const Result = () => {
+	const location = useLocation();
+	const searchKeyword = location.state.keyword;
+	var data = location.state.data;
+	
+	console.log(data)
+	var bookmark='';
+	var movie = [];
+	var tv = [];
+	var musical = [];
 	
 	useEffect(() => {
 		$("#title").text("검색결과");
 		$("#btn-search").css('visibility', 'hidden');
+		$("#searchKeyword").val(searchKeyword);
+		makeCard(data);
 	})
 	
+	function makeCard(data) {
+		
+		console.log(data)
+		movie = data.movie;
+		tv = data.tv;
+		musical = data.musical;
+		
+		var movieCnt = movie.length;
+		var tvCnt = tv.length;
+		var musicalCnt = musical.length;
+		
+		var totalCnt = movieCnt + tvCnt + musicalCnt;
+		$("#movieCnt").text("["+movieCnt+"]");
+		$("#totalCnt").text("("+totalCnt+")");
+	}
 	
-	
-    const [searchCount, setSearchCount] = useState(0); //검색결과 카운트
+   /* const [searchCount, setSearchCount] = useState(totalCnt); //검색결과 카운트
     
     const handleSearch = (searchItems) => {
         console.log('search :', searchItems);
         
         setSearchCount(11); //실제 결과 갯수 업뎃
-    };
+    };*/
     
     const [activeDibs, setActiveDibs] = useState(null);
     const toggleDibs = (itemId) => {
@@ -40,18 +65,21 @@ const Result = () => {
     }
 
     return (
+		
+					
+
         <div>
             <Header />
             <div className="wrap">
-                <SearchInp onSearch={handleSearch} />
+                <SearchInp />
                 <div className="content">
                     <h3 className="content-title">
-                        검색결과 ({searchCount})
+                        검색결과 <span id="totalCnt">[N]</span>
                     </h3>
                     
                     <div className="view-area">
                         {/* 내보관함에서 불러옴 - 저장기능 없음 */}
-                        <h3 className="view-count">내 작품 <span className="num">[N]</span></h3>
+                        <h3 className="view-count">내 작품 <span className="num" >[N]</span></h3>
                         <ul className="list-wrap">
                             <li>
                                 <a href="#none">
@@ -103,9 +131,15 @@ const Result = () => {
                     
                     <div className="view-area">
                         {/* 영화 */}
-                        <h3 className="view-count">영화 <span className="num">[N]</span></h3>
+                        <h3 className="view-count">영화 <span className="num" id="movieCnt">[N]</span></h3>
                         <ul className="list-wrap">
-                            <li>
+                        
+                         {
+				            data.map((a, i) => {
+				              return <Card products={a} num={i} key={i}/>
+				            })
+				          }
+                            {/*<li>
                                 <a href="#none">
                                     <div className="img-box">
                                         <img src={poster2} alt="poster" className="poster"/>
@@ -152,7 +186,7 @@ const Result = () => {
                                 <a href="#none">
                                    + 더보기
                                 </a>
-                            </li>
+                            </li>*/}
                         </ul>
                     </div>
                     
@@ -162,5 +196,21 @@ const Result = () => {
         </div>
     )
 }
+
+function Card(props) {
+	  return(
+	    <li>
+            <a href="#none">
+                <div className="img-box">
+                    <img src={"https://image.tmdb.org/t/p/original"+props.products.poster_path} alt="poster" className="poster"/>
+                </div>
+                <span className="name">{props.products.title}</span>
+            </a>
+            {/*<button className={`btn-dibs ${activeDibs === 'btn-dibs' ? 'btn-dibs-after' : 'btn-dibs'}`}
+                onClick={() => toggleDibs()}
+            ><span className="blind">보관함에 저장하기</span></button>*/}
+        </li>
+	  )
+	}	
 
 export default Result;
