@@ -6,10 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.viver.common.response.model.ListResult;
+import com.project.viver.common.response.model.SingleResult;
 import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.service.ApiService;
 
@@ -26,7 +25,7 @@ public class MainController {
 	 * 검색
 	 */
 	@PostMapping(value = "/search")
-	public ListResult<Map<String, Object>> search(@RequestBody Map<String, Object> params) throws ParseException {
-		return responseService.getListResult(apiService.search(params));
+	public SingleResult<Map<String, Object>> search(@RequestBody Map<String, Object> params) throws ParseException {
+		return responseService.getSingleResult(apiService.search(params));
 	}
 }

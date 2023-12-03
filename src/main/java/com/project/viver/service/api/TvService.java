@@ -16,7 +16,7 @@ import com.project.viver.common.constraint.CommonId;
 import com.project.viver.entity.tmdb.Drama;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.BusinessException;
-import com.project.viver.repository.api.DramaRepository;
+import com.project.viver.repository.api.TvRepository;
 import com.project.viver.repository.common.CommonRepository;
 import com.project.viver.service.common.BaseService;
 
@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class DramaService extends BaseService<Drama, String, DramaRepository>{
+public class TvService extends BaseService<Drama, String, TvRepository>{
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	public DramaService(DramaRepository repository) {
+	public TvService(TvRepository repository) {
 		super(repository);
 	}
 
@@ -45,7 +45,7 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 	HttpClientComponent httpClientComponent;
 
 	@Autowired
-	DramaRepository dramaRepository;
+	TvRepository dramaRepository;
 
 	@Autowired
 	CommonRepository commonRepository;
@@ -123,9 +123,9 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 	 * @return
 	 */
 	public List<Map<String, Object>> getSearchList(Map<String, Object> params) {
-		logger.debug("drama db get List start");
+		logger.debug("tv db get List start");
 		List<Map<String, Object>> list = dramaRepository.getSearchList((String) params.get("keyword"));
-		logger.debug("drama db get List end");
+		logger.debug("tv db get List end");
 		return list;
 	}
 
