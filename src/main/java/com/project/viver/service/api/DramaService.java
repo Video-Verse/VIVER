@@ -75,7 +75,7 @@ public class DramaService extends BaseService<Drama, String, DramaRepository>{
 				 	for (Map<String, Object> map : results) {
 //				 		 logger.info(map.get("id").toString());
 //				 		 logger.info(map.get("name").toString());
-				 		String DramaId = commonRepository.getId(CommonId.DRAMA.value());
+				 		String DramaId = commonRepository.getId(CommonId.TV.value());
 				 		Drama drama = new Drama(DramaId
 				 				, Long.parseLong(map.get("id").toString())
 				 				, map.get("name").toString()

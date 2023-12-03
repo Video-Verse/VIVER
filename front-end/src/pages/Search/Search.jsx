@@ -1,15 +1,19 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import $ from 'jquery';
+import axios from 'axios';
 
 import Header from "../../components/Header/Header";
 import './Search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {
-
+	
 	useEffect(() => {
 		$("#categoryAll").prop("checked", true);
+		$("#title").text("검색");
+		$("#btn-search").css('visibility', 'hidden');
 	})
+	
 	
     return (
             
@@ -25,19 +29,19 @@ const Search = () => {
                     
                     <div className="category">
                         <div className="radio-box">
-                            <input type="radio" id="categoryAll" name="searchCategory"/>
+                            <input type="radio" id="categoryAll" name="searchCategory" value="all"/>
                             <label htmlFor="categoryAll">전체</label>
                         </div>
                         <div className="radio-box">
-                            <input type="radio" id="categoryMv" name="searchCategory" />
+                            <input type="radio" id="categoryMv" name="searchCategory" value="MV"/>
                             <label htmlFor="categoryMv">영화</label>
                         </div>
                         <div className="radio-box">
-                            <input type="radio" id="categoryTv" name="searchCategory" />
+                            <input type="radio" id="categoryTv" name="searchCategory" value="TV"/>
                             <label htmlFor="categoryTv">TV</label>
                         </div>
                         <div className="radio-box">
-                            <input type="radio" id="categoryMs" name="searchCategory" />
+                            <input type="radio" id="categoryMs" name="searchCategory" value="MS"/>
                             <label htmlFor="categoryMs">뮤지컬</label>
                         </div>
                     </div>
