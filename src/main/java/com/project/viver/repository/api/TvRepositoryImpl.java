@@ -12,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import com.project.viver.entity.tmdb.Drama;
 import com.project.viver.repository.DefaultRepository;
 
-public class DramaRepositoryImpl extends DefaultRepository implements DramaRepositoryCustom{
+public class TvRepositoryImpl extends DefaultRepository implements TvRepositoryCustom{
 
 	/**
 	 * 검색

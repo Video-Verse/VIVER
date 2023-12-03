@@ -16,7 +16,7 @@ import com.project.viver.common.constraint.CommonId;
 import com.project.viver.entity.tmdb.Drama;
 import com.project.viver.error.ErrorCode;
 import com.project.viver.error.exception.BusinessException;
-import com.project.viver.repository.api.DramaRepository;
+import com.project.viver.repository.api.TvRepository;
 import com.project.viver.repository.common.CommonRepository;
 import com.project.viver.service.common.BaseService;
 
@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class TvService extends BaseService<Drama, String, DramaRepository>{
+public class TvService extends BaseService<Drama, String, TvRepository>{
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	public TvService(DramaRepository repository) {
+	public TvService(TvRepository repository) {
 		super(repository);
 	}
 
@@ -45,7 +45,7 @@ public class TvService extends BaseService<Drama, String, DramaRepository>{
 	HttpClientComponent httpClientComponent;
 
 	@Autowired
-	DramaRepository dramaRepository;
+	TvRepository dramaRepository;
 
 	@Autowired
 	CommonRepository commonRepository;

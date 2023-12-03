@@ -12,7 +12,7 @@ import com.project.viver.entity.tmdb.Drama;
 
 
 @Repository
-public interface DramaRepository extends JpaRepository<Drama, String>, DramaRepositoryCustom{
+public interface TvRepository extends JpaRepository<Drama, String>, TvRepositoryCustom{
 
 	@Query(value =
 		    "select "
