@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
+import $ from 'jquery';
 
 import Header from "../../components/Header/Header";
 import './search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {
-    const handleSearch = (searchItems) => {
-        console.log('search :', searchItems);
-    };
 
+	useEffect(() => {
+		$("#categoryAll").prop("checked", true);
+	})
+	
     return (
             
         <div>
@@ -23,7 +25,7 @@ const Search = () => {
                     
                     <div className="category">
                         <div className="radio-box">
-                            <input type="radio" id="categoryAll" name="searchCategory" />
+                            <input type="radio" id="categoryAll" name="searchCategory"/>
                             <label htmlFor="categoryAll">전체</label>
                         </div>
                         <div className="radio-box">
@@ -40,7 +42,7 @@ const Search = () => {
                         </div>
                     </div>
                     
-                    <SearchInp onSearch={handleSearch} />
+                    <SearchInp />
                 </div>
 
             </div>

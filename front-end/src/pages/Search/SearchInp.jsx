@@ -24,8 +24,9 @@ const SearchInp = ({ onSearch }) => {
             } else {
                 onSearch(searchItems);
             }
-
         }
+        
+        console.log("dddd")
     };
 
     return (
