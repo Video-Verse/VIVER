@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
 
-import './search.css';
+import './Search.css';
 import Header from './../../components/Header/Header';
 import SearchInp from './SearchInp';
 

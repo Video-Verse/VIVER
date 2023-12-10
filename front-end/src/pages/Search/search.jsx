@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useNavigate } from "react";
 import $ from 'jquery';
 import axios from 'axios';
 
 import Header from "../../components/Header/Header";
-import './search.css';
+import './Search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {

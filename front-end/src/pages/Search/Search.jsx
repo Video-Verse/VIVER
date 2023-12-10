@@ -3,7 +3,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import Header from "../../components/Header/Header";
-import './search.css';
+import './Search.css';
 import SearchInp from "./SearchInp";
 
 const Search = () => {
