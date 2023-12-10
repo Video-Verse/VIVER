@@ -37,16 +37,16 @@ public interface TvRepository extends JpaRepository<Drama, String>, TvRepository
 	
 	@Query(value =
 		    "select "
-		    + "    t.tv_id"                       /*drama_id*/
-		    + "  , t.id "                            /*id*/
-		    + "  , t.name "                          /*제목*/
-		    + "  , t.poster_path"                    /*포스터*/
-		    + "  , t.vote_average"                   /*평점*/
+		    + "    t.tv_id               as db_id"                       /*drama_id*/
+		    + "  , t.id                  as id"                            /*id*/
+		    + "  , t.name                as title"                          /*제목*/
+		    + "  , t.poster_path         as poster"                    /*포스터*/
+		    + "  , t.vote_average        as vote"                   /*평점*/
 		    + " from viver.tb_tv t"
 			+ " where t.del_yn = 'N' and"
-			+ " ( t.name LIKE CONCAT('%', :keyword, '%')"
-			+ " OR t.original_name LIKE CONCAT('%', :keyword, '%'))"
-			+ " Order by name asc"
-			+ " limit 10", nativeQuery = true)
+			+ " ( LOWER(t.name) LIKE CONCAT('%', LOWER(:keyword), '%')"
+			+ " OR LOWER(t.original_name) LIKE CONCAT('%', LOWER(:keyword), '%'))"
+			+ " Order by t.id desc"
+			+ " limit 5", nativeQuery = true)
 	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 }

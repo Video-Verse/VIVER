@@ -30,7 +30,6 @@ const Result = () => {
 	})
 	
 	function makeCard(data) {
-		
 		console.log(data)
 		movie = data.movie;
 		tv = data.tv;
@@ -65,9 +64,6 @@ const Result = () => {
     }
 
     return (
-		
-					
-
         <div>
             <Header />
             <div className="wrap">
@@ -81,7 +77,7 @@ const Result = () => {
                         {/* 내보관함에서 불러옴 - 저장기능 없음 */}
                         <h3 className="view-count">내 작품 <span className="num" >[N]</span></h3>
                         <ul className="list-wrap">
-                            <li>
+                            {/*<li>
                                 <a href="#none">
                                     <div className="img-box">
                                         <img src={poster} alt="poster" className="poster"/>
@@ -120,7 +116,7 @@ const Result = () => {
                                     </div>
                                     <span className="name">title</span>
                                 </a>
-                            </li>
+                            </li>*/}
                             <li className="more">
                                 <a href="#none">
                                    + 더보기
@@ -134,63 +130,17 @@ const Result = () => {
                         <h3 className="view-count">영화 <span className="num" id="movieCnt">[N]</span></h3>
                         <ul className="list-wrap">
                         
-                         {
-				            data.map((a, i) => {
-				              return <Card products={a} num={i} key={i}/>
-				            })
-				          }
-                            {/*<li>
-                                <a href="#none">
-                                    <div className="img-box">
-                                        <img src={poster2} alt="poster" className="poster"/>
-                                    </div>
-                                    <span className="name">엘리멘탈</span>
-                                </a>
-                                <button className={`btn-dibs ${activeDibs === 'btn-dibs' ? 'btn-dibs-after' : 'btn-dibs'}`}
-                                    onClick={() => toggleDibs()}
-                                ><span className="blind">보관함에 저장하기</span></button>
-                            </li>
-                            <li>
-                                <a href="#none">
-                                    <div className="img-box">
-                                        <img src={poster} alt="poster" className="poster"/>
-                                    </div>
-                                    <span className="name">세인트 세이야 더 비기닝 블라블라</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#none">
-                                    <div className="img-box">
-                                        <img src={poster2} alt="poster" className="poster"/>
-                                    </div>
-                                    <span className="name">응답하라 1993</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#none">
-                                    <div className="img-box">
-                                        <img src={poster} alt="poster" className="poster"/>
-                                    </div>
-                                    <span className="name">title</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#none">
-                                    <div className="img-box">
-                                        <img src={poster} alt="poster" className="poster"/>
-                                    </div>
-                                    <span className="name">title</span>
-                                </a>
-                            </li>
+                         {data.movie.map((movie) => (
+					          <Card key={movie.movie_id} id={movie.id} title={movie.title} name={movie.org_title} posterPath={movie.poster} />
+					        ))}
+                            
                             <li className="more">
                                 <a href="#none">
                                    + 더보기
                                 </a>
-                            </li>*/}
+                            </li>
                         </ul>
                     </div>
-                    
-                    {/* <p className="nodata">일치하는 검색결과가 없습니다.</p> */}
                 </div>
             </div>
         </div>
@@ -198,17 +148,27 @@ const Result = () => {
 }
 
 function Card(props) {
+	console.log(props)
+	
+	if(props == null) {
+		return (
+			<p className="nodata">일치하는 검색결과가 없습니다.</p>
+		)
+	}
 	  return(
-	    <li>
+	    <li key={props.id}>
             <a href="#none">
                 <div className="img-box">
-                    <img src={"https://image.tmdb.org/t/p/original"+props.products.poster_path} alt="poster" className="poster"/>
+                <img src={poster} alt="poster" className="poster"/>
+                    {/*<img src={"https://image.tmdb.org/t/p/original"+props.poster_path} alt="poster" className="poster"/>*/}
                 </div>
-                <span className="name">{props.products.title}</span>
+                <span className="name">{props.title}</span>
             </a>
+            <button><span className="blind">보관함에 저장하기</span></button>
             {/*<button className={`btn-dibs ${activeDibs === 'btn-dibs' ? 'btn-dibs-after' : 'btn-dibs'}`}
                 onClick={() => toggleDibs()}
-            ><span className="blind">보관함에 저장하기</span></button>*/}
+            ><span className="blind">보관함에 저장하기</span>
+            </button>*/}
         </li>
 	  )
 	}	

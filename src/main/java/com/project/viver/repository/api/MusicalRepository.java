@@ -30,7 +30,7 @@ public interface MusicalRepository extends JpaRepository<Musical, String>{
 			+ "  , t.fcitynm"                       /*공연시설명*/
 			+ "  , t.pcseguidance"                  /*티켓 가격*/
 			+ "  , t.prfstate "                     /*공연 상태*/
-			+ " from tb_musical t"
+			+ " from viver.tb_musical t"
 			+ " where t.del_yn = 'N' and"
 			+ " ( t.prfnm LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.prfcast LIKE CONCAT('%', :keyword, '%')"
@@ -41,17 +41,17 @@ public interface MusicalRepository extends JpaRepository<Musical, String>{
 	
 	@Query(value = 
 			  "SELECT "
-			+ "    t.mv_id"                         /*db id*/
-			+ "  , t.mt20id"                        /*공연 id*/
-			+ "  , t.prfnm"                         /*공연명*/
-			+ "  , t.poster"                        /*포스터url*/
-			+ " from tb_musical t"
+			+ "    t.mv_id                as db_id"                         /*db id*/
+			+ "  , t.mt20id               as id"                        /*공연 id*/
+			+ "  , t.prfnm                as title"                         /*공연명*/
+			+ "  , t.poster               as poster"                        /*포스터url*/
+			+ " from viver.tb_musical t"
 			+ " where t.del_yn = 'N' and"
-			+ " ( t.prfnm LIKE CONCAT('%', :keyword, '%')"
+			+ " ( LOWER(t.prfnm) LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.prfcast LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.prfcrew LIKE CONCAT('%', :keyword, '%'))"
-			+ " Order by prfnm asc"
-			+ " limit 10", nativeQuery = true)
+			+ " Order by t.mt20id desc"
+			+ " limit 5", nativeQuery = true)
 	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 	
 }
