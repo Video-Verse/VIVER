@@ -29,7 +29,7 @@
 .view-area .list-wrap li a {display:inline-block;width:100%;height:100%;}
 .view-area .list-wrap li.more {height:160px;background-color:#242424;border-radius:4px;overflow:hidden;}
 .view-area .list-wrap li.more a {color:#fff;font-weight:400;display:flex;align-items:center;justify-content:center;}
-.view-area .list-wrap li a .img-box {width:100%;height:160px;border-radius:4px;overflow:hidden;}
+.view-area .list-wrap li a .img-box {width:100%;height:160px;min-height:auto;border-radius:4px;overflow:hidden;}
 .view-area .list-wrap li a .img-box img {width:100%;height:100%;}
 .view-area .list-wrap li a .name {display:inline-block;width:100%;font-size:12px;font-weight:400;color:#d1d1d1;line-height:25px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 

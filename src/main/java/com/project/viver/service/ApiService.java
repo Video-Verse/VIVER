@@ -16,6 +16,7 @@ import com.project.viver.common.constraint.CommonId;
 import com.project.viver.service.api.MovieService;
 import com.project.viver.service.api.MusicalService;
 import com.project.viver.service.api.TvService;
+import com.project.viver.service.user.BookmarkService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,9 @@ public class ApiService {
 
 	@Autowired
 	TvService tvService;
+	
+	@Autowired
+	BookmarkService bookmarkService;
 
 	/**
 	 * 검색
@@ -45,14 +49,15 @@ public class ApiService {
 		logger.debug("검색 시작");
 		Map<String, Object> result = new HashMap<>();
 
+		List<Map<String, Object>> bookmarkList = new ArrayList<>();
 		List<Map<String, Object>> movieList = new ArrayList<>();
 		List<Map<String, Object>> tvList = new ArrayList<>();
 		List<Map<String, Object>> musicalList = new ArrayList<>();
 
-		Map<String, Object> musical = new HashMap<>();
-		Map<String, Object> movie = new HashMap<>();
-		Map<String, Object> tv = new HashMap<>();
-
+		logger.debug("보관함 검색 시작");
+		bookmarkList = bookmarkService.getSearchList(params);
+		result.put("bookmark", bookmarkList);
+		
 		// 카테고리 (전체 / 영화 / 드라마 / 뮤지컬에 따라 달라지기)
 		String type = (String) params.get("type");
 
