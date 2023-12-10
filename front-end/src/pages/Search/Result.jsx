@@ -30,7 +30,6 @@ const Result = () => {
 	})
 	
 	function makeCard(data) {
-		console.log(data)
 		movie = data.movie;
 		tv = data.tv;
 		musical = data.musical;
@@ -41,6 +40,8 @@ const Result = () => {
 		
 		var totalCnt = movieCnt + tvCnt + musicalCnt;
 		$("#movieCnt").text("["+movieCnt+"]");
+		$("#tvCnt").text("["+tvCnt+"]");
+		$("#musicalCnt").text("["+musicalCnt+"]");
 		$("#totalCnt").text("("+totalCnt+")");
 	}
 	
@@ -129,18 +130,70 @@ const Result = () => {
                         {/* 영화 */}
                         <h3 className="view-count">영화 <span className="num" id="movieCnt">[N]</span></h3>
                         <ul className="list-wrap">
-                        
-                         {data.movie.map((movie) => (
-					          <Card key={movie.movie_id} id={movie.id} title={movie.title} name={movie.org_title} posterPath={movie.poster} />
-					        ))}
-                            
+                        {movie.length > 0 ? (
+                            movie.slice(0,5).map((movie) => (
+                                <Card key={movie.db_id} id={movie.id} title={movie.title} name={movie.org_title} posterPath={movie.poster} />
+                            ))
+                        ): (
+                            <p className="nodata">일치하는 검색결과가 없습니다.</p>
+                        )}
+
+                        {/*더보기 */}
+                        {data.movie.length > 5 && (
+                            <li className="more">
+                                <a href="#none">+ 더보기</a>
+                            </li>
+                        )}
+                        </ul>
+                    </div>
+
+                    <div className="view-area">
+                        {/* TV */}
+                        <h3 className="view-count">TV <span className="num" id="tvCnt">[N]</span></h3>
+                        <ul className="list-wrap">
+                        {tv.length > 0 ? (
+                            tv.slive(0,5).map((tv) => (
+					          <Card key={tv.db_id} id={tv.id} title={tv.title} posterPath={movie.poster} />
+					        ))
+                        ) : (
+                            <p className="nodata">일치하는 검색결과가 없습니다.</p> 
+                        )}
+
+                        {/*더보기 */}
+                        {tv.length > 5 && (
                             <li className="more">
                                 <a href="#none">
                                    + 더보기
                                 </a>
                             </li>
+                        )}
                         </ul>
                     </div>
+
+                    <div className="view-area">
+                        {/* 뮤지컬 */}
+                        <h3 className="view-count">뮤지컬 <span className="num" id="musicalCnt">[N]</span></h3>
+                        <ul className="list-wrap">
+                        {musical.length > 0 ? (
+                            musical.slice(0,5).map((musical) => (
+					          <Card key={musical.db_id} id={musical.id} title={musical.title} posterPath={musical.poster} />
+					        ))
+                        ) : (
+                            <p className="nodata">일치하는 검색결과가 없습니다.</p> 
+                        )}
+
+                        {/*더보기 */}
+                        {musical.length > 5 && (    
+                            <li className="more">
+                                <a href="#none">
+                                   + 더보기
+                                </a>
+                            </li>
+                        )}
+                        </ul>
+                    </div>
+
+                    <p className="nodata">일치하는 검색결과가 없습니다.</p> 
                 </div>
             </div>
         </div>
@@ -150,14 +203,14 @@ const Result = () => {
 function Card(props) {
 	console.log(props)
 	
-	if(props == null) {
+	if(props.length == 0) {
 		return (
 			<p className="nodata">일치하는 검색결과가 없습니다.</p>
 		)
 	}
 	  return(
 	    <li key={props.id}>
-            <a href="#none">
+            <a href="#none" id={props.db_id}>
                 <div className="img-box">
                 <img src={poster} alt="poster" className="poster"/>
                     {/*<img src={"https://image.tmdb.org/t/p/original"+props.poster_path} alt="poster" className="poster"/>*/}
