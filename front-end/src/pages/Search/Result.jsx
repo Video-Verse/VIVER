@@ -130,9 +130,9 @@ const Result = () => {
                         {/* 영화 */}
                         <h3 className="view-count">영화 <span className="num" id="movieCnt">[N]</span></h3>
                         <ul className="list-wrap">
-                        {movie.length > 0 ? (
-                            movie.slice(0,5).map((movie) => (
-                                <Card key={movie.db_id} id={movie.id} title={movie.title} name={movie.org_title} posterPath={movie.poster} />
+                        {data.movie.length > 0 ? (
+                            data.movie.slice(0,5).map((singleMovie) => (
+                                <Card key={singleMovie.db_id} id={singleMovie.id} title={singleMovie.title} name={singleMovie.org_title} posterPath={singleMovie.poster} />
                             ))
                         ): (
                             <p className="nodata">일치하는 검색결과가 없습니다.</p>
@@ -152,8 +152,8 @@ const Result = () => {
                         <h3 className="view-count">TV <span className="num" id="tvCnt">[N]</span></h3>
                         <ul className="list-wrap">
                         {tv.length > 0 ? (
-                            tv.slive(0,5).map((tv) => (
-					          <Card key={tv.db_id} id={tv.id} title={tv.title} posterPath={movie.poster} />
+                            tv.slive(0,5).map((singleTv) => (
+					          <Card key={singleTv.db_id} id={singleTv.id} title={singleTv.title} posterPath={singleTv.poster} />
 					        ))
                         ) : (
                             <p className="nodata">일치하는 검색결과가 없습니다.</p> 
@@ -175,8 +175,8 @@ const Result = () => {
                         <h3 className="view-count">뮤지컬 <span className="num" id="musicalCnt">[N]</span></h3>
                         <ul className="list-wrap">
                         {musical.length > 0 ? (
-                            musical.slice(0,5).map((musical) => (
-					          <Card key={musical.db_id} id={musical.id} title={musical.title} posterPath={musical.poster} />
+                            musical.slice(0,5).map((singleMusical) => (
+					          <Card key={singleMusical.db_id} id={singleMusical.id} title={singleMusical.title} posterPath={singleMusical.poster} />
 					        ))
                         ) : (
                             <p className="nodata">일치하는 검색결과가 없습니다.</p> 
@@ -202,12 +202,6 @@ const Result = () => {
 
 function Card(props) {
 	console.log(props)
-	
-	if(props.length == 0) {
-		return (
-			<p className="nodata">일치하는 검색결과가 없습니다.</p>
-		)
-	}
 	  return(
 	    <li key={props.id}>
             <a href="#none" id={props.db_id}>
