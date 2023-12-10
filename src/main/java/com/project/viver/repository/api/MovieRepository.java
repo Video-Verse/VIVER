@@ -47,6 +47,6 @@ public interface MovieRepository extends JpaRepository<Movie, String>, MovieRepo
 			+ " ( LOWER(t.title) LIKE CONCAT('%', LOWER(:keyword), '%')"
 			+ " OR LOWER(t.original_title) LIKE CONCAT('%', LOWER(:keyword), '%'))"
 			+ " Order by t.id desc"
-			+ " limit 5", nativeQuery = true)
+			+ " limit 6", nativeQuery = true)
 	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 }

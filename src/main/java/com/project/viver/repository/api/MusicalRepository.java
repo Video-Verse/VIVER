@@ -51,7 +51,7 @@ public interface MusicalRepository extends JpaRepository<Musical, String>{
 			+ " OR t.prfcast LIKE CONCAT('%', :keyword, '%')"
 			+ " OR t.prfcrew LIKE CONCAT('%', :keyword, '%'))"
 			+ " Order by t.mt20id desc"
-			+ " limit 5", nativeQuery = true)
+			+ " limit 6", nativeQuery = true)
 	List<Map<String,Object>> getSearchList(@Param("keyword") String keyword);
 	
 }
