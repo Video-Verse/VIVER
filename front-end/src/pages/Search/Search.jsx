@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from "../../components/Header/Header";
 import './Search.css';
 import SearchInp from "./SearchInp";
+import DockBar from "../../components/DockBar/DockBar";
 
 const Search = () => {
 	
@@ -50,6 +51,7 @@ const Search = () => {
                 </div>
 
             </div>
+            <DockBar/>
         </div>
   );
 };

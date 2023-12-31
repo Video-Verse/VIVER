@@ -8,8 +8,7 @@ import Header from './../../components/Header/Header';
 import SearchInp from './SearchInp';
 
 import poster from '../../assets/images/img_sample.png';
-import poster2 from '../../assets/images/img_sample2.png';
-
+import DockBar from "../../components/DockBar/DockBar";
 
 const Result = () => {
     const location = useLocation();
@@ -196,6 +195,7 @@ const Result = () => {
                     {/* <p className="nodata">일치하는 검색결과가 없습니다.</p>  */}
                 </div>
             </div>
+            <DockBar/>
         </div>
     )
 }
