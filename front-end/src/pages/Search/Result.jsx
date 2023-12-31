@@ -16,7 +16,9 @@ const Result = () => {
     
     const location = useLocation();
     const searchKeyword = location.state.keyword;
+    // const searchKeyword = location?.state?.keyword || '';
     var data = location.state.data;
+    // var data = location?.state?.data || {};
 
     console.log(data)
     var bookmark = [];
@@ -143,9 +145,10 @@ const Result = () => {
                             {/*더보기 */}
                             {data.movie.length > 5 && (
                                 <li className="more">
-                                    <a href="#none" onClick={() => setShowMorePopup(true)}>+ 더보기(팝업테스트)</a>
+                                    <a href="#none" >+ 더보기</a>
                                 </li>
                             )}
+                            <button className="test" onClick={() => setShowMorePopup(true)}>팝업테스트</button>
                         </ul>
                     </div>
 
@@ -196,18 +199,19 @@ const Result = () => {
                     </div>
 
                     {/* <p className="nodata">일치하는 검색결과가 없습니다.</p>  */}
-                    
-                    {/*toast popup */}
-                    {showMorePopup && (
-                        <ToastPop
-                        message="보관함에 저장되었습니다."
-                        isVisible={showMorePopup}
-                        onClose={() => setShowMorePopup(false)}
-                        closeButtonText="취소하기"
-                        />
-                    )}
+                 
                 </div>
             </div>
+            {/*toast popup */}
+            {showMorePopup && (
+                <ToastPop
+                message="보관함에 저장되었습니다."
+                isVisible={showMorePopup}
+                onClose={() => setShowMorePopup(false)}
+                closeButtonText="취소하기"
+                />
+            )}
+           
             <DockBar/>
         </div>
     )
