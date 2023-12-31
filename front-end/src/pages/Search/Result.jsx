@@ -9,8 +9,11 @@ import SearchInp from './SearchInp';
 
 import poster from '../../assets/images/img_sample.png';
 import DockBar from "../../components/DockBar/DockBar";
+import ToastPop from "../../components/toastpop/ToastPop";
 
 const Result = () => {
+    const [showMorePopup, setShowMorePopup] = useState(false); //toast popup
+    
     const location = useLocation();
     const searchKeyword = location.state.keyword;
     var data = location.state.data;
@@ -140,7 +143,7 @@ const Result = () => {
                             {/*더보기 */}
                             {data.movie.length > 5 && (
                                 <li className="more">
-                                    <a href="#none">+ 더보기</a>
+                                    <a href="#none" onClick={() => setShowMorePopup(true)}>+ 더보기(팝업테스트)</a>
                                 </li>
                             )}
                         </ul>
@@ -193,6 +196,16 @@ const Result = () => {
                     </div>
 
                     {/* <p className="nodata">일치하는 검색결과가 없습니다.</p>  */}
+                    
+                    {/*toast popup */}
+                    {showMorePopup && (
+                        <ToastPop
+                        message="보관함에 저장되었습니다."
+                        isVisible={showMorePopup}
+                        onClose={() => setShowMorePopup(false)}
+                        closeButtonText="취소하기"
+                        />
+                    )}
                 </div>
             </div>
             <DockBar/>
