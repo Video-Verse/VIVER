@@ -8,10 +8,10 @@ function BottomSheet ({ title, closeModal, contents }) {
         <div class="modal-background"/>
         <div class="bs">
           <div class="bs-header">
-            <img src={icClose} alt="x" onClick={closeModal} />
+            <img src={icClose} alt="닫기" onClick={closeModal} />
           </div>
           <div class="bs-content">
-            <h1>{title}</h1>
+            <h1 className="title">{title}</h1>
             <div>{contents}</div>
           </div>
         </div>
