@@ -82,7 +82,7 @@ const Result = () => {
                         <h3 className="view-count">내 작품 <span className="num" id="bookmarkCnt">[N]</span></h3>
                         <ul className="list-wrap">
                         	{data.bookmark.length > 0 ? (
-                               data.bookmark.map((item) => (
+                               data.bookmark.slice(0, 5).map((item) => (
                                 <li key={item.bm_id}>
                                     {/* Movie 정보 */}
                                     {item.movie_id && (
