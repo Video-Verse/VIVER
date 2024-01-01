@@ -168,7 +168,7 @@ public class MusicalService extends BaseService<Musical, String, MusicalReposito
 	 */
 	public Musical defaultSet(Map<String, Object> map) {
 		Musical musical = new Musical();
-		musical.setMv_id(commonRepository.getId(CommonId.MUSICAL.value()));
+		musical.setMvId(commonRepository.getId(CommonId.MUSICAL.value()));
 		musical.setMt20id((String) map.get("mt20id"));
 		musical.setPrfnm((String) map.get("prfnm"));
 		musical.setGenrenm((String) map.get("genrenm"));

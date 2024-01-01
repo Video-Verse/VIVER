@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header";
 import Card from "../Main/Card";
 import { useParams } from 'react-router-dom';
 import DockBar from "../../components/DockBar/DockBar";
-import Filter from "../../components/bottomsheet/fillter";
+//import Filter from "../../components/bottomsheet/fillter";
 
 const MainSlider = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -68,7 +68,6 @@ const MainSlider = () => {
     };
     console.log(LockerData);
     
-    //bottom pop 관련
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
     const openFilter = () => {
         setBottomSheetVisible(true);
@@ -112,7 +111,7 @@ const MainSlider = () => {
             >
                 {/* 바텀시트에 들어갈 내용을 이곳에 추가 */}
                 <p>바텀시트 내용</p>
-            </Filter>
+            </Filter>*/}
             
             <DockBar/>
         </div>

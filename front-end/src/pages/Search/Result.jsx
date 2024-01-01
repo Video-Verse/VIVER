@@ -67,6 +67,7 @@ const Result = () => {
         })
     }*/
 
+	
     return (
         <div>
             <Header />
@@ -134,7 +135,7 @@ const Result = () => {
                         <ul className="list-wrap">
                             {data.movie.length > 0 ? (
                                 data.movie.slice(0, 5).map((singleMovie) => (
-                                    <Card key={singleMovie.db_id} id={singleMovie.id} title={singleMovie.title} name={singleMovie.org_title} posterPath={singleMovie.poster} />
+                                    <Card key={singleMovie.db_id} id={singleMovie.db_id} type={data.type} title={singleMovie.title} name={singleMovie.org_title} posterPath={singleMovie.poster} />
                                 ))
                             ) : (
                                 <p className="nodata">일치하는 검색결과가 없습니다.</p>
@@ -157,7 +158,7 @@ const Result = () => {
                         <ul className="list-wrap">
                             {data.tv.length > 0 ? (
                                 data.tv.slice(0, 5).map((singleTv) => (
-                                    <Card key={singleTv.db_id} id={singleTv.id} title={singleTv.title} posterPath={singleTv.poster} />
+                                    <Card key={singleTv.db_id} id={singleTv.id} type={data.type} title={singleTv.title} posterPath={singleTv.poster} />
                                 ))
                             ) : (
                                 <p className="nodata">일치하는 검색결과가 없습니다.</p>
@@ -181,7 +182,7 @@ const Result = () => {
                         <ul className="list-wrap">
                             {data.musical.length > 0 ? (
                                 data.musical.slice(0, 5).map((singleMusical) => (
-                                    <Card key={singleMusical.db_id} id={singleMusical.id} title={singleMusical.title} posterPath={singleMusical.poster} />
+                                    <Card key={singleMusical.db_id} id={singleMusical.id} type={data.type} title={singleMusical.title} posterPath={singleMusical.poster} />
                                 ))
                             ) : (
                                 <p className="nodata">일치하는 검색결과가 없습니다.</p>
@@ -217,24 +218,30 @@ const Result = () => {
     )
 }
 
+//각 리스트별 카드 생성
 function Card(props) {
-    console.log(props)
     return (
-        <li key={props.id}>
-            <a href="#none" id={props.db_id}>
+        <li key={props.id} id={props.id}>
+            <a href="#none">
                 <div className="img-box">
                     <img src={poster} alt="poster" className="poster" />
                     {/*<img src={"https://image.tmdb.org/t/p/original"+props.poster_path} alt="poster" className="poster"/>*/}
                 </div>
                 <span className="name">{props.title}</span>
             </a>
-            <button className="btn-dibs"><span className="blind">보관함에 저장하기</span></button>
-            {/*<button className={`btn-dibs ${activeDibs === 'btn-dibs' ? 'btn-dibs-after' : 'btn-dibs'}`}
-                onClick={() => toggleDibs()}
-            ><span className="blind">보관함에 저장하기</span>
-            </button>*/}
+            <button className="btn-dibs" onClick={() => addBookmark(props.id, props.type)}><span className="blind">보관함에 저장하기</span></button>
         </li>
     )
 }
+
+
+//보관함 추가하기
+const addBookmark = (id, type) => {
+	//1. 해당 아이디로 디비 찾기 
+	console.log(id, type);
+	
+	//2. userid도 받아서 보관함 db에 넣기
+	
+};
 
 export default Result;

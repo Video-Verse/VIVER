@@ -1,12 +1,14 @@
 package com.project.viver.service.user;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.project.viver.entity.user.Bookmark;
@@ -29,6 +31,9 @@ public class BookmarkService extends BaseService<Bookmark, String, BookmarkRepos
 
 	@Autowired
 	BookmarkRepository bookmarkRepository;
+	
+	@Autowired
+	BookmarkSpecification bookmarkSpecification;
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -55,6 +60,17 @@ public class BookmarkService extends BaseService<Bookmark, String, BookmarkRepos
 		logger.debug("movie db get List start");
 		List<Map<String, Object>> list = bookmarkRepository.getSearchList((String) params.get("keyword"));
 		logger.debug("movie db get List end");
+		return list;
+	}
+	
+	/**
+	 * 검색 리스트 
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public List<Map<String, Object>> getSearchList2(Map<String, Object> params) {
+		List<Map<String, Object>> list = bookmarkSpecification.searchBookmarksByType(params);	
 		return list;
 	}
 

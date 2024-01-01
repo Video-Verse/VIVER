@@ -13,7 +13,7 @@ import lombok.Data;
 public class Musical extends BaseEntity{
 	private static final long serialVersionUID = 5253502225379611548L;
 	@Id
-	 private String mv_id;
+	 private String mvId;
 	 private String mt20id;
 	 private String prfnm;
 	 private String genrenm;
