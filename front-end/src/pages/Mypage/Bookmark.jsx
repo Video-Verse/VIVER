@@ -7,7 +7,7 @@ import Card from "../Main/Card";
 import { useParams } from 'react-router-dom';
 import DockBar from "../../components/DockBar/DockBar";
 
-const MainSlider = () => {
+const Bookmark = () => {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = ['영화', '드라마', '뮤지컬']
 
@@ -111,7 +111,7 @@ const TabButton = ({ title, active, onClick }) => {
   );
 };
 
-export default MainSlider
+export default Bookmark;
 
 
 
