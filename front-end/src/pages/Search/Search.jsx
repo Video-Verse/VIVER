@@ -30,7 +30,7 @@ const Search = () => {
                     
                     <div className="category">
                         <div className="radio-box">
-                            <input type="radio" id="categoryAll" name="searchCategory" value="all"/>
+                            <input type="radio" id="categoryAll" name="searchCategory" value="ALL"/>
                             <label htmlFor="categoryAll">전체</label>
                         </div>
                         <div className="radio-box">
