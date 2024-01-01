@@ -1,11 +1,14 @@
 package com.project.viver.entity.tmdb;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.project.viver.entity.common.BaseEntity;
+import com.project.viver.entity.user.Bookmark;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +42,6 @@ public class Movie extends BaseEntity {
     private Long   voteCount;
     private String releaseDate;
     private Float  popularity;
-
 
 	public Movie(Map param) {
 		this.id = Long.parseLong(param.get("id").toString());

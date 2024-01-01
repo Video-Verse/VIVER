@@ -12,6 +12,7 @@ public enum CommonId {
 	, IMG("IM")             //이미지
 	, BANNER("BN")          //배너
 	, BATCH("BT")           //배치
+	, ALL("ALL")           //배치
 	;
 
 	private String value;
