@@ -18,9 +18,12 @@ const Result = () => {
     const searchKeyword = location.state.keyword;
     // const searchKeyword = location?.state?.keyword || '';
     var data = location.state.data;
-    // var data = location?.state?.data || {};
 
-    console.log(data)
+	const allId = $("#categoryAll").val();
+	const movieId = $("#categoryMv").val();
+	const tvId = $("#categoryTv").val();
+	const musicalId = $("#categoryMs").val();
+	
     var bookmark = [];
     var movie = [];
     var tv = [];
@@ -34,10 +37,10 @@ const Result = () => {
     })
 
     function makeCard(data) {
-        bookmark = data.bookmark;
-        movie = data.movie;
-        tv = data.tv;
-        musical = data.musical;
+        bookmark = data.bookmark || [];
+        movie = data.movie || [];
+        tv = data.tv || [];
+        musical = data.musical || [];
 
         var movieCnt = movie.length;
         var tvCnt = tv.length;
@@ -53,15 +56,7 @@ const Result = () => {
         $("#totalCnt").text("(" + totalCnt + ")");
     }
 
-    /* const [searchCount, setSearchCount] = useState(totalCnt); //검색결과 카운트
-     
-     const handleSearch = (searchItems) => {
-         console.log('search :', searchItems);
-         
-         setSearchCount(11); //실제 결과 갯수 업뎃
-     };*/
-
-    const [activeDibs, setActiveDibs] = useState(null);
+    /*const [activeDibs, setActiveDibs] = useState(null);
     const toggleDibs = (itemId) => {
         setActiveDibs((prevDibs) => {
             if (prevDibs.includes(itemId)) {
@@ -70,7 +65,7 @@ const Result = () => {
                 return [...prevDibs, itemId];
             }
         })
-    }
+    }*/
 
     return (
         <div>
@@ -86,8 +81,8 @@ const Result = () => {
                         {/* 내보관함에서 불러옴 - 저장기능 없음 */}
                         <h3 className="view-count">내 작품 <span className="num" id="bookmarkCnt">[N]</span></h3>
                         <ul className="list-wrap">
-                            {data.bookmark.map((item) => (
-
+                        	{data.bookmark.length > 0 ? (
+                               data.bookmark.map((item) => (
                                 <li key={item.bm_id}>
                                     {/* Movie 정보 */}
                                     {item.movie_id && (
@@ -118,8 +113,10 @@ const Result = () => {
                                             <span className="name">{item.musical_title}</span>
                                         </a>
                                     )}
-                                </li>
-                            ))}
+                                </li>)
+                            )) : (
+								<p className="nodata">일치하는 검색결과가 없습니다.</p> 
+								)}
 
                             {/*더보기 */}
                             {data.bookmark.length > 5 && (
@@ -130,7 +127,8 @@ const Result = () => {
                         </ul>
                     </div>
 
-                    <div className="view-area">
+					{(data.type === allId || data.type === movieId) && (
+                    <div className="view-area" id="mvArea">
                         {/* 영화 */}
                         <h3 className="view-count">영화 <span className="num" id="movieCnt">[N]</span></h3>
                         <ul className="list-wrap">
@@ -150,9 +148,10 @@ const Result = () => {
                             )}
                             <button className="test" onClick={() => setShowMorePopup(true)}>팝업테스트</button>
                         </ul>
-                    </div>
+                    </div> )}
 
-                    <div className="view-area">
+					{(data.type === allId || data.type === tvId) && (
+                    <div className="view-area" id="tvArea">
                         {/* TV */}
                         <h3 className="view-count">TV <span className="num" id="tvCnt">[N]</span></h3>
                         <ul className="list-wrap">
@@ -173,9 +172,10 @@ const Result = () => {
                                 </li>
                             )}
                         </ul>
-                    </div>
+                    </div>)}
 
-                    <div className="view-area">
+					{(data.type === allId || data.type === musicalId) && (
+                    <div className="view-area" id="musicalArea">
                         {/* 뮤지컬 */}
                         <h3 className="view-count">뮤지컬 <span className="num" id="musicalCnt">[N]</span></h3>
                         <ul className="list-wrap">
@@ -196,7 +196,7 @@ const Result = () => {
                                 </li>
                             )}
                         </ul>
-                    </div>
+                    </div>)}
 
                     {/* <p className="nodata">일치하는 검색결과가 없습니다.</p>  */}
                  

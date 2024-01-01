@@ -86,7 +86,7 @@ public class ApiService {
 			result.put("musical", musicalList);
 		}
 		logger.debug("검색 종료 return");
-
+		result.put("type", type);
 		return result;
 	}
 
