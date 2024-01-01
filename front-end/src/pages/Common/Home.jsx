@@ -68,10 +68,15 @@ const MainSlider = () => {
     };
     console.log(LockerData);
     
+    //bottom pop 관련
     const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
-    const toggleBottomSheet = () => {
-        setBottomSheetVisible(!bottomSheetVisible);
-    };
+    const openFilter = () => {
+        setBottomSheetVisible(true);
+      };
+    
+      const closeFilter = () => {
+        setBottomSheetVisible(false);
+      };
 
     return (
         <div>
@@ -92,7 +97,7 @@ const MainSlider = () => {
                         <div key={index} className="tab-content">
                             <div className="filter-area">
                                 <p className="total">총 <span className="count">[N]</span>건</p>
-                                <a href="#none" className="filter" onClick={toggleBottomSheet}><span className="blind">필터</span></a>
+                                <a href="#none" className="filter" onClick={openFilter}><span className="blind">필터</span></a>
                             </div>
                             {<Card title="영화" data={LockerData.movies} />}
                         </div>
@@ -100,7 +105,11 @@ const MainSlider = () => {
                 </Slider>
             </div>
             
-            <Filter visible={bottomSheetVisible} onClose={toggleBottomSheet} >
+            <Filter
+                visible={bottomSheetVisible}
+                title="상세 필터"
+                closeModal={closeFilter}
+            >
                 {/* 바텀시트에 들어갈 내용을 이곳에 추가 */}
                 <p>바텀시트 내용</p>
             </Filter>
