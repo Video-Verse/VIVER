@@ -228,7 +228,7 @@ function Card(props) {
                 </div>
                 <span className="name">{props.title}</span>
             </a>
-            <button><span className="blind">보관함에 저장하기</span></button>
+            <button className="btn-dibs"><span className="blind">보관함에 저장하기</span></button>
             {/*<button className={`btn-dibs ${activeDibs === 'btn-dibs' ? 'btn-dibs-after' : 'btn-dibs'}`}
                 onClick={() => toggleDibs()}
             ><span className="blind">보관함에 저장하기</span>

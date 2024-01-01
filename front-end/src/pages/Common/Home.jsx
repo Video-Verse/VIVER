@@ -6,6 +6,7 @@ import Header from "../../components/Header/Header";
 import Card from "../Main/Card";
 import { useParams } from 'react-router-dom';
 import DockBar from "../../components/DockBar/DockBar";
+import Filter from "../../components/bottomsheet/fillter";
 
 const MainSlider = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -66,6 +67,11 @@ const MainSlider = () => {
         ],
     };
     console.log(LockerData);
+    
+    const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+    const toggleBottomSheet = () => {
+        setBottomSheetVisible(!bottomSheetVisible);
+    };
 
     return (
         <div>
@@ -86,13 +92,19 @@ const MainSlider = () => {
                         <div key={index} className="tab-content">
                             <div className="filter-area">
                                 <p className="total">총 <span className="count">[N]</span>건</p>
-                                <a href="#none" className="filter"><span className="blind">필터</span></a>
+                                <a href="#none" className="filter" onClick={toggleBottomSheet}><span className="blind">필터</span></a>
                             </div>
                             {<Card title="영화" data={LockerData.movies} />}
                         </div>
                     ))}
                 </Slider>
             </div>
+            
+            <Filter visible={bottomSheetVisible} onClose={toggleBottomSheet} >
+                {/* 바텀시트에 들어갈 내용을 이곳에 추가 */}
+                <p>바텀시트 내용</p>
+            </Filter>
+            
             <DockBar/>
         </div>
     );
