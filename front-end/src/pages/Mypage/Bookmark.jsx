@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import $ from 'jquery';
 import Slider from "react-slick";
 
 import "../Common/Home.css";
 import Header from "../../components/Header/Header";
 import Card from "../Main/Card";
-import { useParams } from 'react-router-dom';
 import DockBar from "../../components/DockBar/DockBar";
 
 const Bookmark = () => {
+    
     const [activeTab, setActiveTab] = useState(0);
     const tabs = ['영화', '드라마', '뮤지컬']
 
@@ -18,15 +19,18 @@ const Bookmark = () => {
 
     const sliderRef = useRef(null);
 
-    //탭영역 높이값 설정
+    
     useEffect(() => {
+        $("#title").css('visibility', 'hidden');
+        $("#btn-back").css('display', 'none');
+        
         // 화면 높이를 얻어오는 함수
         const setTabContentHeight = () => {
           const tabContent = document.querySelector('.tab-content');
           const screenHeight = window.innerHeight;
           tabContent.style.height = `${screenHeight}px`;
         };
-    
+        //탭영역 높이값 설정
         setTabContentHeight();
     
         // 창의 크기가 변경될 때도 높이를 업데이트
@@ -66,6 +70,34 @@ const Bookmark = () => {
         ],
     };
     console.log(LockerData);
+    
+    
+    const [currentData, setCurrentData] = useState(LockerData.movies);
+    
+    useEffect(() => {
+        // 활성화된 탭에 따라 currentData 업데이트
+        switch (activeTab) {
+            case 0:
+                setCurrentData(LockerData.movies);
+                console.log(LockerData.movies);
+                break;
+            case 1:
+                setCurrentData(LockerData.tv);
+                console.log('2');
+                
+                break;
+            case 2:
+                setCurrentData(LockerData.musical);
+                console.log('3');
+                
+                break;
+            default:
+                setCurrentData([]);
+                console.log('4');
+                
+                break;
+        }
+    }, [activeTab]);
 
     return (
         <div>
@@ -85,10 +117,10 @@ const Bookmark = () => {
                     {tabs.map((tab, index) => (
                         <div key={index} className="tab-content">
                             <div className="filter-area">
-                                <p className="total">총 <span className="count">[N]</span>건</p>
+                                <p className="total">총 <span className="count">[{currentData.length}]</span>건</p>
                                 <a href="#none" className="filter"><span className="blind">필터</span></a>
                             </div>
-                            {<Card title="영화" data={LockerData.movies} />}
+                            {<Card title={tab} data={currentData.filter(item => item.category === tab.toLowerCase())} />}
                         </div>
                     ))}
                 </Slider>

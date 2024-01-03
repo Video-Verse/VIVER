@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import $ from 'jquery';
-import axios from 'axios';
 
 import './Search.css';
 import Header from './../../components/Header/Header';
@@ -10,10 +9,10 @@ import SearchInp from './SearchInp';
 import poster from '../../assets/images/img_sample.png';
 import DockBar from "../../components/DockBar/DockBar";
 import ToastPop from "../../components/toastpop/ToastPop";
+import Bookmark from "../Mypage/Bookmark";
 
 const Result = () => {
-    const [showMorePopup, setShowMorePopup] = useState(false); //toast popup
-    
+   
     const location = useLocation();
     const searchKeyword = location.state.keyword;
     // const searchKeyword = location?.state?.keyword || '';
@@ -30,7 +29,8 @@ const Result = () => {
     var musical = [];
 
     useEffect(() => {
-        $("#title").text("검색결과");
+        $("#title").text("검색");
+        $("#logo").css('display', 'none');
         $("#btn-search").css('visibility', 'hidden');
         $("#searchKeyword").val(searchKeyword);
         makeCard(data);
@@ -56,18 +56,47 @@ const Result = () => {
         $("#totalCnt").text("(" + totalCnt + ")");
     }
 
-    /*const [activeDibs, setActiveDibs] = useState(null);
-    const toggleDibs = (itemId) => {
-        setActiveDibs((prevDibs) => {
-            if (prevDibs.includes(itemId)) {
-                return prevDibs.filter((id) => id !== itemId);
-            } else {
-                return [...prevDibs, itemId];
-            }
-        })
-    }*/
+    //북마크
+    const [isbkMarkClicked, setIsbkMarkClicked] = useState(false);
 
-	
+    //각 리스트별 카드 생성
+    function Card(props) {
+        return (
+            <li key={props.id} id={props.id}>
+                <a href="#none">
+                    <div className="img-box">
+                        <img src={poster} alt="poster" className="poster" />
+                        {/*<img src={"https://image.tmdb.org/t/p/original"+props.poster_path} alt="poster" className="poster"/>*/}
+                    </div>
+                    <span className="name">{props.title}</span>
+                </a>
+                <button className={`btn-bookmark ${isbkMarkClicked ? 'btn-bookmark-after' : ''}`}
+                    onClick={() => {
+                        addBookmark(props.id, props.type);
+                        setIsbkMarkClicked(true);
+                    }}>
+                
+                    <span className="blind">보관함에 저장하기</span>
+                </button>
+            </li>
+        )
+    }
+   
+    //toast popup
+    const [showMorePopup, setShowMorePopup] = useState(false); 
+    
+    //보관함 추가하기
+    const addBookmark = (id, type) => {
+        //1. 해당 아이디로 디비 찾기 
+        console.log(id, type);
+        
+        //2. userid도 받아서 보관함 db에 넣기
+        
+        //팝업 띄우기 + active
+        setShowMorePopup(true);
+        
+    };
+    
     return (
         <div>
             <Header />
@@ -77,7 +106,6 @@ const Result = () => {
                     <h3 className="content-title">
                         검색결과 <span id="totalCnt">[N]</span>
                     </h3>
-
                     <div className="view-area">
                         {/* 내보관함에서 불러옴 - 저장기능 없음 */}
                         <h3 className="view-count">내 작품 <span className="num" id="bookmarkCnt">[N]</span></h3>
@@ -217,31 +245,5 @@ const Result = () => {
         </div>
     )
 }
-
-//각 리스트별 카드 생성
-function Card(props) {
-    return (
-        <li key={props.id} id={props.id}>
-            <a href="#none">
-                <div className="img-box">
-                    <img src={poster} alt="poster" className="poster" />
-                    {/*<img src={"https://image.tmdb.org/t/p/original"+props.poster_path} alt="poster" className="poster"/>*/}
-                </div>
-                <span className="name">{props.title}</span>
-            </a>
-            <button className="btn-dibs" onClick={() => addBookmark(props.id, props.type)}><span className="blind">보관함에 저장하기</span></button>
-        </li>
-    )
-}
-
-
-//보관함 추가하기
-const addBookmark = (id, type) => {
-	//1. 해당 아이디로 디비 찾기 
-	console.log(id, type);
-	
-	//2. userid도 받아서 보관함 db에 넣기
-	
-};
 
 export default Result;

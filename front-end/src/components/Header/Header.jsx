@@ -12,8 +12,8 @@ const Header = () => {
   
     return(
         <header className="header">
-            <button type="button" className="btn-back" onClick={onClickBtn}><span className="blind">뒤로가기</span></button>
-            {/* <h1 className="header-logo"><span className="blind">비버</span></h1> */}
+            <button type="button" className="btn-back" id="btn-back" onClick={onClickBtn}><span className="blind">뒤로가기</span></button>
+            <h1 className="header-logo" id="logo"><span className="blind">비버</span></h1>
             <h3 className="title" id="title">Title</h3>
             <button type="button" className="btn-search" id="btn-search"><span className="blind">검색</span></button>
         </header>
