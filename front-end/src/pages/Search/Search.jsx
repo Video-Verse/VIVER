@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useNavigate } from "react";
 import $ from 'jquery';
-import axios from 'axios';
 
 import Header from "../../components/Header/Header";
 import './Search.css';
@@ -11,7 +10,8 @@ const Search = () => {
 	
 	useEffect(() => {
 		$("#categoryAll").prop("checked", true);
-		$("#title").text("검색");
+        $("#title").text("검색");
+        $("#logo").css('display', 'none');
 		$("#btn-search").css('visibility', 'hidden');
 	})
 	

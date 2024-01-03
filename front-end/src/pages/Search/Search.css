@@ -34,9 +34,8 @@
 .view-area .list-wrap li a .name {display:inline-block;width:100%;font-size:12px;font-weight:400;color:#d1d1d1;line-height:25px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 
 /* 보관함 저장 버튼 */
-.btn-dibs {position:absolute;bottom:32px;right:5px;width:20px;height:20px;content:'';background:url('../../assets/images/ic_star_before.png') no-repeat;background-size:20px auto;z-index:3;}
-.btn-dibs-after {background:url('../../assets/images/ic_star_after.png') no-repeat;background-size:20px auto;z-index:3;}
-
+.btn-bookmark {position:absolute;bottom:32px;right:5px;width:20px;height:20px;content:'';background:url('../../assets/images/ic_star_before.png') no-repeat;background-size:20px auto;z-index:3;}
+.btn-bookmark-after {background:url('../../assets/images/ic_star_after.png') no-repeat;background-size:20px auto;z-index:3;}
 
 button.test {font-size:20px;color:red;font-weight:bold;}
 
