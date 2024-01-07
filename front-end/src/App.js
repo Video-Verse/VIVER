@@ -9,20 +9,20 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(() => {
-        // 여기에서 초기 로딩 작업을 수행하고, 작업이 완료되면 setIsLoading(false)를 호출
+        //초기 로딩 작업을 수행하고, 작업이 완료되면 setIsLoading(false)를 호출
     
         setTimeout(() => {
           setIsLoading(false);
-        }, 2000); // 2초 후에 로딩 완료
+        }, 3000); // 3초 후에 로딩 완료
       }, []);
     
     return (
         <div>
             {isLoading ? (
-        <SplashScreen />
-      ) : (
-        <Login />
-      )}
+                <SplashScreen />
+            ) : (
+                <Login />
+            )}
     </div>
  
   );
