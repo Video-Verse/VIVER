@@ -69,4 +69,15 @@ public class UserService {
 		user.get().changeNickName(request.getNickname());
 		return new ResponseEntity<>("uccess", HttpStatus.OK);		
 	}
+	
+	/**
+	 * kakao로 찾기
+	 * 
+	 * @param kakaoEmail
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+    public Optional<User> findByKakao(String kakaoEmail) {
+        return userRepository.findByKakao(kakaoEmail);
+    }
 }

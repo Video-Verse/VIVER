@@ -1,55 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const SocialLogin = (props) => {
-	const [redirectPath, setRedirectPath] = useState(null);
-	const { loginInfo, setLoginInfo } = useLoginInfo();
+  const navigate = useNavigate();
+  const code = new URL(window.location.href).searchParams.get("code");
 
-	const getUrlParameter = (name) => {
-		let search = window.location.search;
-		let params = new URLSearchParams(search);
-		return params.get(name);
-	};
+//인가코드 백으로 보내는 코드
+  useEffect(() => {
+    const kakaoLogin = async () => {
+      await axios({
+        method: "GET",
+        url: "http://localhost:8080/oauth/kakao/callback?code=" +code,
+        headers: {
+          "Content-Type": "application/json;charset=utf-8", //json형태로 데이터를 보내겠다는뜻
+          "Access-Control-Allow-Origin": "*", //이건 cors 에러때문에 넣어둔것. 당신의 프로젝트에 맞게 지워도됨
+        },
+      }).then((res) => { //백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
+        console.log(res);
+        //계속 쓸 정보들( ex: 이름) 등은 localStorage에 저장해두자
+        localStorage.setItem("name", res.data.account.kakaoName);
+        //로그인이 성공하면 이동할 페이지
+        navigate("/owner-question");
+      });
+    };
+    kakaoLogin();
+  }, [props.history]);
 
-	const token = getUrlParameter("token");
-
-	useEffect(() => {
-		if (token) {
-			localStorage.setItem("ACCESS_TOKEN", token);
-
-			const userType = "KAKAO";
-
-			axios.post("/api/oauth/login", { userType: userType }, {
-				headers: {
-					'Authorization': `Bearer ${token}`
-				}
-			})
-				.then(response => {
-					console.log('resdata',response.data);
-					setLoginInfo(response.data);
-
-					if (response.data.newUser) {
-						setRedirectPath("/join")
-					} else {
-						setRedirectPath("/");
-					}
-				})
-				.catch(error => {
-					console.error(error);
-					setRedirectPath("/login");
-				});
-		} else {
-			setRedirectPath("/login");
-		}
-	}, [token]);
-
-	if (redirectPath) {
-		return <Navigate to={redirectPath} state={{ from: props.location }} />;
-	}
-
-	return <div>Login Loading....</div>;
+  return (
+    <div className="LoginHandeler">
+      <div className="notice">
+        <p>로그인 중입니다.</p>
+        <p>잠시만 기다려주세요.</p>
+        <div className="spinner"></div>
+      </div>
+    </div>
+  );
 };
 
 export default SocialLogin;
