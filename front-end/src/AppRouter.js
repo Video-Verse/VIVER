@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 
-import SocialLogin from "./components/login/SocialLogin";
+import SocialLogin from "./pages/Login/SocialLogin";
 import Join from "./pages/Login/Join";
 import { LoginInfoProvider } from "./context/LoginInfoContext";
 
@@ -25,12 +25,9 @@ function AppRouter() {
             <Route path="/home" exact element={<Home />} />
             <Route path="/bookmark" exact element={<Bookmark />} />
                   
-            
-                  
             <Route path="/search" exact element= {<Search />} /> 
             <Route path="/result" exact element= {<Result />} /> 
             <Route path="/nodata" exact element= {<Nodata />} />
-               
         </Routes>
       </BrowserRouter>
     </LoginInfoProvider>

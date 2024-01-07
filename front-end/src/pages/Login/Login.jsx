@@ -7,7 +7,7 @@ import axios from "axios";
 // import CommonBtn from './components/button/button';
 
 import { Link } from "react-router-dom";
-import { socialLogin } from "../../components/service/ApiService";
+import { socialLogin } from "./SocialLogin";
 
 const Login = () => {
 	const handleSocialLogin = (socialType) => {
