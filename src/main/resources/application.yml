@@ -17,12 +17,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
+   url:
+    base : http://localhost:8080
+    front : http://localhost:3000
 
 kakao:
   client:
     id: 2f158d432028817e83bd31c036395602
     secret: JJy7MGMURuJkmlbAW4u4CgusXALbTKhN
+  url:
+    token: https://kauth.kakao.com/oauth/token
+    profile: https://kapi.kakao.com/v2/user/me
+    redirect: /oauth/kakao/callback
 
 naver:
     client:
