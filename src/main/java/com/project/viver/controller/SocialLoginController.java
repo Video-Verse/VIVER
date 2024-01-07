@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class KakaoTokenController {
+public class SocialLoginController {
 
     private final KakaoTokenClient kakaoTokenClient;
 
@@ -26,7 +26,7 @@ public class KakaoTokenController {
 
 
     @GetMapping("/oauth/kakao/callback")
-    public void loginCallback(String code, HttpServletResponse response) throws IOException {
+    public void kakaoLoginCallback(String code, HttpServletResponse response) throws IOException {
         String contentType = "application/x-www-form-urlencoded;charset=utf-8";
         KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
                 .client_id(clientId)
@@ -34,6 +34,20 @@ public class KakaoTokenController {
                 .grant_type("authorization_code")
                 .code(code)
                 .redirect_uri("http://localhost:8080/oauth/kakao/callback")
+                .build();
+        KakaoTokenDto.Response kakaoToken = kakaoTokenClient.requestKakaoToken(contentType, kakaoTokenRequestDto);
+        response.sendRedirect("http://localhost:3000/sociallogin?token="+kakaoToken.getAccess_token());
+    }
+    
+    @GetMapping("/oauth/naver/callback")
+    public void naverLoginCallback(String code, HttpServletResponse response) throws IOException {
+        String contentType = "application/x-www-form-urlencoded;charset=utf-8";
+        KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
+                .client_id(clientId)
+                .client_secret(clientSecret)
+                .grant_type("authorization_code")
+                .code(code)
+                .redirect_uri("http://localhost:8080/oauth/naver/callback")
                 .build();
         KakaoTokenDto.Response kakaoToken = kakaoTokenClient.requestKakaoToken(contentType, kakaoTokenRequestDto);
         response.sendRedirect("http://localhost:3000/sociallogin?token="+kakaoToken.getAccess_token());

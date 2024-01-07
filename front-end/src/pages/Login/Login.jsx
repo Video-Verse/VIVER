@@ -2,16 +2,15 @@ import React from "react";
 import logo from '../../assets/images/logo.png';
 import './login.css';
 import "../Common/axios.js";
-import axios from "axios";
 
 // import CommonBtn from './components/button/button';
 
 import { Link } from "react-router-dom";
-import { socialLogin } from "./SocialLogin";
+import { socialLoginConfig } from "./SocialLoginConfig";
 
 const Login = () => {
 	const handleSocialLogin = (socialType) => {
-		socialLogin(socialType);
+		socialLoginConfig(socialType);
 	}
 	return (
 		<div className="wrap">
@@ -25,7 +24,9 @@ const Login = () => {
 						<span>카카오로 로그인</span>
 					</button>
 
-					<button type="button" className="btn btn-naver"><span>네이버로 로그인</span></button>
+					<button type="button" className="btn btn-naver" onClick={() => handleSocialLogin("naver")}>
+						<span>네이버로 로그인</span>
+					</button>
 				</div>
 			</div>
 		</div>

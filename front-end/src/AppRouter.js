@@ -19,14 +19,14 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="sociallogin" element={<SocialLogin />} />
-            <Route path="join" element={<Join />} />
+            <Route path="/sociallogin" element={<SocialLogin />} />
+            <Route path="/join" element={<Join />} />
 
             <Route path="/home" exact element={<Home />} />
             <Route path="/bookmark" exact element={<Bookmark />} />
                   
             <Route path="/search" exact element= {<Search />} /> 
-            <Route path="/result" exact element= {<Result />} /> 
+            <Route path="/result" exact element= {<Result />} />
             <Route path="/nodata" exact element= {<Nodata />} />
         </Routes>
       </BrowserRouter>
