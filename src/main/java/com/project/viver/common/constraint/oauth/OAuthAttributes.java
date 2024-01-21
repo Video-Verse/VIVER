@@ -12,6 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Getter 
+@Builder
 public class OAuthAttributes {
 
 	private String userId;

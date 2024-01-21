@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.project.viver.api.KakaoTokenClient;
+import com.project.viver.common.response.model.SingleResult;
+import com.project.viver.common.response.service.ResponseService;
 import com.project.viver.dto.social.KakaoToken;
 import com.project.viver.dto.token.KakaoTokenDto;
 import com.project.viver.service.login.KakaoService;
@@ -25,6 +27,9 @@ public class SocialLoginController {
     private final KakaoTokenClient kakaoTokenClient;
     
     @Autowired
+	private ResponseService responseService;
+    
+    @Autowired
     KakaoService kakaoService;
     
     @Autowired
@@ -36,12 +41,12 @@ public class SocialLoginController {
     @Value("${kakao.client.secret}")
     private String clientSecret;
 
-    @GetMapping("/oauth/kakao/callback")
-    public Map<String,Object> kakaoLogin(HttpServletRequest request) throws Exception {
-        String code = request.getParameter("code");
-        KakaoToken KakaoToken = kakaoService.getKakaoAccessToken(code);
-        return loginService.kakaoLogin(KakaoToken);
-    }
+//    @GetMapping("/oauth/kakao/callback")
+//    public SingleResult<Map<String, Object>> kakaoLogin(HttpServletRequest request) throws Exception {
+//        String code = request.getParameter("code");
+//        KakaoToken KakaoToken = kakaoService.getKakaoAccessToken(code);
+//        return responseService.getSingleResult(loginService.kakaoLogin(KakaoToken));
+//    }
 
 //    @GetMapping("/oauth/kakao/callback")
 //    public void kakaoLoginCallback(String code, HttpServletResponse response) throws IOException {
