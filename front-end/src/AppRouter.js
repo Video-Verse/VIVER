@@ -19,7 +19,7 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/sociallogin" element={<SocialLogin />} />
+            <Route path="/oauth/kakao/callback" element={<SocialLogin />} />
             <Route path="/join" element={<Join />} />
 
             <Route path="/home" exact element={<Home />} />

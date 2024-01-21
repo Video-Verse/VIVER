@@ -7,7 +7,7 @@ const SocialLogin = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
-alert("socialLogin" + code);
+alert("code")
 //인가코드 백으로 보내는 코드
   useEffect(() => {
     const kakaoLogin = async () => {
