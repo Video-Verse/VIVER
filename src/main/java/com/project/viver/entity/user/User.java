@@ -34,6 +34,7 @@ public class User extends BaseEntity {
     private String levelId;
     private String kakao;
     private String naver;
+    private String kakaoId;
     //private String withdrawalStatus;
    
 
@@ -51,7 +52,7 @@ public class User extends BaseEntity {
     
     @Builder
     public User(String userId, String phoneNumber, String nickName, String withdrawalStatus, UserType userType,
-    		String password, String profile, Role role) {
+    		String password, String profile, Role role, String kakao, String naver, String kakaoId) {
     	this.userId = userId;
     	this.phoneNumber = phoneNumber;
     	this.nickName = nickName;
@@ -59,6 +60,10 @@ public class User extends BaseEntity {
     	this.userType = userType;
     	this.profile = profile;
     	this.role = role;
+    	this.kakao = kakao;
+    	this.naver = naver;
+    	this.kakaoId = kakaoId;
+    	
     }
     
 

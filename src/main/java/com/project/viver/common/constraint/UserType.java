@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 public enum UserType {
 
-    KAKAO;
+      KAKAO
+    , NAVER;
 
     public static UserType from(String type) {
         return UserType.valueOf(type.toUpperCase());

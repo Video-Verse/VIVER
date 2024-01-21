@@ -7,6 +7,7 @@ const SocialLogin = (props) => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
+alert("socialLogin" + code);
 //인가코드 백으로 보내는 코드
   useEffect(() => {
     const kakaoLogin = async () => {
@@ -22,8 +23,10 @@ const SocialLogin = (props) => {
         //계속 쓸 정보들( ex: 이름) 등은 localStorage에 저장해두자
         localStorage.setItem("name", res.data.account.kakaoName);
         //로그인이 성공하면 이동할 페이지
-        navigate("/owner-question");
-      });
+        navigate("/main");
+      }).error(()=> {
+		  console.log("error")
+	  });
     };
     kakaoLogin();
   }, [props.history]);
