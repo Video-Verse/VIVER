@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.viver.common.constraint.oauth.OAuthAttributes;
-import com.project.viver.controller.SocialLoginRequest;
 import com.project.viver.dto.user.NicknameRequest;
 import com.project.viver.entity.user.User;
 import com.project.viver.error.ErrorCode;
@@ -83,8 +82,8 @@ public class UserService {
         return userRepository.findByKakao(kakaoEmail);
     }
 
-    public Object doSocialLogin(@Valid SocialLoginRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doSocialLogin'");
-    }
+//    public Object doSocialLogin(@Valid SocialLoginRequest request) {
+//        // TODO Auto-generated method stub
+//        throw new UnsupportedOperationException("Unimplemented method 'doSocialLogin'");
+//    }
 }
