@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 import { API_BASE_URL } from "./apiConfig";
 
-
 export function socialLoginConfig(userType) {
 	const kakaoClientId = process.env.REACT_APP_KAKAO_CLIENT_ID;
 	const naverClientId = process.env.REACT_APP_NAVER_CLIENT_ID;
-	
 
-	const kakaoRedirectUri = API_BASE_URL + process.env.REACT_APP_KAKAO_REDIRECT_URI;
-	const naverRedirectUri = API_BASE_URL + process.env.REACT_APP_NAVER_REDIRECT_URI;
+	const kakaoRedirectUri = process.env.REACT_APP_FRONT_BASE_URI + process.env.REACT_APP_KAKAO_REDIRECT_URI;
+	const naverRedirectUri = process.env.REACT_APP_FRONT_BASE_URI + "/oauth/naver/callback";
 
 	const naverState = "state";
 	const responseType = "code";

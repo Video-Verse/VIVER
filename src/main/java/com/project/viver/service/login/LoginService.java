@@ -41,10 +41,6 @@ public class LoginService {
 		Optional<User> user = userService.findByKakao(kakaoEmail);
 
 		if(user.isEmpty()) { // 신규 회원 가입
-			//userid 생성
-			//kakao에 이메일 넣
-			//usertype = kakao
-			//role = user
 			
             oauthUser =  User.builder()
                     .userType(UserType.KAKAO)
