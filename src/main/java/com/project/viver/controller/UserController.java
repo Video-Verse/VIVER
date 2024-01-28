@@ -21,16 +21,21 @@ public class UserController {
 	
 	private final UserService userService;
 
-    @PostMapping("/SocialLogin")
-    public ResponseEntity<Object> doSocialLogin(@RequestBody @Valid SocialLoginRequest request){
-        return ResponseEntity.created(URI.create("/SocialLogin"))
-                .body(userService.doSocialLogin(request));
-    }
+//    @PostMapping("/SocialLogin")
+//    public ResponseEntity<Object> doSocialLogin(@RequestBody @Valid SocialLoginRequest request){
+//        return ResponseEntity.created(URI.create("/SocialLogin"))
+//                .body(userService.doSocialLogin(request));
+//    }
 	
-    // @PostMapping("/registerNickname")
-    // public ResponseEntity<String> registerNickname(@RequestBody NicknameRequest request) {
-    //     return userService.registerNickname(request);    
-    // }
+//     @PostMapping("/registerNickname")
+//     public ResponseEntity<String> registerNickname(@RequestBody NicknameRequest request) {
+//         return userService.registerNickname(request);    
+//     }
+     
+     @PostMapping("/registerNickname")
+     public ResponseEntity<String> registerNickname(@RequestBody NicknameRequest request) {
+         return userService.registerNickname(request);    
+     }
 
 
 }
