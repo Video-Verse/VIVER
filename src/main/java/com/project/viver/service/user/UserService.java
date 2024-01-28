@@ -4,11 +4,15 @@ package com.project.viver.service.user;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.viver.common.constraint.CommonId;
+import com.project.viver.common.constraint.Role;
+import com.project.viver.common.constraint.UserType;
 import com.project.viver.common.constraint.oauth.OAuthAttributes;
 import com.project.viver.dto.user.NicknameRequest;
 import com.project.viver.entity.user.User;
@@ -17,6 +21,7 @@ import com.project.viver.error.exception.AuthenticationException;
 import com.project.viver.error.exception.BusinessException;
 import com.project.viver.error.exception.EntityNotFoundException;
 import com.project.viver.repository.user.UserRepository;
+import com.project.viver.service.common.CommonService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +32,9 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
+    
+    @Autowired
+	CommonService commonService;
 
     public User registerUser(User user) {
         validateDuplicateUser(user);
@@ -62,13 +70,23 @@ public class UserService {
     }
 
 	public ResponseEntity<String> registerNickname(NicknameRequest request) {
-        OAuthAttributes oauthAttributes = request.getOauthAttributes();
-		Optional<User> user =  userRepository.findByUserId(oauthAttributes.getUserId());
+		String nickname = request.getNickname();
+		User user = null;
+		user =  userRepository.findByNickName(nickname);
 		System.out.println(request.getNickname());
-		//닉네임 중복체크 추가하기
-			//return new ResponseEntity<>("duplicate", HttpStatus.BAD_REQUEST);
-		user.get().changeNickName(request.getNickname());
-		return new ResponseEntity<>("uccess", HttpStatus.OK);		
+		
+		//닉네임 중복 체크
+		if(user != null) {
+			return new ResponseEntity<>("duplicate", HttpStatus.BAD_REQUEST);
+		} else {
+			user = User.builder()
+			           .userId(commonService.getId(CommonId.USER.value()))
+			           .nickName(nickname)
+			           .build();
+     
+			registerUser(user);
+		}
+		return new ResponseEntity<>("success", HttpStatus.OK);		
 	}
 	
 	/**

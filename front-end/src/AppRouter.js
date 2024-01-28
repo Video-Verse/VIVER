@@ -3,17 +3,22 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 
+import { LoginInfoProvider } from "./context/LoginInfoContext";
+
 import SocialLogin from "./pages/Login/SocialLogin";
 import Join from "./pages/Login/Join";
-import { LoginInfoProvider } from "./context/LoginInfoContext";
+import Complete from "./pages/Login/Complete";
 
 import Search from "./pages/Search/Search";
 import Nodata from "./pages/Search/Nodata";
 import Result from "./pages/Search/Result";
+
 import Home from './pages/Common/Home';
+
 import Bookmark from "./pages/Mypage/Bookmark";
 import NicknameChange from "./pages/Mypage/NicknameChange";
 import Mypage from "./pages/Mypage/Mypage";
+
 
 function AppRouter() {
   return (
@@ -24,6 +29,7 @@ function AppRouter() {
             <Route path="/oauth/kakao/callback" element={<SocialLogin />} />
             <Route path="/oauth/naver/callback" element={<SocialLogin />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/complete" element={<Complete />} />
 
             <Route path="/home" exact element={<Home />} />
             <Route path="/bookmark" exact element={<Bookmark />} />
