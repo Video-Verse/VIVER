@@ -18,6 +18,7 @@ const Join = () => {
 
 	const [nickname, setNickname] = useState('');
 	const [error, setError] = useState(null);
+    const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 	const { loginInfo, setLoginInfo } = useLoginInfo();
 
 	const handleInputChange = (e) => {
@@ -26,8 +27,10 @@ const Join = () => {
 
         if (inputNickname.length < 2 || inputNickname.length > 10) {
             setError("2 ~ 10자 이내로 입력해주세요.");
+            setIsBtnDisabled(true);
         } else {
             setError(null);
+            setIsBtnDisabled(false);
             // axios.post(API_BASE_URL+'/api/users/registerNickname', {
             //     nickname,
             //     oauthAttributes: loginInfo.oauthAttributes,
@@ -61,7 +64,7 @@ const Join = () => {
 					{error && <p className="err-msg">{error}</p>}
 				</div>
 				{/* <CommonBtn onClick={handleSubmit} buttonText="확인"/> */}
-				<CommonBtn buttonText="확인"/>
+				<CommonBtn buttonText="확인" disabled={isBtnDisabled}/>
 				
 			</div>
 		</div>
