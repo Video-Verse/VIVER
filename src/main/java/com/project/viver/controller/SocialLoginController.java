@@ -48,19 +48,14 @@ public class SocialLoginController {
 //        return responseService.getSingleResult(loginService.kakaoLogin(KakaoToken));
 //    }
 
-//    @GetMapping("/oauth/kakao/callback")
-//    public void kakaoLoginCallback(String code, HttpServletResponse response) throws IOException {
-//        String contentType = "application/x-www-form-urlencoded;charset=utf-8";
-//        KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
-//                .client_id(clientId)
-//                .client_secret(clientSecret)
-//                .grant_type("authorization_code")
-//                .code(code)
-//                .redirect_uri("http://localhost:8080/oauth/kakao/callback")
-//                .build();
-//        KakaoTokenDto.Response kakaoToken = kakaoTokenClient.requestKakaoToken(contentType, kakaoTokenRequestDto);
-//        response.sendRedirect("http://localhost:3000/sociallogin?token="+kakaoToken.getAccess_token());
-//    }
+	@GetMapping("/oauth/kakao/callback")
+    public void kakaoLoginCallback(HttpServletRequest request) throws Exception {
+    	
+      String code = request.getParameter("code");
+      KakaoToken KakaoToken = kakaoService.getKakaoAccessToken(code);
+      responseService.getSingleResult(loginService.kakaoLogin(KakaoToken));
+      
+    }
     
     @GetMapping("/oauth/naver/callback")
     public void naverLoginCallback(String code, HttpServletResponse response) throws IOException {

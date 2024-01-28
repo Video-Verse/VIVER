@@ -72,7 +72,7 @@ public class KakaoService {
 		params.add("grant_type", "authorization_code");
 		params.add("client_secret", kakaoClientSecret);
 		params.add("client_id", kakaoClientId);
-		params.add("redirect_uri", baseUrl + kakaoRedirect);
+		params.add("redirect_uri", frontUrl + kakaoRedirect);
 		params.add("code", code);
 		// Set http entity
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);

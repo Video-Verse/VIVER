@@ -30,8 +30,6 @@ alert(code);
 //     };
 //     kakaoLogin();
 //   }, [props.history]);
-
-
   return (
     <div className="LoginHandeler">
       <div className="notice">
