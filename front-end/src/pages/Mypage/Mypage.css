@@ -1,0 +1,10 @@
+.profile-img {width:100%;display:flex;justify-content:center;}
+.profile-img img {width:120px;height:120px;}
+
+.my-info {width:100%;margin-top:24px;padding:16px;border:1px solid #424242;border-radius:16px;}
+.my-info .level span, .my-info .name span {font-size:12px;}
+.my-info .level {padding-right:24px;}
+.my-info div {display:flex;align-items:center;justify-content:space-between;}
+.my-info div + div {border-top:1px solid #424242;margin-top:15px;padding-top:15px;}
+
+.btn-edit {display:inline-block;width:16px;height:16px;margin-left:8px;background:url('../../assets/images/ic_edit.png') no-repeat;background-size:16px auto;}

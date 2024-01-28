@@ -12,6 +12,8 @@ import Nodata from "./pages/Search/Nodata";
 import Result from "./pages/Search/Result";
 import Home from './pages/Common/Home';
 import Bookmark from "./pages/Mypage/Bookmark";
+import NicknameChange from "./pages/Mypage/NicknameChange";
+import Mypage from "./pages/Mypage/Mypage";
 
 function AppRouter() {
   return (
@@ -29,6 +31,10 @@ function AppRouter() {
             <Route path="/search" exact element= {<Search />} /> 
             <Route path="/result" exact element= {<Result />} />
             <Route path="/nodata" exact element= {<Nodata />} />
+
+            <Route path="/mypage" exact element= {<Mypage />} />
+            <Route path="/change" exact element= {<NicknameChange />} />
+
         </Routes>
       </BrowserRouter>
     </LoginInfoProvider>
