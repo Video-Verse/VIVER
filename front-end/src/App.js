@@ -13,7 +13,7 @@ function App() {
     
         setTimeout(() => {
           setIsLoading(false);
-        }, 3000); // 3초 후에 로딩 완료
+        }, 1000); // 3초 후에 로딩 완료
       }, []);
     
     return (

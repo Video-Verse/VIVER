@@ -20,6 +20,7 @@ function AppRouter() {
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/oauth/kakao/callback" element={<SocialLogin />} />
+            <Route path="/oauth/naver/callback" element={<SocialLogin />} />
             <Route path="/join" element={<Join />} />
 
             <Route path="/home" exact element={<Home />} />
