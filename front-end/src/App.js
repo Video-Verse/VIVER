@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import './styles/reset.css';
 import Login from './pages/Login/Login';
+import Join from './pages/Login/Join';
 import SplashScreen from './pages/Login/SplachScreen';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             {isLoading ? (
                 <SplashScreen />
             ) : (
-                <Login />
+                <Join />
             )}
     </div>
  

@@ -10,7 +10,6 @@ import CommonBtn from "../../components/button/button";
 import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const Join = () => {
-   
     useEffect(() => {
         $("#title").css('display', 'none');
         $("#logo").css('display', 'none');
