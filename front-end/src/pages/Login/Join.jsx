@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import $ from 'jquery';
 import axios from 'axios';
 import Header from "../../components/Header/Header";
 import { API_BASE_URL } from "./apiConfig";
@@ -9,6 +10,13 @@ import CommonBtn from "../../components/button/button";
 import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const Join = () => {
+   
+    useEffect(() => {
+        $("#title").css('display', 'none');
+        $("#logo").css('display', 'none');
+		$("#btn-search").css('visibility', 'hidden');
+    })
+
 	const [nickname, setNickname] = useState('');
 	const [error, setError] = useState(null);
 	const { loginInfo, setLoginInfo } = useLoginInfo();
@@ -49,7 +57,8 @@ const Join = () => {
 					<CommonInp value={nickname} onChange={handleInputChange} />
 					{error && <p className="err-msg">{error}</p>}
 				</div>
-				<CommonBtn onClick={handleSubmit} />
+				{/* <CommonBtn onClick={handleSubmit} buttonText="확인"/> */}
+				<CommonBtn buttonText="확인"/>
 				
 			</div>
 		</div>
