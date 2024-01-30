@@ -18,6 +18,7 @@ import Home from './pages/Common/Home';
 import Bookmark from "./pages/Mypage/Bookmark";
 import NicknameChange from "./pages/Mypage/NicknameChange";
 import Mypage from "./pages/Mypage/Mypage";
+import Login from "./pages/Login/Login";
 
 
 function AppRouter() {
@@ -29,6 +30,7 @@ function AppRouter() {
             <Route path="/oauth/kakao/callback" element={<SocialLogin />} />
             <Route path="/oauth/naver/callback" element={<SocialLogin />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/complete" element={<Complete />} />
 
             <Route path="/home" exact element={<Home />} />
