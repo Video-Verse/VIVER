@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import {BarChart, Bar, ResponsiveContainer} from 'recharts';
+import React, { useEffect, useState } from "react";
+import { BarChart, Bar, ResponsiveContainer } from 'recharts';
 import $ from 'jquery';
 
 import './Mypage.css'
 import Header from "../../components/Header/Header";
+import DockBar from "../../components/DockBar/DockBar";
 import isProfile from '../../assets/images/img_lv01.png';
+import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
 
@@ -12,8 +14,11 @@ const Mypage = () => {
         $("#title").css('display', 'none');
         $("#btn-back").css('display', 'none');
         // $("#logo").css('display', 'none');
-		$("#btn-search").css('visibility', 'hidden');
+        $("#btn-search").css('visibility', 'hidden');
     });
+    
+    const navigate = useNavigate();
+    const [hasDockBar, setHasDockBar] = useState(true);
 
     const data = [
         {
@@ -51,8 +56,8 @@ const Mypage = () => {
 
     return (
         <div>
-            <Header/>
-            <div className="wrap">
+            <Header />
+            <div className={`wrap ${hasDockBar ? 'has-dockbar' : ''}`}>
                 <div className="profile-img">
                     <img src={isProfile} alt="lv01" />
                 </div>
@@ -67,7 +72,7 @@ const Mypage = () => {
                         <span>닉네임</span>
                         <div>
                             <span className="fs-20 fw-bold">viver</span>
-                            <button className="btn-edit"/>
+                            <button className="btn-edit" onClick={() => navigate('/change')} />
                         </div>
                     </div>
                 </div>
@@ -79,10 +84,24 @@ const Mypage = () => {
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
-                
-            </div>
 
-            
+                <div className="link-list">
+                    <ul>
+                        <li onClick={() => navigate('/')}>화면설정</li>
+                        <li onClick={() => navigate('/')}>고객센터</li>
+                        <li onClick={() => navigate('/')}>개인정보처리방침</li>
+                        <li onClick={() => navigate('/')}>이용약관</li>
+                    </ul>
+                </div>
+
+                <div className="util-list">
+                    <ul>
+                        <li>로그아웃</li>
+                        <li>회원탈퇴</li>
+                    </ul>
+                </div>
+            </div>
+            <DockBar/>
         </div>
     )
 }
