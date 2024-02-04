@@ -2,6 +2,8 @@ package com.project.viver.service.user;
 
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.viver.common.constraint.CommonId;
-import com.project.viver.common.constraint.Role;
-import com.project.viver.common.constraint.UserType;
-import com.project.viver.common.constraint.oauth.OAuthAttributes;
 import com.project.viver.dto.user.NicknameRequest;
 import com.project.viver.entity.user.User;
 import com.project.viver.error.ErrorCode;
@@ -23,7 +22,6 @@ import com.project.viver.error.exception.EntityNotFoundException;
 import com.project.viver.repository.user.UserRepository;
 import com.project.viver.service.common.CommonService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -69,7 +67,8 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
     }
 
-	public ResponseEntity<String> registerNickname(NicknameRequest request) {
+	public Map<String,Object> registerNickname(NicknameRequest request) {
+		Map<String,Object> result = new HashMap<>();
 		String nickname = request.getNickname();
 		User user = null;
 		user =  userRepository.findByNickName(nickname);
@@ -77,7 +76,8 @@ public class UserService {
 		
 		//닉네임 중복 체크
 		if(user != null) {
-			return new ResponseEntity<>("duplicate", HttpStatus.BAD_REQUEST);
+			result.put("code", "999");
+			result.put("msg", "duplicate");
 		} else {
 			user = User.builder()
 			           .userId(commonService.getId(CommonId.USER.value()))
@@ -85,8 +85,11 @@ public class UserService {
 			           .build();
      
 			registerUser(user);
+			result.put("code", "000");
+			result.put("msg", "success");
+			result.put("user", user);
 		}
-		return new ResponseEntity<>("success", HttpStatus.OK);		
+		return result;	
 	}
 	
 	/**

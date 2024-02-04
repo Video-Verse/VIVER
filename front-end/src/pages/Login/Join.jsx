@@ -10,15 +10,15 @@ import CommonBtn from "../../components/button/button";
 import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const Join = () => {
-    useEffect(() => {
-        $("#title").css('display', 'none');
-        $("#logo").css('display', 'none');
+	useEffect(() => {
+		$("#title").css('display', 'none');
+		$("#logo").css('display', 'none');
 		$("#btn-search").css('visibility', 'hidden');
-    },[]);
+	}, []);
 
 	const [nickname, setNickname] = useState('');
 	const [error, setError] = useState(null);
-    const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 	const { loginInfo, setLoginInfo } = useLoginInfo();
 	const navigate = useNavigate();
 	const inputRef = useRef(null);
@@ -29,41 +29,49 @@ const Join = () => {
 	const handleInputChange = (e) => {
 		inputNickname = e.target.value;
 		setNickname(inputNickname);
-		if(!validate(inputNickname, nicknameRegEx)) {
+		if (!validate(inputNickname, nicknameRegEx)) {
 			setIsBtnDisabled(true);
 		} else {
 			setIsBtnDisabled(false);
 		}
- 	};
- 	
- 	const validate = (value, regEx) => {
-		 if(!regEx.test(value)) {
+	};
+
+	const validate = (value, regEx) => {
+		if (!regEx.test(value)) {
 			setError("2 ~ 10자 이내의 영문 대소문자, 한글, 숫자만 사용 가능합니다.");
 			setIsBtnDisabled(true);
 			inputRef.current && inputRef.current.focus();
 			return false;
-		 } else {
+		} else {
 			setError(null);
 			setIsBtnDisabled(false);
 			return true;
-		 }
-	 };
- 	
- 	const handleSubmit = (e) => {
-		 axios.post(
-			 process.env.REACT_APP_BACK_BASE_URI +'/api/users/registerNickname'
-			 , { nickname
-			 	//,oauthAttributes : loginInfo.oauthAttributes,
-	         }).then(response => {
-	             navigate('/complete' ,{state : nickname})
-	         }).catch(error => {
-	             setError("중복된 닉네임 입니다. 다시 설정해주세요.");
-	             setIsBtnDisabled(true);
-	             inputRef.current && inputRef.current.focus();
-	             //$("#nicknameInput").focus();
-          });
-	 }
- 	
+		}
+	};
+
+	const handleSubmit = (e) => {
+		axios.post(
+			process.env.REACT_APP_BACK_BASE_URI + '/api/users/registerNickname'
+			, {
+				nickname
+				//,oauthAttributes : loginInfo.oauthAttributes,
+			}).then(response => {
+				var code = response.data.code;
+				var user = response.data.user;
+				var userId = user.userId;
+				var nickName = user.nickName;
+				if ("000" === code) {
+					localStorage.setItem("userId", userId);
+					localStorage.setItem("nickName", nickName);
+					navigate('/complete', { state: nickName })
+				} else {
+					setError("중복된 닉네임 입니다. 다시 설정해주세요.");
+					setIsBtnDisabled(true);
+					inputRef.current && inputRef.current.focus();
+				}
+			});
+	}
+
 	return (
 		<div>
 			<Header />
@@ -75,12 +83,12 @@ const Join = () => {
 						닉네임을 입력해 주세요
 					</h3>
 					<p className="sub-txt">* 2 ~ 10자 이내의 영문 대소문자, 한글, 숫자만 입력해주세요.</p>
-					<CommonInp ref={inputRef} value={nickname} onChange={handleInputChange}/>
+					<CommonInp ref={inputRef} value={nickname} onChange={handleInputChange} />
 					{error && <p className="err-msg">{error}</p>}
 				</div>
 				{/* <CommonBtn onClick={handleSubmit} buttonText="확인"/> */}
-				<CommonBtn buttonText="확인" disabled={isBtnDisabled} onClick={handleSubmit}/>
-				
+				<CommonBtn buttonText="확인" disabled={isBtnDisabled} onClick={handleSubmit} />
+
 			</div>
 		</div>
 	)
