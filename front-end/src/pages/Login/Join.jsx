@@ -78,7 +78,7 @@ const Join = () => {
 
 			<div className="wrap">
 				<div className="content">
-					<h3 className="content-title">
+					<h3 className="content-title mt50">
 						비버에서 사용할<br />
 						닉네임을 입력해 주세요
 					</h3>

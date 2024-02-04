@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useLoginInfo } from "../../context/LoginInfoContext";
 
 const SocialLogin = (props) => {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
 alert(code);

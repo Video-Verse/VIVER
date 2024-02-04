@@ -1,40 +1,66 @@
-import React from "react";
-import logo from '../../assets/images/logo.png';
-import './login.css';
-import "../Common/axios.js";
+import React, { useState, useEffect } from "react";
+import $ from 'jquery';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Header from "../../components/Header/Header";
+import CommonInp from "../../components/input/input";
+import CommonBtn from "../../components/button/button";
 
-// import CommonBtn from './components/button/button';
-
-import { Link } from "react-router-dom";
-import { socialLoginConfig } from "./SocialLoginConfig";
 
 const Login = () => {
-	const handleSocialLogin = (socialType) => {
-		socialLoginConfig(socialType);
-	}
-	return (
-		<div className="wrap">
-			<div className="content">
-				<div className="img-box">
-					<h3 className="login-title">나의 취향 저장소</h3>
-					<img src={logo} className="logo" alt="logo" />
-				</div>
-				<div className="btn-group">
-					<button type="button" className="btn btn-kakao" onClick={() => handleSocialLogin("kakao")}>
-						<span>카카오로 로그인</span>
-					</button>
 
-					<button type="button" className="btn btn-naver" onClick={() => handleSocialLogin("naver")}>
-						<span>네이버로 로그인</span>
-					</button>
+    useEffect(() => {
+        $("#title").css('display', 'none');
+        $("#btn-back").css('display', 'block');
+        $("#btn-search").css('visibility', 'hidden');
+    });
+
+    const [nickname, setNickname] = useState('');
+    const [error, setError] = useState(null);
+	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+		axios.post(
+			process.env.REACT_APP_BACK_BASE_URI + '/api/users/registerNickname'
+			, {
+				nickname
+				//,oauthAttributes : loginInfo.oauthAttributes,
+			}).then(response => {
+				var code = response.data.code;
+				var user = response.data.user;
+				var userId = user.userId;
+				var nickName = user.nickName;
+				if ("000" === code) {
+					localStorage.setItem("userId", userId);
+					localStorage.setItem("nickName", nickName);
+					navigate('/complete', { state: nickName })
+				} else {
+					setError("중복된 닉네임 입니다. 다시 설정해주세요.");
+					setIsBtnDisabled(true);
+					// inputRef.current && inputRef.current.focus();
+				}
+			});
+	}
+
+
+    return (
+		<div>
+			<Header />
+
+			<div className="wrap">
+				<div className="content">
+					<h3 className="content-title mt50">
+						닉네임을 입력해 주세요
+					</h3>
+					<CommonInp value={nickname}/>
+					{error && <p className="err-msg">{error}</p>}
 				</div>
+				<CommonBtn buttonText="확인" disabled={isBtnDisabled} onClick={handleSubmit}/>
+				
 			</div>
 		</div>
-	);
+	)
 };
 
 export default Login;
-
-
-
-

@@ -13,7 +13,6 @@ const Mypage = () => {
     useEffect(() => {
         $("#title").css('display', 'none');
         $("#btn-back").css('display', 'none');
-        // $("#logo").css('display', 'none');
         $("#btn-search").css('visibility', 'hidden');
     });
     
