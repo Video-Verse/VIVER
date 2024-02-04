@@ -24,14 +24,11 @@ const Join = () => {
 	const inputRef = useRef(null);
 
 	var inputNickname = '';
-	//닉네임 정규식 체
+	//nickname check
 	const nicknameRegEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,10}$/
 	const handleInputChange = (e) => {
 		inputNickname = e.target.value;
-		setNickname(inputNickname);
-		if (inputNickname.length > 10) {
-			inputNickname = inputNickname.slice(0, 10);
-		}
+		setNickname(inputNickname.slice(0, 10));
 		if (!validate(inputNickname, nicknameRegEx)) {
 			setIsBtnDisabled(true);
 		} else {
