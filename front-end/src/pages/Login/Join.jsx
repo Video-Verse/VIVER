@@ -19,7 +19,7 @@ const Join = () => {
 	const [nickname, setNickname] = useState('');
 	const [error, setError] = useState(null);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
-	const { loginInfo, setLoginInfo } = useLoginInfo();
+	//const { loginInfo, setLoginInfo } = useLoginInfo();
 	const navigate = useNavigate();
 	const inputRef = useRef(null);
 
@@ -51,7 +51,7 @@ const Join = () => {
 
 	const handleSubmit = (e) => {
 		axios.post(
-			process.env.REACT_APP_BACK_BASE_URI + '/api/users/registerNickname'
+			process.env.REACT_APP_BACK_BASE_URI + '/join'
 			, {
 				nickname
 				//,oauthAttributes : loginInfo.oauthAttributes,
@@ -63,7 +63,7 @@ const Join = () => {
 				if ("000" === code) {
 					localStorage.setItem("userId", userId);
 					localStorage.setItem("nickName", nickName);
-					navigate('/complete', { state: nickName })
+					navigate('/complete')
 				} else {
 					setError("중복된 닉네임 입니다. 다시 설정해주세요.");
 					setIsBtnDisabled(true);

@@ -67,7 +67,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
     }
 
-	public Map<String,Object> registerNickname(NicknameRequest request) {
+	/**
+	 * 회원가입
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public Map<String,Object> join(NicknameRequest request) {
 		Map<String,Object> result = new HashMap<>();
 		String nickname = request.getNickname();
 		User user = null;
@@ -84,6 +90,37 @@ public class UserService {
 			           .nickName(nickname)
 			           .build();
      
+			registerUser(user);
+			result.put("code", "000");
+			result.put("msg", "success");
+			result.put("user", user);
+		}
+		return result;	
+	}
+	
+	/**
+	 * 로그
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public Map<String,Object> login(NicknameRequest request) {
+		Map<String,Object> result = new HashMap<>();
+		String nickname = request.getNickname();
+		User user = null;
+		user =  userRepository.findByNickName(nickname);
+		System.out.println(request.getNickname());
+		
+		//닉네임 중복 체크
+		if(user != null) {
+			result.put("code", "999");
+			result.put("msg", "duplicate");
+		} else {
+			user = User.builder()
+					.userId(commonService.getId(CommonId.USER.value()))
+					.nickName(nickname)
+					.build();
+			
 			registerUser(user);
 			result.put("code", "000");
 			result.put("msg", "success");

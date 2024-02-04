@@ -1,23 +1,16 @@
 package com.project.viver.controller;
 
-import java.util.Map;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.project.viver.dto.user.NicknameRequest;
-import com.project.viver.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 	
-	private final UserService userService;
+	
 
 //    @PostMapping("/SocialLogin")
 //    public ResponseEntity<Object> doSocialLogin(@RequestBody @Valid SocialLoginRequest request){
@@ -30,10 +23,9 @@ public class UserController {
 //         return userService.registerNickname(request);    
 //     }
      
-     @PostMapping("/registerNickname")
-     public Map<String,Object> registerNickname(@RequestBody NicknameRequest request) {
-         return userService.registerNickname(request);    
-     }
+
+     
+     
 
 
 }
