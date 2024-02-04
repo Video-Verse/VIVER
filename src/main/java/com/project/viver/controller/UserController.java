@@ -1,8 +1,7 @@
 package com.project.viver.controller;
 
-import java.net.URI;
+import java.util.Map;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.viver.dto.user.NicknameRequest;
 import com.project.viver.service.user.UserService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,7 +31,7 @@ public class UserController {
 //     }
      
      @PostMapping("/registerNickname")
-     public ResponseEntity<String> registerNickname(@RequestBody NicknameRequest request) {
+     public Map<String,Object> registerNickname(@RequestBody NicknameRequest request) {
          return userService.registerNickname(request);    
      }
 
