@@ -78,19 +78,12 @@ public class UserService {
 		String nickname = request.getNickname();
 		User user = null;
 		user =  userRepository.findByNickName(nickname);
-		System.out.println(request.getNickname());
 		
 		//닉네임 중복 체크
-		if(user != null) {
+		if(user == null) {
 			result.put("code", "999");
-			result.put("msg", "duplicate");
+			result.put("msg", "not user");
 		} else {
-			user = User.builder()
-			           .userId(commonService.getId(CommonId.USER.value()))
-			           .nickName(nickname)
-			           .build();
-     
-			registerUser(user);
 			result.put("code", "000");
 			result.put("msg", "success");
 			result.put("user", user);
@@ -99,7 +92,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 로그
+	 * 로그인
 	 * 
 	 * @param request
 	 * @return
@@ -109,7 +102,6 @@ public class UserService {
 		String nickname = request.getNickname();
 		User user = null;
 		user =  userRepository.findByNickName(nickname);
-		System.out.println(request.getNickname());
 		
 		//닉네임 중복 체크
 		if(user != null) {

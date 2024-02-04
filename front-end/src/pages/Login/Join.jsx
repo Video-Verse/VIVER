@@ -29,6 +29,9 @@ const Join = () => {
 	const handleInputChange = (e) => {
 		inputNickname = e.target.value;
 		setNickname(inputNickname);
+		if (inputNickname.length > 10) {
+			inputNickname = inputNickname.slice(0, 10);
+		}
 		if (!validate(inputNickname, nicknameRegEx)) {
 			setIsBtnDisabled(true);
 		} else {
