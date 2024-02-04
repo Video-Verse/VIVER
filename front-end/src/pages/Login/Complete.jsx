@@ -6,7 +6,6 @@ import CommonBtn from "../../components/button/button";
 
 const Complete = () => {
 	const nickName = localStorage.getItem("nickName");
-    //const { state } = useLocation();
 	const navigate = useNavigate();
     const handleStartClick = () => {
         navigate('/home'); 
