@@ -6,6 +6,7 @@ import { LoginInfoProvider } from "./context/LoginInfoContext";
 
 import SocialLogin from "./pages/Login/SocialLogin";
 import Join from "./pages/Login/Join";
+import Login from "./pages/Login/Login";
 import Complete from "./pages/Login/Complete";
 
 import Search from "./pages/Search/Search";
@@ -17,7 +18,7 @@ import Home from './pages/Common/Home';
 import Bookmark from "./pages/Mypage/Bookmark";
 import NicknameChange from "./pages/Mypage/NicknameChange";
 import Mypage from "./pages/Mypage/Mypage";
-import Login from "./pages/Login/Login";
+import Index from "./pages/Login/Index";
 
 
 function AppRouter() {
@@ -29,6 +30,7 @@ function AppRouter() {
             <Route path="/oauth/kakao/callback" element={<SocialLogin />} />
             <Route path="/oauth/naver/callback" element={<SocialLogin />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/index" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/complete" element={<Complete />} />
 
