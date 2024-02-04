@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,7 +97,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 로그
+	 * 로그인 
 	 * 
 	 * @param request
 	 * @return
@@ -112,20 +110,14 @@ public class UserService {
 		System.out.println(request.getNickname());
 		
 		//닉네임 중복 체크
-		if(user != null) {
-			result.put("code", "999");
-			result.put("msg", "duplicate");
-		} else {
-			user = User.builder()
-					.userId(commonService.getId(CommonId.USER.value()))
-					.nickName(nickname)
-					.build();
-			
-			registerUser(user);
-			result.put("code", "000");
-			result.put("msg", "success");
-			result.put("user", user);
-		}
+			if(user == null) {
+				result.put("code", "999");
+				result.put("msg", "not user");
+			} else {
+				result.put("code", "000");
+				result.put("msg", "success");
+				result.put("user", user);
+			}
 		return result;	
 	}
 	

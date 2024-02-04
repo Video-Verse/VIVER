@@ -8,43 +8,57 @@ import CommonBtn from "../../components/button/button";
 
 
 const Login = () => {
+	var inputNickname = '';
 
-    useEffect(() => {
-        $("#title").css('display', 'none');
-        $("#btn-back").css('display', 'block');
-        $("#btn-search").css('visibility', 'hidden');
-    });
-
-    const [nickname, setNickname] = useState('');
-    const [error, setError] = useState(null);
+	const [nickname, setNickname] = useState('');
+	const [error, setError] = useState(null);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+	useEffect(() => {
+		$("#title").css('display', 'none');
+		$("#btn-back").css('display', 'block');
+		$("#btn-search").css('visibility', 'hidden');
+
+		if (nickname.trim() === '') {
+			setIsBtnDisabled(true);
+		} else {
+			setIsBtnDisabled(false);
+		}
+	}, [nickname]);
+
+	//input check
+	const handleInputChange = (e) => {
+		setError(null);
+		inputNickname = e.target.value;
+		setNickname(inputNickname.slice(0, 10));
+	};
+
+	const handleSubmit = (e) => {
 		axios.post(
-			process.env.REACT_APP_BACK_BASE_URI + '/api/users/registerNickname'
+			process.env.REACT_APP_BACK_BASE_URI + '/login'
 			, {
 				nickname
 				//,oauthAttributes : loginInfo.oauthAttributes,
 			}).then(response => {
+				console.log(response)
 				var code = response.data.code;
-				var user = response.data.user;
-				var userId = user.userId;
-				var nickName = user.nickName;
+
 				if ("000" === code) {
+					var user = response.data.user;
+					var userId = user.userId;
+					var nickName = user.nickName;
 					localStorage.setItem("userId", userId);
 					localStorage.setItem("nickName", nickName);
-					navigate('/complete', { state: nickName })
+					navigate('/home');
 				} else {
-					setError("중복된 닉네임 입니다. 다시 설정해주세요.");
+					setError("가입되지않은 닉네임입니다.");
 					setIsBtnDisabled(true);
-					// inputRef.current && inputRef.current.focus();
-				}
+				};
 			});
 	}
 
-
-    return (
+	return (
 		<div>
 			<Header />
 
@@ -53,11 +67,11 @@ const Login = () => {
 					<h3 className="content-title mt50">
 						닉네임을 입력해 주세요
 					</h3>
-					<CommonInp value={nickname}/>
+					<CommonInp value={nickname} onChange={handleInputChange} />
 					{error && <p className="err-msg">{error}</p>}
 				</div>
-				<CommonBtn buttonText="확인" disabled={isBtnDisabled} onClick={handleSubmit}/>
-				
+				<CommonBtn buttonText="확인" disabled={isBtnDisabled} onClick={handleSubmit} />
+
 			</div>
 		</div>
 	)
