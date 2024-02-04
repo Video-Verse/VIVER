@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import $ from 'jquery';
 import Slider from "react-slick";
-
 import "../Common/Home.css";
 import Header from "../../components/Header/Header";
 import Card from "../Main/Card";
@@ -21,6 +21,9 @@ const MainSlider = () => {
 
     //탭영역 높이값 설정
     useEffect(() => {
+		$("#btn-back").css('display', 'none');
+		$("#title").css('display', 'none');
+		
         // 화면 높이를 얻어오는 함수
         const setTabContentHeight = () => {
           const tabContent = document.querySelector('.tab-content');
