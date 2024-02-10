@@ -19,6 +19,7 @@ import Bookmark from "./pages/Mypage/Bookmark";
 import NicknameChange from "./pages/Mypage/NicknameChange";
 import Mypage from "./pages/Mypage/Mypage";
 import Index from "./pages/Login/Index";
+import Withdrawal from "./pages/Mypage/Withdrawal";
 
 
 function AppRouter() {
@@ -43,6 +44,8 @@ function AppRouter() {
 
             <Route path="/mypage" exact element= {<Mypage />} />
             <Route path="/change" exact element= {<NicknameChange />} />
+            <Route path="/withdrawal" exact element= {<Withdrawal />} />
+
 
         </Routes>
       </BrowserRouter>

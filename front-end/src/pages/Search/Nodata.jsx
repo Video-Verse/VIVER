@@ -17,7 +17,7 @@ const Nodata = () => {
             <Header />
             <div className="wrap">
                 <SearchInp onSearch={handleSearch} />
-                <div className="content">
+                <div className="content nodata">
                     <h3 className="content-title">
                         검색결과 ({searchCount})
                     </h3>
