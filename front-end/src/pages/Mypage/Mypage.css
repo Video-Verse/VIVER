@@ -1,3 +1,5 @@
+.mypage.content {padding-bottom:80px;}
+
 .profile-img {width:100%;display:flex;justify-content:center;}
 .profile-img img {width:120px;height:120px;}
 
@@ -24,6 +26,11 @@
 .util-list ul li {font-size:12px;color:#495057;}
 .util-list ul li + li::before {display:inline-block;content:'|';margin:0 8px;color:#495057;} 
 
-
-
+.content.withdrawal .content-title {margin-top:24px;}
+.notice-list {margin:16px 0;}
+.notice-list li {position:relative;padding-left:30px;}
+.notice-list li:before {position:absolute;top:3px;left:0;width:20px;height:20px;content:'';background:url('../../assets/images/ic_notice.png') no-repeat;background-size:20px auto;}
+.notice-list li + li {margin-top:16px;}
+.content.withdrawal .sub-txt {line-height:20px;padding-left:10px;}
+.content.withdrawal .sub-txt:before {position:absolute;left:0;content:'*';}
 
