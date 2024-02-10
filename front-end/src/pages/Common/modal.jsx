@@ -1,47 +1,35 @@
-import React, { Children, useState } from 'react';
+import React, {useState} from 'react';
 import '../Common/modal.css';
 
-function Modal(props) {
-  const [isOpen, setIsOpen] = useState(false);
+const Modal = ({title, isOpen, content, modalText1, modalText2, type, btnClick01, btnClick02}) => {
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+    const [isVisible, setIsVisible] = useState(isOpen);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+    // 팝업이 열릴 때 isVisible 상태를 업데이트하여 open 클래스 추가
+    useState(() => {
+        setIsVisible(isOpen);
+    }, [isOpen]);
 
     return (
-        <div>
-            {/* 팝업 오픈 임시버튼 */}
-            <button onClick={openModal} style={{color:"#fff"}}>모달 열기</button>
-            {/* 팝업 오픈 임시버튼 */}
-
-            {/* 팝업영역 */}
-            {isOpen && (
-                <div>
-                    <div className='modal-bg'></div>
-                    <div className='modal-pop'>
-                        <div className="modal">
-                            <div className="modal-head">
-                                <i className="icon ic-notice"></i>
-                                <h3 className="title">안내</h3>
-                            </div>
-                            <div className="modal-content">
-                                {props.children}
-                            </div>
-                            <div className="modal-foot">
-                                <button className="btn1">취소</button>
-                                <button className="btn2" onClick={closeModal}>닫기</button>
-                            </div>
-                        </div>
+        <div className={`modal-wrapper ${isVisible ? 'open': ''}`}>
+            <div className='modal-bg'></div>
+            <div className='modal-pop'>
+                <div className={`modal ${type === 'notice' ? 'type-notice' : ''}`}>
+                    <div className="modal-head">
+                    {type === 'notice' && <i className="icon ic-notice" />}
+                        <h3 className="title">{title}</h3>
+                    </div>
+                    <div className="modal-content">
+                        {content}
+                    </div>
+                    <div className="modal-foot">
+                        <button className="btn1" onClick={btnClick01}>{modalText1}</button>
+                        <button className="btn2" onClick={btnClick02}>{modalText2}</button>
                     </div>
                 </div>
-                
-            )}
-           
+            </div>
         </div>
+           
    
   );
 }

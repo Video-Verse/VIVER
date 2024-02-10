@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import $ from 'jquery';
 import Header from "../../components/Header/Header";
 import CommonBtnType2 from "../../components/button/buttonType2";
+import BottomSheet from "../../components/bottomsheet/bottomsheet";
+import Modal from "../Common/modal";
 
 
 const Withdrawal = () => {
@@ -10,6 +12,78 @@ const Withdrawal = () => {
 		$("#logo").css('display', 'none');
 		$("#btn-search").css('visibility', 'hidden');
 	}, []);
+
+    //탈퇴 사유 팝업
+    const [isBottomOpen, setIsBottomOpen] = useState(false);
+
+    //체크 조건 설정
+    const [checkOption, setCheckOption] = useState("");
+    const [isOtherOptionChck, setIsOtherOptionChck] = useState(false);
+
+    const checkOptions = (option) => {
+        setCheckOption(option);
+        if(option === "기타"){
+            setIsOtherOptionChck(true);
+        }else{
+            setIsOtherOptionChck(false);
+        }
+    };
+    
+    const popContents = (
+
+        <div className="option-box mt30">
+            <div className="radio-box">
+                <label htmlFor="Option01" className={checkOption === "재가입" ? "checked" : ""}>탈퇴 후 재가입을 위해서</label>
+                <input type="radio" className="radio" id="Option01" name="checkOption" checked={checkOption === "재가입"} onChange={() => checkOptions("재가입")} />
+            </div>  
+            <div className="radio-box">
+                <label htmlFor="Option02" className={checkOption === "내용부족" ? "checked" : ""}>콘텐츠 내용이 부족해서</label>
+                <input type="radio" className="radio" id="Option02" name="checkOption" checked={checkOption === "내용부족"} onChange={() => checkOptions("내용부족")} />
+            </div> 
+            <div className="radio-box">
+                <label htmlFor="Option03" className={checkOption === "이용불편" ? "checked" : ""}>서비스 이용이 불편해서</label>
+                <input type="radio" className="radio" id="Option03" name="checkOption"  checked={checkOption === "이용불편"} onChange={() => checkOptions("이용불편")}></input>
+            </div> 
+            <div className="radio-box">
+                <label htmlFor="Option04" className={checkOption === "이용안함" ? "checked" : ""}>자주 이용하지 않아서</label>
+                <input type="radio" className="radio" id="Option04" name="checkOption"  checked={checkOption === "이용안함"} onChange={() => checkOptions("이용안함")}></input>
+            </div> 
+            <div className="radio-box">
+                <label htmlFor="Option05" className={checkOption === "불만족" ? "checked" : ""}>서비스 및 고객지원이 만족스럽지 않아서</label>
+                <input type="radio" className="radio" id="Option05" name="checkOption"  checked={checkOption === "불만족"} onChange={() => checkOptions("불만족")}></input>
+            </div> 
+            <div className="radio-box">
+                <label htmlFor="Option06" className={checkOption === "기타" ? "checked" : ""}>기타 (직접입력)</label>
+                <input type="radio" className="radio" id="Option06" name="checkOption"  checked={checkOption === "기타"} onChange={() => checkOptions("기타")}></input>
+            </div> 
+            {isOtherOptionChck && (
+                <div className="textarea">
+                    <textarea name="탈퇴사유" cols="30" rows="4" placeholder="100자 이내로 입력해 주세요."/>
+                </div>
+            )}
+        </div>
+
+
+    );
+
+    const openBottomSheet = () => {
+        setIsBottomOpen(true);
+    };
+
+    const closeBottomSheet = () => {
+        setIsBottomOpen(false);
+    };
+
+    // 탈퇴확인 팝업
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const openAlert = () => {
+        setIsAlertOpen(true);
+        console.log('ccc');
+    };
+    const closeAlert = () => {
+        setIsAlertOpen(false);
+    };
+
 
     return(
         <div>
@@ -37,7 +111,7 @@ const Withdrawal = () => {
                         서비스 탈퇴 사유에 대해 알려주세요.<br/>
                         소중한 피드백을 담아 더 나은 서비스로 보답드리겠습니다.
                     </p>
-                    <div className="select-box">
+                    <div className="select-box" onClick={openBottomSheet}>
                         <span>선택해주세요.</span>
                     </div>
                 </div>
@@ -47,7 +121,30 @@ const Withdrawal = () => {
                 buttonText1="취소하기"
                 buttonText2="탈퇴하기"
             />
+          
+            {isBottomOpen && (
+                <BottomSheet
+                    title="탈퇴사유"
+                    closeModal={closeBottomSheet}
+                    contents={popContents}
+                    isOpen={isBottomOpen}
+                    buttonText="확인"
+                    onBtnClick={openAlert}
+                />
+            )}
 
+            {isAlertOpen && (
+                <Modal 
+                    title="회원탈퇴"
+                    content="정말 탈퇴하시겠습니까?"
+                    modalText1="취소"
+                    modalText2="탈퇴하기"
+                    isOpen={isAlertOpen}
+                    btnClick01={closeAlert}
+                    // btnClick02={}
+                />
+            )}
+            
         </div>
     );
 }
