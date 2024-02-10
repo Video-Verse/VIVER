@@ -14,24 +14,24 @@ const Login = () => {
 	const [error, setError] = useState(null);
 	const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 	const navigate = useNavigate();
-	
+
 	useEffect(() => {
 		$("#title").css('display', 'none');
 		$("#btn-back").css('display', 'block');
 		$("#btn-search").css('visibility', 'hidden');
 
-    if (nickname.trim() === '') {
-                setIsBtnDisabled(true);
-            } else {
-                setIsBtnDisabled(false);
-            }
-        }, [nickname]);
+		if (nickname.trim() === '') {
+			setIsBtnDisabled(true);
+		} else {
+			setIsBtnDisabled(false);
+		}
+	}, [nickname]);
 
-	//닉네임 정규식 체크
+	//input check
 	const handleInputChange = (e) => {
+		setError(null);
 		inputNickname = e.target.value;
 		setNickname(inputNickname.slice(0, 10));
-		setIsBtnDisabled(true);
 	};
 
 	const handleSubmit = (e) => {
@@ -41,18 +41,20 @@ const Login = () => {
 				nickname
 				//,oauthAttributes : loginInfo.oauthAttributes,
 			}).then(response => {
+				console.log(response)
 				var code = response.data.code;
-				var user = response.data.user;
-				var userId = user.userId;
-				var nickName = user.nickName;
+
 				if ("000" === code) {
+					var user = response.data.user;
+					var userId = user.userId;
+					var nickName = user.nickName;
 					localStorage.setItem("userId", userId);
 					localStorage.setItem("nickName", nickName);
 					navigate('/home');
 				} else {
 					setError("가입되지않은 닉네임입니다.");
 					setIsBtnDisabled(true);
-				}
+				};
 			});
 	}
 
@@ -76,4 +78,3 @@ const Login = () => {
 };
 
 export default Login;
-

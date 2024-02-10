@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +65,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
     }
 
-	public Map<String,Object> registerNickname(NicknameRequest request) {
+	/**
+	 * 회원가입
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public Map<String,Object> join(NicknameRequest request) {
 		Map<String,Object> result = new HashMap<>();
 		String nickname = request.getNickname();
 		User user = null;
@@ -89,6 +93,31 @@ public class UserService {
 			result.put("msg", "success");
 			result.put("user", user);
 		}
+		return result;	
+	}
+	
+	/**
+	 * 로그인 
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public Map<String,Object> login(NicknameRequest request) {
+		Map<String,Object> result = new HashMap<>();
+		String nickname = request.getNickname();
+		User user = null;
+		user =  userRepository.findByNickName(nickname);
+		System.out.println(request.getNickname());
+		
+		//닉네임 중복 체크
+			if(user == null) {
+				result.put("code", "999");
+				result.put("msg", "not user");
+			} else {
+				result.put("code", "000");
+				result.put("msg", "success");
+				result.put("user", user);
+			}
 		return result;	
 	}
 	
