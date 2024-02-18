@@ -1,15 +1,35 @@
 import React, { useState } from "react";
 import './DockBar.css';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const DockBar = () => {
-    const [activeItem, setActiveItem] = useState(null); //활성화된 항목 찾기 및 class 추가 스타일 적용
-
     const handleItemClick = (item) => {
         setActiveItem(item);
     };
 
-//버튼 활성화 하기!!!
+    const location = useLocation(); // 현재 경로 가져오기
+    const [activeItem, setActiveItem] = useState(null);
+
+    // 경로를 기반으로 활성 항목 설정 , 경로가 변경될 때마다 실행
+    React.useEffect(() => {
+        switch (location.pathname) {
+            case '/home':
+                setActiveItem('home');
+                break;
+            case '/recommend':
+                setActiveItem('recommend');
+                break;
+            case '/locker':
+                setActiveItem('locker');
+                break;
+            case '/mypage':
+                setActiveItem('mypage');
+                break;
+            default:
+                setActiveItem(null);
+        }
+    }, [location.pathname]); 
+    
     return (
         <div className="dock-bar">
             <div className="dock-group">
