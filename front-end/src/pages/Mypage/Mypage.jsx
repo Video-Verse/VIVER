@@ -8,7 +8,9 @@ import $ from 'jquery';
 import './Mypage.css'
 import Header from "../../components/Header/Header";
 import DockBar from "../../components/DockBar/DockBar";
+import Modal from "../Common/modal";
 import isProfile from '../../assets/images/img_lv01.png';
+
 import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
@@ -40,6 +42,15 @@ const Mypage = () => {
         {name: 'N 월', count: 30},
         {name: 'N 월', count: 8},
     ];
+
+     // 탈퇴확인 팝업
+     const [isAlertOpen, setIsAlertOpen] = useState(false);
+     const openAlert = () => {
+         setIsAlertOpen(true);
+     };
+     const closeAlert = () => {
+         setIsAlertOpen(false);
+     };
 
     return (
         <div>
@@ -90,7 +101,7 @@ const Mypage = () => {
 
                     <div className="util-list">
                         <ul>
-                            <li>로그아웃</li>
+                            <li onClick={openAlert}>로그아웃</li>
                             <li onClick={() => navigate('/withdrawal')}>회원탈퇴</li>
                         </ul>
                     </div>
@@ -98,6 +109,18 @@ const Mypage = () => {
                
             </div>
             <DockBar/>
+
+            {isAlertOpen && (
+                <Modal 
+                    title="로그아웃"
+                    content="로그아웃 하시겠습니까?"
+                    modalText1="취소"
+                    modalText2="로그아웃"
+                    isOpen={isAlertOpen}
+                    btnClick01={closeAlert}
+                    // btnClick02={}
+                />
+            )}
         </div>
     )
 }

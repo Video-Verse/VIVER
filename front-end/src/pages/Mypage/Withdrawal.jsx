@@ -119,6 +119,7 @@ const Withdrawal = () => {
             <CommonBtnType2
                 buttonText1="취소하기"
                 buttonText2="탈퇴하기"
+                onBtnClick2={openAlert}
             />
           
             {isBottomOpen && (
@@ -128,7 +129,7 @@ const Withdrawal = () => {
                     contents={popContents}
                     isOpen={isBottomOpen}
                     buttonText="확인"
-                    onBtnClick={openAlert}
+                    // onBtnClick={openAlert}
                 />
             )}
 
