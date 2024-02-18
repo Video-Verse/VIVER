@@ -41,15 +41,14 @@ const Login = () => {
 				nickname
 				//,oauthAttributes : loginInfo.oauthAttributes,
 			}).then(response => {
-				console.log(response)
 				var code = response.data.code;
 
 				if ("000" === code) {
 					var user = response.data.user;
 					var userId = user.userId;
-					var nickName = user.nickName;
+					var nickname = user.nickname;
 					localStorage.setItem("userId", userId);
-					localStorage.setItem("nickName", nickName);
+					localStorage.setItem("nickname", nickname);
 					navigate('/home');
 				} else {
 					setError("가입되지않은 닉네임입니다.");

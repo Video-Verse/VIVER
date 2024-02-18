@@ -1,4 +1,4 @@
-package com.project.viver.controller;
+package com.project.viver.controller.login;
 
 import java.io.IOException;
 import java.util.Map;

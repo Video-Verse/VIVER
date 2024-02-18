@@ -16,12 +16,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Entity
-@Getter
+@Data
 @Table(name = "TB_USER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     private String userId;
     
     private String phoneNumber;
-    private String nickName;
+    private String nickname;
     private String levelId;
     private String kakao;
     private String naver;
@@ -51,11 +51,11 @@ public class User extends BaseEntity {
     private LocalDateTime tokenExpirationTime;
     
     @Builder
-    public User(String userId, String phoneNumber, String nickName, String withdrawalStatus, UserType userType,
+    public User(String userId, String phoneNumber, String nickname, String withdrawalStatus, UserType userType,
     		String password, String profile, Role role, String kakao, String naver, String kakaoId) {
     	this.userId = userId;
     	this.phoneNumber = phoneNumber;
-    	this.nickName = nickName;
+    	this.nickname = nickname;
     	//this.withdrawalStatus = withdrawalStatus;
     	this.userType = userType;
     	this.profile = profile;
@@ -78,7 +78,7 @@ public class User extends BaseEntity {
     
     
     public void changeNickName(String newNickName) {
-        this.nickName = newNickName;
+        this.nickname = newNickName;
     }
 
 
