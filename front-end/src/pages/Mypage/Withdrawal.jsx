@@ -78,7 +78,6 @@ const Withdrawal = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const openAlert = () => {
         setIsAlertOpen(true);
-        console.log('ccc');
     };
     const closeAlert = () => {
         setIsAlertOpen(false);

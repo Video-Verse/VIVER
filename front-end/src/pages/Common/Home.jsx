@@ -85,6 +85,7 @@ const MainSlider = () => {
     };
     
     
+    
     return (
         <div>
             <Header />
@@ -118,6 +119,7 @@ const MainSlider = () => {
                 closeModal={closeFilter}
             />
             <DockBar/>
+            {/* <DockBar activeItem="home" /> */}
         </div>
     );
 };
