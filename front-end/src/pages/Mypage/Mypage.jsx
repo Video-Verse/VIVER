@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+
 import { useLocation } from "react-router-dom";
-import { BarChart, Bar, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, ResponsiveContainer, XAxis } from 'recharts';
+
 import $ from 'jquery';
 
 import './Mypage.css'
@@ -32,38 +34,12 @@ const Mypage = () => {
     const navigate = useNavigate();
 
     const data = [
-        {
-            name: 'N 월',
-            uv: 10,
-            // pv: 2400,
-            // amt: 2400,
-        },
-        {
-            name: 'N 월',
-            uv: 8,
-            // pv: 2400,
-            // amt: 2400,
-        },
-        {
-            name: 'N 월',
-            uv: 4000,
-            // pv: 2400,
-            // amt: 2400,
-        },
-        {
-            name: 'N 월',
-            uv: 15,
-            // pv: 2400,
-            // amt: 2400,
-        },
-        {
-            name: 'N 월',
-            uv: 5,
-            // pv: 2400,
-            // amt: 2400,
-        }
-    ]
-
+        {name: 'N 월', count: 10},
+        {name: 'N 월', count: 5},
+        {name: 'N 월', count: 20},
+        {name: 'N 월', count: 30},
+        {name: 'N 월', count: 8},
+    ];
 
     return (
         <div>
@@ -92,7 +68,13 @@ const Mypage = () => {
                     <div className="chart-box">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart width={150} height={40} data={data}>
-                                <Bar dataKey="uv" fill="#8884d8" />
+                                <XAxis
+                                    dataKey="name"
+                                    axisLine={false} //x축 라인
+                                    tickLine={false} //눈금선 
+                                    tick={{ fill:'#fff', fontSize: 12, fontWeight: '400' }}
+                                />
+                                <Bar dataKey="count" fill="#FFCAC3" label={{ position: 'top', fill: '#E50101', fontSize: 14, fontWeight:700 }} />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
