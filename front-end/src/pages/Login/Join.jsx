@@ -57,12 +57,14 @@ const Join = () => {
 				//,oauthAttributes : loginInfo.oauthAttributes,
 			}).then(response => {
 				var code = response.data.code;
-				var user = response.data.user;
-				var userId = user.userId;
-				var nickName = user.nickName;
+				
 				if ("000" === code) {
+					var user = response.data.user;
+					var userId = user.userId;
+					var nickname = user.nickname;
+					
 					localStorage.setItem("userId", userId);
-					localStorage.setItem("nickname", nickName);
+					localStorage.setItem("nickname", nickname);
 					navigate('/complete')
 				} else {
 					setError("중복된 닉네임 입니다. 다시 설정해주세요.");
