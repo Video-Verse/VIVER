@@ -49,6 +49,7 @@ public class User extends BaseEntity {
     private Role role;
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
+    private String withdrwalReason;
     
     @Builder
     public User(String userId, String phoneNumber, String nickname, String withdrawalStatus, UserType userType,
