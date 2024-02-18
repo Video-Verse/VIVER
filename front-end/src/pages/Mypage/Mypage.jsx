@@ -91,7 +91,7 @@ const Mypage = () => {
                     <div className="util-list">
                         <ul>
                             <li>로그아웃</li>
-                            <li>회원탈퇴</li>
+                            <li onClick={() => navigate('/withdrawal')}>회원탈퇴</li>
                         </ul>
                     </div>
                 </div>
