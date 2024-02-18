@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import $ from 'jquery';
 import Header from "../../components/Header/Header";
 import CommonBtnType2 from "../../components/button/buttonType2";
-import BottomSheet from "../../components/bottomsheet/bottomsheet";
+import BottomSheet from "../../components/bottomsheet/bottomsheet"; // BottomSheet 컴포넌트 추가
 import Modal from "../Common/modal";
 
 
@@ -13,10 +13,10 @@ const Withdrawal = () => {
 		$("#btn-search").css('visibility', 'hidden');
 	}, []);
 
-    //탈퇴 사유 팝업
+    // 탈퇴 사유 팝업
     const [isBottomOpen, setIsBottomOpen] = useState(false);
-
-    //체크 조건 설정
+    
+    // 체크 조건 설정
     const [checkOption, setCheckOption] = useState("");
     const [isOtherOptionChck, setIsOtherOptionChck] = useState(false);
 
@@ -24,33 +24,32 @@ const Withdrawal = () => {
         setCheckOption(option);
         if(option === "기타"){
             setIsOtherOptionChck(true);
-        }else{
+        } else {
             setIsOtherOptionChck(false);
         }
     };
     
     const popContents = (
-
         <div className="option-box mt30">
             <div className="radio-box">
-                <label htmlFor="Option01" className={checkOption === "재가입" ? "checked" : ""}>탈퇴 후 재가입을 위해서</label>
-                <input type="radio" className="radio" id="Option01" name="checkOption" checked={checkOption === "재가입"} onChange={() => checkOptions("재가입")} />
+                <label htmlFor="Option01" className={checkOption === "탈퇴 후 재가입을 위해서" ? "checked" : ""}>탈퇴 후 재가입을 위해서</label>
+                <input type="radio" className="radio" id="Option01" name="checkOption" checked={checkOption === "재가입"} onChange={() => checkOptions("탈퇴 후 재가입을 위해서")} />
             </div>  
             <div className="radio-box">
-                <label htmlFor="Option02" className={checkOption === "내용부족" ? "checked" : ""}>콘텐츠 내용이 부족해서</label>
-                <input type="radio" className="radio" id="Option02" name="checkOption" checked={checkOption === "내용부족"} onChange={() => checkOptions("내용부족")} />
+                <label htmlFor="Option02" className={checkOption === "콘텐츠 내용이 부족해서" ? "checked" : ""}>콘텐츠 내용이 부족해서</label>
+                <input type="radio" className="radio" id="Option02" name="checkOption" checked={checkOption === "내용부족"} onChange={() => checkOptions("콘텐츠 내용이 부족해서")} />
             </div> 
             <div className="radio-box">
-                <label htmlFor="Option03" className={checkOption === "이용불편" ? "checked" : ""}>서비스 이용이 불편해서</label>
-                <input type="radio" className="radio" id="Option03" name="checkOption"  checked={checkOption === "이용불편"} onChange={() => checkOptions("이용불편")}></input>
+                <label htmlFor="Option03" className={checkOption === "서비스 이용이 불편해서" ? "checked" : ""}>서비스 이용이 불편해서</label>
+                <input type="radio" className="radio" id="Option03" name="checkOption"  checked={checkOption === "이용불편"} onChange={() => checkOptions("서비스 이용이 불편해서")}></input>
             </div> 
             <div className="radio-box">
-                <label htmlFor="Option04" className={checkOption === "이용안함" ? "checked" : ""}>자주 이용하지 않아서</label>
-                <input type="radio" className="radio" id="Option04" name="checkOption"  checked={checkOption === "이용안함"} onChange={() => checkOptions("이용안함")}></input>
+                <label htmlFor="Option04" className={checkOption === "자주 이용하지 않아서" ? "checked" : ""}>자주 이용하지 않아서</label>
+                <input type="radio" className="radio" id="Option04" name="checkOption"  checked={checkOption === "이용안함"} onChange={() => checkOptions("자주 이용하지 않아서")}></input>
             </div> 
             <div className="radio-box">
-                <label htmlFor="Option05" className={checkOption === "불만족" ? "checked" : ""}>서비스 및 고객지원이 만족스럽지 않아서</label>
-                <input type="radio" className="radio" id="Option05" name="checkOption"  checked={checkOption === "불만족"} onChange={() => checkOptions("불만족")}></input>
+                <label htmlFor="Option05" className={checkOption === "서비스 및 고객지원이 만족스럽지 않아서" ? "checked" : ""}>서비스 및 고객지원이 만족스럽지 않아서</label>
+                <input type="radio" className="radio" id="Option05" name="checkOption"  checked={checkOption === "불만족"} onChange={() => checkOptions("서비스 및 고객지원이 만족스럽지 않아서")}></input>
             </div> 
             <div className="radio-box">
                 <label htmlFor="Option06" className={checkOption === "기타" ? "checked" : ""}>기타 (직접입력)</label>
@@ -62,9 +61,13 @@ const Withdrawal = () => {
                 </div>
             )}
         </div>
-
-
     );
+    
+    // 탈퇴사유 선택 
+    const selectReason = (reason) => {
+        closeBottomSheet();
+         console.log("Selected Option:", checkOption);
+    };
 
     const openBottomSheet = () => {
         setIsBottomOpen(true);
@@ -72,9 +75,10 @@ const Withdrawal = () => {
 
     const closeBottomSheet = () => {
         setIsBottomOpen(false);
+        //console.log("Selected Option:", selectedReason);
     };
 
-    // 탈퇴확인 팝업
+    // 탈퇴 확인 팝업
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const openAlert = () => {
         setIsAlertOpen(true);
@@ -111,8 +115,8 @@ const Withdrawal = () => {
                         소중한 피드백을 담아 더 나은 서비스로 보답드리겠습니다.
                     </p>
                     <div className="select-box" onClick={openBottomSheet}>
-                        <span>선택해주세요.</span>
-                    </div>
+        				<span>{checkOption ? checkOption : "선택해주세요."}</span>
+    				</div>
                 </div>
             </div>
             
@@ -129,7 +133,7 @@ const Withdrawal = () => {
                     contents={popContents}
                     isOpen={isBottomOpen}
                     buttonText="확인"
-                    // onBtnClick={openAlert}
+                    onBtnClick={selectReason}
                 />
             )}
 
