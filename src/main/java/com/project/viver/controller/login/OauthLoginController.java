@@ -1,4 +1,4 @@
-package com.project.viver.controller;
+package com.project.viver.controller.login;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -62,7 +62,7 @@ const Join = () => {
 				var nickName = user.nickName;
 				if ("000" === code) {
 					localStorage.setItem("userId", userId);
-					localStorage.setItem("nickName", nickName);
+					localStorage.setItem("nickname", nickName);
 					navigate('/complete')
 				} else {
 					setError("중복된 닉네임 입니다. 다시 설정해주세요.");

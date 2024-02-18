@@ -3,14 +3,16 @@ package com.project.viver.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.viver.service.user.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 	
-	
+	private final UserService userService;
 
 //    @PostMapping("/SocialLogin")
 //    public ResponseEntity<Object> doSocialLogin(@RequestBody @Valid SocialLoginRequest request){
@@ -24,7 +26,6 @@ public class UserController {
 //     }
      
 
-     
      
 
 

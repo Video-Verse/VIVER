@@ -1,4 +1,4 @@
-package com.project.viver.controller;
+package com.project.viver.controller.login;
 
 import java.util.Map;
 
@@ -17,11 +17,23 @@ public class LoginController {
 	
 	private final UserService userService;
 	
+    /**
+     * 회원가입
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/join")
     public Map<String,Object> join(@RequestBody NicknameRequest request) {
         return userService.join(request);    
     }
     
+    /**
+     * 로그인
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/login")
     public Map<String,Object> login(@RequestBody NicknameRequest request) {
         return userService.login(request);    

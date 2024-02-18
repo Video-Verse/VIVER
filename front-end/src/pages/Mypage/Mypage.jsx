@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { BarChart, Bar, ResponsiveContainer } from 'recharts';
 import $ from 'jquery';
 
@@ -9,6 +10,18 @@ import isProfile from '../../assets/images/img_lv01.png';
 import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
+	
+	const location = useLocation();
+    const [nickname, setNickname] = useState("");
+
+    useEffect(() => {
+        // 로컬 스토리지에서 name 값을 가져와서 설정합니다.
+        const storedName = localStorage.getItem("nickname");
+        if (storedName) {
+            setNickname(storedName);
+        }
+    }, []);
+
 
     useEffect(() => {
         $("#title").css('display', 'none');
@@ -70,7 +83,7 @@ const Mypage = () => {
                         <div className="name">
                             <span>닉네임</span>
                             <div>
-                                <span className="fs-20 fw-bold">viver</span>
+                                <span className="fs-20 fw-bold">{nickname}</span>
                                 <button className="btn-edit" onClick={() => navigate('/change')} />
                             </div>
                         </div>

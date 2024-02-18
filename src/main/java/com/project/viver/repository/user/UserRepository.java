@@ -16,6 +16,5 @@ public interface UserRepository extends JpaRepository<User, String> {
     
     Optional<User> findByKakao(String kakaoEmail);
     
-    User findByNickName(String nickName);
-
+    User findByNickname(String nickName);
 }

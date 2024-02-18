@@ -75,8 +75,7 @@ public class UserService {
 		Map<String,Object> result = new HashMap<>();
 		String nickname = request.getNickname();
 		User user = null;
-		user =  userRepository.findByNickName(nickname);
-		System.out.println(request.getNickname());
+		user =  userRepository.findByNickname(nickname);
 		
 		//닉네임 중복 체크
 		if(user != null) {
@@ -85,7 +84,7 @@ public class UserService {
 		} else {
 			user = User.builder()
 			           .userId(commonService.getId(CommonId.USER.value()))
-			           .nickName(nickname)
+			           .nickname(nickname)
 			           .build();
      
 			registerUser(user);
@@ -106,8 +105,7 @@ public class UserService {
 		Map<String,Object> result = new HashMap<>();
 		String nickname = request.getNickname();
 		User user = null;
-		user =  userRepository.findByNickName(nickname);
-		System.out.println(request.getNickname());
+		user =  userRepository.findByNickname(nickname);
 		
 		//닉네임 중복 체크
 			if(user == null) {
@@ -120,6 +118,38 @@ public class UserService {
 			}
 		return result;	
 	}
+	
+	/**
+	 * 마이페이지 - 닉네임 변경 
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public Map<String,Object> nicknameChange(Map<String,Object> request) {
+		Map<String,Object> result = new HashMap<>();
+		String nickname = (String) request.get("nickname");
+		String userId = (String) request.get("userId");
+		
+		User nicknameUser =  userRepository.findByNickname(nickname);
+		
+		//닉네임 중복 체크
+		if(nicknameUser != null) {
+			result.put("code", "999");
+			result.put("msg", "duplicate");
+		} else {
+			// 없다 = id로 user찾아서 update
+			Optional<User> originUser = userRepository.findById(userId);
+			User user = originUser.get();
+			user.setNickname(nickname);
+			userRepository.save(user);
+			result.put("code", "000");
+			result.put("msg", "success");
+			result.put("user", user);
+		}
+		return result;	
+	}
+	
+	
 	
 	/**
 	 * kakao로 찾기
