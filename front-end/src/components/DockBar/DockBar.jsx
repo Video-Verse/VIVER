@@ -19,8 +19,8 @@ const DockBar = () => {
             case '/recommend':
                 setActiveItem('recommend');
                 break;
-            case '/locker':
-                setActiveItem('locker');
+            case '/bookmark':
+                setActiveItem('bookmark');
                 break;
             case '/mypage':
                 setActiveItem('mypage');
@@ -42,9 +42,9 @@ const DockBar = () => {
                         onClick={() => handleItemClick('recommend')} >
                         <Link to="/recommend" className="dock-ic recommend"><span className="blind">추천작</span></Link>
                     </li>
-                    <li className={`dock-item ${activeItem === 'locker' ? 'active' : ''}`}
-                        onClick={() => handleItemClick('locker')} >
-                        <Link to="/locker" className="dock-ic locker"><span className="blind">보관함</span></Link>
+                    <li className={`dock-item ${activeItem === 'bookmark' ? 'active' : ''}`}
+                        onClick={() => handleItemClick('bookmark')} >
+                        <Link to="/bookmark" className="dock-ic bookmark"><span className="blind">보관함</span></Link>
                     </li>
                     <li className={`dock-item ${activeItem === 'mypage' ? 'active' : ''}`}
                         onClick={() => handleItemClick('mypage')} >

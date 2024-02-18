@@ -6,12 +6,12 @@
 .dock-bar ul li a.dock-ic {display:inline-block;width:24px;height:24px;content:'';background-repeat:no-repeat;background-size:24px auto;}
 .dock-bar ul li .dock-ic.home {background-image:url('../../assets/images/ic_home.png');}
 .dock-bar ul li .dock-ic.recommend {background-image:url('../../assets/images/ic_reco.png');}
-.dock-bar ul li .dock-ic.locker {background-image:url('../../assets/images/ic_locker.png');}
+.dock-bar ul li .dock-ic.bookmark {background-image:url('../../assets/images/ic_locker.png');}
 .dock-bar ul li .dock-ic.mypage {background-image:url('../../assets/images/ic_mypage.png');}
 
 .dock-bar ul li.active .home {background-image:url('../../assets/images/ic_home_on.png');}
 .dock-bar ul li.active .recommend {background-image:url('../../assets/images/ic_reco_on.png');}
-.dock-bar ul li.active .locker {background-image:url('../../assets/images/ic_locker_on.png');}
+.dock-bar ul li.active .bookmark {background-image:url('../../assets/images/ic_locker_on.png');}
 .dock-bar ul li.active .mypage {background-image:url('../../assets/images/ic_mypage_on.png');}
 
 .dock-bar .btn-add {display:inline-block;width:40px;height:40px;content:'';background:url('../../assets/images/ic_dock_plus.png') no-repeat;background-size:40px auto;}
