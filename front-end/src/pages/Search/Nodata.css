@@ -1,5 +1,0 @@
-.content.nodata {height:calc(100vh - 200px);}
-.input-box {margin-top:8px;}
-p.nodata {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:inline-block;width:100%;text-align:center;font-size:18px;font-weight:400;color:#616161;}
-.view-area .list-wrap p.nodata {position:initial;margin:20px auto;transform:none;}
-

@@ -1,5 +1,4 @@
 import React from "react";
-import './input.css'
 
 const CommonInp = (props) => {
   console.log('input Props' , props.value);

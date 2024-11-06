@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import './ToastPop.css';
-
 
 const ToastPop = ({ message, isVisible, onClose, closeButtonText }) => {
     const [visible, setVisible] = useState(isVisible);

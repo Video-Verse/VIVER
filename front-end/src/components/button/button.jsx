@@ -1,6 +1,4 @@
 import React from "react";
-import './button.css'
-
 
 const CommonBtn = (props) => {
   const {onClick, disabled, buttonText  } = props;

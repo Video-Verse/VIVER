@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import icClose from '../../assets/images/ic_close_white.png';
-import './bottomsheet.css';
 import PropTypes from 'prop-types';
 import CommonBtn from "../button/button";
 

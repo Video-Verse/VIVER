@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import $ from 'jquery';
 
-import './Search.css';
 import Header from './../../components/Header/Header';
 import SearchInp from './SearchInp';
 

@@ -4,7 +4,6 @@ import $ from 'jquery';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from "../../components/Header/Header";
-import './Join.css';
 import CommonInp from "../../components/input/input";
 import CommonBtn from "../../components/button/button";
 import { useLoginInfo } from "../../context/LoginInfoContext";

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import $ from 'jquery';
 import Slider from "react-slick";
 
-import "../Common/Home.css";
 import Header from "../../components/Header/Header";
 import Card from "../Main/Card";
 import DockBar from "../../components/DockBar/DockBar";

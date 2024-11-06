@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import icClose from '../../assets/images/ic_close_white.png';
 import CommonBtn from "../../components/button/button";
-import './bottomsheet.css';
 
 function BottomSheet ({ title, closeModal, contents, isOpen, buttonText, onBtnClick  }) {
     const [isVisible, setIsVisible] = useState(isOpen);

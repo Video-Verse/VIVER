@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import './Search.css';
 import $ from 'jquery';
 import axios from 'axios';
 

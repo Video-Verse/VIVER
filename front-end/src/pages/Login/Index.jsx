@@ -1,6 +1,5 @@
 import React from "react";
 import logo from '../../assets/images/logo.png';
-import './login.css';
 import "../Common/axios.js";
 import { useNavigate } from "react-router-dom";
 

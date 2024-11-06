@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import '../Common/modal.css';
 
 const Modal = ({title, isOpen, content, modalText1, modalText2, type, btnClick01, btnClick02}) => {
 

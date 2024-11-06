@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useNavigate } from "react";
 import $ from 'jquery';
 
 import Header from "../../components/Header/Header";
-import './Search.css';
 import SearchInp from "./SearchInp";
 import DockBar from "../../components/DockBar/DockBar";
 

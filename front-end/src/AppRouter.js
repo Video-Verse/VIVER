@@ -14,6 +14,7 @@ import Nodata from "./pages/Search/Nodata";
 import Result from "./pages/Search/Result";
 
 import Home from './pages/Common/Home';
+import Recommend from './pages/Common/Recommend';
 
 import Bookmark from "./pages/Mypage/Bookmark";
 import NicknameChange from "./pages/Mypage/NicknameChange";
@@ -36,6 +37,7 @@ function AppRouter() {
             <Route path="/complete" element={<Complete />} />
 
             <Route path="/home" exact element={<Home />} />
+            <Route path="/recommend" exact element={<Recommend />} />
             <Route path="/bookmark" exact element={<Bookmark />} />
                   
             <Route path="/search" exact element= {<Search />} /> 

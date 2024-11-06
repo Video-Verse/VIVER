@@ -5,7 +5,6 @@ import { BarChart, Bar, ResponsiveContainer, XAxis } from 'recharts';
 
 import $ from 'jquery';
 
-import './Mypage.css'
 import Header from "../../components/Header/Header";
 import DockBar from "../../components/DockBar/DockBar";
 import Modal from "../Common/modal";
